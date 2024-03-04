@@ -1,0 +1,28 @@
+.ordersInfo{
+    Display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 20px;
+    padding: 20px;
+}
+
+.orderInfo{
+    width: 100%;
+    font-size: 15px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.orderImg{
+    width: 80%;
+    padding: 5px;
+}
+
+.orderImg img{
+    width: 200px;
+    border-radius: 0px;
+    transition: 0.5s;
+}
+
+.adminImg{
+    width: 50px;
+}

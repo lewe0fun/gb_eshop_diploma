@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Заказы</title>
+  <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<h3>Ваши заказы</h3>
+<form th:action="@{/personalAccount}">
+  <button type="submit">Личный кабинет</button><br>
+</form>
+<br>
+
+<div class="ordersInfo">
+  <div class="orderInfo" th:each="order : ${orders}">
+    <img class="orderImg" th:src="'/pics/' + ${order.getProduct().getImageList()[0].getFileName()}">
+    <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
+    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
+    <p th:text="'Количество: ' + ${order.getCount()}">
+    <p th:text="'Цена: ' + ${order.getPrice()}">
+    <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
+    <p th:text="'Cтатус: ' + ${order.getStatus()}">
+  </div>
+</div>
+
+<div class="goBack">
+  <div>
+    <form href="#">
+      <button type="submit">Наверх</button><br>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

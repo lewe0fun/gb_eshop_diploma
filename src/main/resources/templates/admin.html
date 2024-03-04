@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Личный кабинет администратора</title>
+  <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<h1>Личный кабинет администратора</h1>
+<div class="adminButtons">
+  <form method="post" th:action="@{/logout}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <button type="submit">Выйти из личного кабинета</button><br>
+  </form>
+  <form th:action="@{/admin/product/add}">
+    <button type="submit">Добавить новый товар</button><br>
+  </form>
+  <form th:action="@{/admin/person}">
+    <button type="submit">Список пользователей</button><br>
+  </form>
+  <form th:action="@{/admin/orders}">
+    <button type="submit">Заказы пользователей</button><br>
+  </form>
+</div>
+<hr>
+
+<h3>Загруженные товары</h3>
+<div class="ordersInfo">
+<div class="orderInfo" th:each="product : ${products}">
+  <img class="orderImg" th:src="'/pics/' + ${product.imageList[0].getFileName()}">
+  <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
+  <!--<p th:text="'Описание: ' + ${product.getDescription()}"></p>-->
+  <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+  <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
+  <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+  <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
+  <br>
+  <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
+  <br>
+  <br>
+  <a style="color: red" th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
+</div>
+</div>
+</body>
+</html>

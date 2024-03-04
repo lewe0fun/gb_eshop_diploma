@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<h3>Список пользователей</h3>
+<form th:action="@{/admin}">
+    <button type="submit">Назад в меню администратора</button><br>
+</form>
+<div th:each="element : ${person}">
+  <ol>
+    <a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}" th:text="${element.getLogin()}"></a>
+  </ol>
+</div>
+</body>
+</html>

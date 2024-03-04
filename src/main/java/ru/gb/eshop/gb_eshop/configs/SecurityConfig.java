@@ -1,6 +1,5 @@
 package ru.gb.eshop.gb_eshop.configs;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,14 +33,13 @@ public class SecurityConfig {
                 .loginPage("/authentication")
                 //.usernameParameter("name")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/personalAccount",true)
+                .defaultSuccessUrl("/personalAccount", true)
                 .failureUrl("/authentication?error")
                 .permitAll());
         http.logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/authentication")
                 .permitAll());
-        // http.httpBasic(withDefaults());
         return http.build();
     }
 

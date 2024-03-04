@@ -63,7 +63,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-    </dependencies>
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-maven-plugin</artifactId>
+			<version>10.8.1</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о заказе</title>
+  <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/cart.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="info" style="max-width: 800px">
+  <form th:method="POST" th:action="@{/admin/orders/{id}(id=${info_order.getId()})}" th:object="${info_order}">
+
+    <div th:each="order:${info_order}">
+      <p th:text="${info_order.getNumber()}"></p>
+      <p th:text="${info_order.getStatus()}"></p>
+
+      <label for="status" >Выберите статус: </label>
+      <select id="status" name="status">
+        <option th:each="state : ${T(ru.gb.eshop.gb_eshop.enums.Status).values()}"
+                th:value="${state}" th:text="${state}"></option>
+      </select>
+      <button type="submit">Редактировать</button>
+      <p th:text="${info_order.getProduct().getTitle()}"></p>
+    </div>
+    <br>
+    <br>
+    <a class="cartA" th:href="@{/admin/orders/delete/{id}(id=${info_order.getId()})}">Удалить заказ</a>
+    <br>
+    <br>
+  </form>
+  <div class="watch_product">
+    <a class="link" style="text-decoration: none;" href="/admin/orders">Назад к списку заказов</a>
+  </div>
+</div>
+</body>
+</html>

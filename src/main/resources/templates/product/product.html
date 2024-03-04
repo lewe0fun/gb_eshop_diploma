@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Каталог товаров</title>
+  <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="header">
+  <div>
+  <a th:href="@{/product}">
+<img class="logo" th:src="@{/images/logo.png}">
+  </a>
+  </div>
+
+
+  <div class="searchHeader">
+    <form th:method="POST" th:action="@{/product/searchHeader}">
+    <input type="text" id="searchHeader" name="search" th:value="*{value_search}">
+      <button type="submit">Найти</button>
+    </form>
+  </div>
+
+
+  <div class="headerMenu">
+    <ul class="navigation">
+      <div></div>
+      <li><a href="/authentication">Авторизация</a></li>
+      <li><a href="/registration">Регистрация</a></li>
+    </ul>
+    <!--
+<form th:action="@{/personalAccount}">
+  <button type="submit">Личный кабинет</button><br>
+</form>
+  <form th:action="@{/authentication}">
+    <button type="submit">Авторизация</button><br>
+  </form>
+  <form th:action="@{/registration}">
+    <button type="submit">Регистрация</button><br>
+  </form>
+  -->
+</div>
+</div>
+<a th:href="@{/product/info/31}">
+<img class="banner" th:src="@{/images/banner.jpg}"}>
+</a>
+
+
+<div class="searchPlusBanner">
+  <form th:method="POST" th:action="@{/product/search}">
+  <fieldset>
+    <legend>Выберите параметры для поиска/сортировки/фильтрации:</legend>
+    <label for="search">Поиск по наименованию:</label>
+    <input type="text" id="search" name="search" th:value="*{value_search}">
+    <br>
+    <label for="ot">Цена от:</label>
+    <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
+    <label for="do">Цена до:</label>
+    <input type="text" name="do" id="do" th:value="*{value_price_do}">
+    <br>
+    <div>
+      <p>Сортировка</p>
+      <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+      <label for="ascending_price">По возрастанию цены</label>
+      <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+      <label for="descending_price">По убыванию цены</label>
+      <p>Категория товаров:</p>
+      <input type="radio" id="furniture" name="contract" value="furniture">
+      <label for="furniture">Мебель</label>
+      <input type="radio" id="appliances" name="contract" value="appliances">
+      <label for="appliances">Бытовая техника</label>
+      <input type="radio" id="clothes" name="contract" value="clothes">
+      <label for="clothes">Одежда</label>
+      <br>
+      <input class="findButton" type="submit" value="Найти">
+    </div>
+  </fieldset>
+</form>
+  <!--      <video src="images/video.mov" muted poster="images/poster.png"></video>   -->
+  <iframe width="605" height="345" src="https://www.youtube.com/embed/fbbQcNksFmg" title="Аттестационное задание" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></iframe>
+</div>
+
+<div class="productListDiv">
+  <div class="productDiv" th:each="product : ${search_product_header}">
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+      <img th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px">
+    </a>
+    <br>
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+  </div>
+</div>
+
+<div class="productListDiv">
+  <div class="productDiv" th:each="product : ${search_product}">
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+      <img th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px">
+    </a>
+    <br>
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+  </div>
+</div>
+
+<h3>Наши товары</h3>
+<div class="productListDiv">
+<div class="productDiv" th:each="product : ${products}">
+  <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+  <img th:src="'/pics/' + ${product.imageList[0].getFileName()}">
+  </a>
+  <br>
+  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+  <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+  <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
+    <button type="submit">Купить</button><br>
+  </form>
+</div>
+</div>
+<br>
+<hr>
+<div class="footer">
+    <div>
+
+      <li><a href="/authentication">Авторизация</a></li>
+      <li><a href="/registration">Регистрация</a></li>
+
+  </div>
+  <div>
+    Информация о характеристиках товара, его наличию и доставке носит<br>
+    исключительно ознакомительный характер и ни при каких условиях<br>
+    не является публичной офертой, определяемой положениями Статьи 437<br>
+    Гражданского кодекса РФ
+  </div>
+  <div>
+    <img class="logoFooter" th:src="@{/images/logo.jpg}">
+  </div>
+<div>
+  ©2023  Интернет-магазин MyStore<br>
+  Дипломная работа Колпакова И.В.<br>
+  Группа: FSJ-3-22
+</div>
+  <div class="goBack">
+      <div>
+        <form href="#">
+          <button type="submit">Наверх</button><br>
+        </form>
+      </div>
+  </div>
+</div>
+</body>
+</html>
