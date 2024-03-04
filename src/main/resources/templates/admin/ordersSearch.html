@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат поиска по номеру заказа</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<br>
+<div th:each="order : ${search_order}">
+    <h3>Результат поиска:</h3>
+    <a th:href="@{/admin/orders/{id}(id=${order.getId()})}" th:text="${order.getNumber()}"></a>
+</div>
+</form>
+<br>
+<br>
+<form th:action="@{/admin/orders}">
+    <button>К списку заказов</button><br>
+</form>
+</body>
+</html>

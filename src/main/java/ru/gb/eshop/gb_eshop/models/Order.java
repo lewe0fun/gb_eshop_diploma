@@ -29,7 +29,6 @@ public class Order {
     //@Enumerated(EnumType.STRING)
     private Status status;
 
-    // Метод реализации даты, будет срабатывать при создании заказа. Будет заполнять дату и время
     @PrePersist
     private void init(){
         dateTime = LocalDateTime.now();

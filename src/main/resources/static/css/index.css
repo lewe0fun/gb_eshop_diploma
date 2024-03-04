@@ -1,0 +1,453 @@
+body{
+    padding: 10px;
+    background-color:   deepskyblue;
+    font-family: Arial;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.body_user_lc{
+    background-color:honeydew;
+}
+
+img{
+    width: 100%;
+    border-radius: 20px;
+}
+
+a{
+    color: black;
+    font-weight: bold;
+}
+
+
+h3{
+    text-align: left;
+    margin: 20px;
+}
+
+button{
+    cursor: pointer;
+}
+
+input{
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 20px;
+    position: relative;
+    font-family: Arial;
+}
+
+.lab_usname{
+    padding-right: 10px;
+}
+
+.logo{
+    width: 200px;
+    align-content: start;
+    border-radius: 0;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header form{
+    align-content: end;
+}
+
+.headerMenu{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 20px;
+}
+
+.headerMenu button{
+    position: relative;
+    background: black;
+    color: white;
+    font-weight: bolder;
+    border-radius: 0px;
+    height: 60px;
+    width: 200px;
+    float: left;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.headerMenu button:hover{
+    color: white;
+    background-color: lightgrey;
+}
+
+.header_user_lc{
+    background-color: #69bff8;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.header_user_lc_logo{
+    padding-left: 50px;
+}
+
+
+.header_user_lc_block{
+    display: flex;
+    gap: 30px;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding-right: 30px;
+}
+
+.header_user_lc_ex_bt{
+    width: 85px;
+    height: 78px;
+}
+
+.basket_logo{
+    width: 50px;
+}
+
+.basket_logo_btn{
+    width: 40px ;
+}
+
+.user_auth_img{
+    width: 45px;
+}
+
+
+.header_search_btn{
+    width: 75px;
+}
+
+.header_input_search{
+    width: 320px;
+}
+
+.header_search_form{
+    display: flex;
+}
+
+/*.searchHeader{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.searchHeader input{*/
+/*    border-radius: 0px;*/
+/*    height: 20px;*/
+/*    width: 250px;*/
+/*}*/
+
+.searchHeader button{
+    position: relative;
+    font-weight: bolder;
+    font-size: 16px;
+    background: grey;
+    color: white;
+    border-radius: 50px;
+    border-color: black;
+    padding: 10px 25px 10px 25px;
+    cursor: pointer;
+}
+
+.searchHeader button:hover{
+    color: white;
+    background-color: lightgrey;
+}
+
+.searchSort_block{
+    width: 250px;
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-image: initial;
+}
+
+.navigation{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.navigation li{
+    height: auto;
+    width: 200px;
+    float: left;
+    text-align: center;
+    border:2px solid black;
+    list-style: none;
+    margin-left: 10px;
+}
+
+.navigation li a{
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    display: block;
+    transition: 0.5s;
+}
+
+.navigation li a:hover{
+    color: white;
+}
+
+.navigation li:hover, a:hover{
+    /*color: white;*/
+    color: darkorange;
+}
+
+.navigation li ul{
+    display: none;
+    margin-left: -12px;
+    padding: 0px;
+}
+
+.navigation li:hover ul{
+    display: block;
+}
+
+.findButton{
+    background: rgb(12,103,148);;
+    color: white;
+    border-radius: 50px;
+    border-color: black;
+    font-size: 16px;
+    font-weight: bolder;
+    padding: 10px 25px 10px 25px;
+    cursor: pointer;
+}
+
+.findButton:hover{
+    opacity: 0.6;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.banner{
+    /*width: 95%;*/
+    margin-bottom: 30px;
+}
+
+.searchSort{
+    display: grid;
+    grid-template-columns: 50% 40%;
+    padding-top: 30px;
+}
+
+fieldset legend{
+    margin: 0 auto;
+}
+
+.product_list{
+    display: flex;
+}
+
+.productListDiv{
+    Display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+
+.productDiv{
+    padding: 20px;
+}
+
+.productDiv img{
+    width: 80%;
+    border-radius: 15px;
+}
+
+.productDiv img:hover{
+    outline: 2px dashed #3d1f15;
+    outline-offset: -10px;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+button{
+    background: rgb(12,103,148);
+    color: white;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-color: rgb(12,103,148);
+    padding: 10px 25px 10px 25px;
+    width: 333px;
+}
+
+button:hover{
+    transition: 0.5s;
+    background: darkorange;
+}
+
+.product_btn{
+    width: 260px;
+}
+
+.product_img{
+    width: 260px;
+    height: 260px;
+}
+
+.product_name_text{
+    max-width: 260px;
+}
+
+.product_name_text:hover{
+    color: darkorange;
+}
+
+.footer{
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr 2fr;
+    padding: 20px;
+}
+
+.footer_product{
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
+    padding: 20px;
+}
+
+.footer p{
+    display: flex;
+    align-items: flex-end;
+}
+
+.logoFooter{
+    width: 100px;
+}
+
+.logo_search{
+    width: 25px;
+}
+
+.orders_logo{
+    width: 50px;
+}
+
+.goBack button{
+    border-radius: 50px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(12,103,148);
+    color: white;
+    margin: 3px;
+    font-size: 23px;
+    padding: 10px;
+    z-index: 6;
+}
+
+.goBack button:hover{
+    background: darkorange;
+    transition: 0.5s;
+}
+
+.logo_new{
+    width: 60px;
+
+}
+
+
+
+.logo_block{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 200px;
+}
+
+.registr_big_block{
+    display: flex;
+    justify-content: center;
+    padding-top: 200px;
+}
+
+.registr_big_block_white{
+    background-color: aliceblue;
+    width: 470px;
+    height: 600px;
+    border-radius: 30px;
+}
+
+.registr_big_block_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.registr_block{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+.registr_big_block_h5{
+    display: flex;
+    justify-content: center;
+    padding-top:30px;
+}
+
+.registr_big_block_reg{
+    display: flex;
+    justify-content: center;
+}
+
+.registr_big_block_but{
+    background: rgb(12,103,148);
+    color: white;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-color: rgb(12,103,148);
+    padding: 10px 25px 10px 25px;
+    width: 180px;
+    text-decoration: none;
+}
+
+.registr_big_block_but:hover{
+    background: darkorange;
+    transition: 0.5s;
+}
+
+.nameMag{
+    color: darkorange;
+    font-family: Lato;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+}
+
+.registr_input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

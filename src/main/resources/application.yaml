@@ -1,3 +1,4 @@
+  #Настройки базы данных
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/eshop
@@ -10,6 +11,21 @@ spring:
     properties:
       hibernate.format_sql: true
   generate-ddl: true
-#место откуда загружать изображения
+  flyway:
+    baselineOnMigrate: true
+    baseline-version: 0
+
+  #Путь загрузки картинок
 upload:
-  path: /home/iopa/uploads
+  #path: /home/iopa/uploads
+  #path: E:\uploads
+  path: D:\OBUCHENIE\Diplom\dip\src\main\resources\static\images
+
+  # Категории товаров:
+category:
+  1: "baths"
+  2: "sanitary ware"
+  3: "mixers"
+  4: "shower stalls"
+  5: "kitchen sinks"
+  6: "fittings"

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+  <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<form th:action="@{/admin}">
+  <button type="submit">Назад в меню администратора</button><br>
+</form>
+<br>
+<hr>
+<br>
+<h3>Информация о заказах</h3>
+
+<form th:method="POST" th:action="@{/admin/orders/search}">
+  <div>
+    <label for="search">Поиск по номеру заказа (по 4-м последним знакам)</label>
+    <br>
+    <input name="value" type="search" id="search">
+    <br>
+  </div>
+    <button type="submit">Поиск</button>
+  <br>
+  </form>
+<br>
+<table style="margin: auto; border-spacing: 50px 10px">
+  <thead>
+  <tr>
+    <th>Номер</th>
+    <th>Товар в заказе</th>
+    <th>Статус заказа</th>
+    <th>Итого, руб.</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="order:${orders}">
+    <td>
+      <a th:href="@{/admin/orders/{id}(id=${order.getId()})}" th:text="${order.getNumber()}"></a>
+    </td>
+    <td th:text="${order.getProduct().getTitle()}"></td>
+    <td th:text="${order.getStatus()}"></td>
+    <td th:text="${order.getPrice()}"></td>
+  </tr>
+  </tbody>
+</table>
+<div class="goBack">
+  <div>
+    <form href="#">
+      <button type="submit">Наверх</button><br>
+    </form>
+  </div>
+</div>
+</body>
+</html>

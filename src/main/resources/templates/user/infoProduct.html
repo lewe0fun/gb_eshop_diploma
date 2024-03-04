@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о товаре</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="header">
+    <div>
+        <a th:href="@{/product}">
+            <img class="logo" th:src="@{/images/logo.png}">
+        </a>
+    </div>
+</div>
+<h3>Информация о товаре</h3>
+<div class="productInfo">
+    <div class="productImg" th:each="img : ${product.getImageList()}">
+        <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
+        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" />
+    </div>
+    <div class="productText">
+        <p style="font-weight: bold" th:text="${product.getTitle()}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
+        <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+        <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
+    </div>
+</div>
+<p style="font-weight: bold">Описание</p>
+<p th:text="${product.getDescription()}"></p>
+<div>
+    <div>
+        <form th:action="@{/product}">
+            <button type="submit">На главную страницу</button>
+            <br>
+        </form>
+    </div>
+    <div>
+        <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
+            <button type="submit">Купить</button>
+            <br>
+        </form>
+    </div>
+</div>
+</body>
+</html>
