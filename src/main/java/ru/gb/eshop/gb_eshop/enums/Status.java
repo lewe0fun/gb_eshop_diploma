@@ -1,5 +1,5 @@
 package ru.gb.eshop.gb_eshop.enums;
 
 public enum Status {
-    Ожидание, Обработан, Доставляется, Завершен
+    WAITING, PROCESSED, SHIPPING, COMPLETED
 }

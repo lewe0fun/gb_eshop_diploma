@@ -44,7 +44,8 @@ public class AdminController {
     private final ImageRepository imageRepository;
 
     @Autowired
-    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, OrderService orderService, CategoryRepository categoryRepository, OrderRepository orderRepository, ImageRepository imageRepository) {
+    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, OrderService orderService,
+                           CategoryRepository categoryRepository, OrderRepository orderRepository, ImageRepository imageRepository) {
         this.productValidator = productValidator;
         this.productService = productService;
         this.personService = personService;

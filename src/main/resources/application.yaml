@@ -17,3 +17,11 @@ spring:
 upload:
   #path: /home/iopa/uploads
   path: E:\uploads
+  # Категории товаров:
+category:
+  1: "baths"
+  2: "sanitary ware"
+  3: "mixers"
+  4: "shower stalls"
+  5: "kitchen sinks"
+  6: "fittings"
