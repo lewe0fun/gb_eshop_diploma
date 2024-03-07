@@ -14,19 +14,20 @@ import java.util.Optional;
 
 @Service
 public class PersonDetailsService implements UserDetailsService {
-    private final PersonRepository personRepository;
-
-
     @Autowired
+    private PersonRepository personRepository;
+
+
+/*    @Autowired
     public PersonDetailsService(PersonRepository personRepository) {
         this.personRepository = personRepository;
-    }
+    }*/
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> person = personRepository.findByLogin(username);
         if(person.isEmpty()){
-            throw new UsernameNotFoundException("Пользователь не найден");
+            throw new UsernameNotFoundException("Пользователь с именем "+username+" не найден");
         }
         return new PersonDetails(person.get());
     }

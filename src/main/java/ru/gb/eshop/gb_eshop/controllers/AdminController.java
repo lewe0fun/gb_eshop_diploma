@@ -1,6 +1,7 @@
 package ru.gb.eshop.gb_eshop.controllers;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +28,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Контроллер администратора
+ */
 @Controller
 @RequestMapping("/admin")
 
 public class AdminController {
-
-    @Value("${upload.path}")
-    private String uploadPath;
 
     private final ProductValidator productValidator;
     private final ProductService productService;
@@ -42,6 +43,9 @@ public class AdminController {
     private final CategoryRepository categoryRepository;
     private final OrderRepository orderRepository;
     private final ImageRepository imageRepository;
+    @Value("${upload.path}")
+    private String uploadPath;
+
 
     @Autowired
     public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, OrderService orderService,
@@ -55,24 +59,27 @@ public class AdminController {
         this.imageRepository = imageRepository;
     }
 
-
-    // Метод по отображению главной страницы администратора с выводом товаров
+    /**
+     * Страницы админа
+     */
     @GetMapping()
     public String admin(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         Role role = personDetails.getPerson().getRole();
 
-        if(role==Role.ROLE_USER){
+        if(role==Role.ROLE_USER)
             return "redirect:/index";
-        }
+
         model.addAttribute("products", productService.getAllProduct());
         model.addAttribute("persons", personService.getAllPersons());
         model.addAttribute("orders", orderService.getAllOrders());
         return "/admin";
     }
 
-    // Метод по отображению формы добавление
+    /**
+     * Получение модели добавления товара
+     */
     @GetMapping("/product/add")
     public String addProduct(Model model){
         model.addAttribute("product", new Product());
@@ -80,7 +87,20 @@ public class AdminController {
         return "product/addProduct";
     }
 
-    // Метод по добавлению объекта с формы в таблицу product
+    /**
+     * Заполнение модели товара
+     * @param product добавляемый товар
+     * @param bindingResult ошибки валидации
+     * @param file_one файл картинки товара
+     * @param file_two файл картинки товара
+     * @param file_three файл картинки товара
+     * @param file_four файл картинки товара
+     * @param file_five файл картинки товара
+     * @param category категория товара
+     * @param model модель
+     * @throws IOException
+     */
+
     @PostMapping("/product/add")
     public String addProduct(@ModelAttribute("product") @Valid Product product,
                              BindingResult bindingResult,
@@ -89,29 +109,22 @@ public class AdminController {
                              @RequestParam("file_three") MultipartFile file_three,
                              @RequestParam("file_four") MultipartFile file_four,
                              @RequestParam("file_five") MultipartFile file_five,
-                             @RequestParam ("category") int category, Model model) throws IOException {
-        Category category_db = (Category) categoryRepository.findById(category).orElseThrow();
-        System.out.println(category_db.getName());
+                             @RequestParam ("category") int category,
+                             Model model) throws IOException {
+        Category category_db = categoryRepository.findById(category)
+                .orElseThrow(()-> new EntityNotFoundException("category not found"));
         productValidator.validate(product, bindingResult);
         if(bindingResult.hasErrors()){
             model.addAttribute("category", categoryRepository.findAll());
             return "/product/addProduct";
         }
-        // Проверка на пустоту файла
         if(file_one != null){
-            // Директория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной директории по пути не существует
             if(!uploadDir.exists()){
-                // Создаем данную директорию
                 uploadDir.mkdir();
             }
-            // Создаем уникальное имя файла
-            // UUID представляет неизменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_one.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_one.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -119,21 +132,12 @@ public class AdminController {
             product.updateImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_two != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
-            if(!uploadDir.exists()){
-                // Создаем данную дирректорию
+            if(!uploadDir.exists())
                 uploadDir.mkdir();
-            }
-            // Создаем уникальное имя файла
-            // UUID представляет неизменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_two.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_two.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -141,21 +145,12 @@ public class AdminController {
             product.updateImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_three != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
-            if(!uploadDir.exists()){
-                // Создаем данную дирректорию
+            if(!uploadDir.exists())
                 uploadDir.mkdir();
-            }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_three.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_three.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -163,21 +158,12 @@ public class AdminController {
             product.updateImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_four != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
-            if(!uploadDir.exists()){
-                // Создаем данную дирректорию
+            if(!uploadDir.exists())
                 uploadDir.mkdir();
-            }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_four.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_four.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -185,21 +171,12 @@ public class AdminController {
             product.updateImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_five != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
-            if(!uploadDir.exists()){
-                // Создаем данную дирректорию
+            if(!uploadDir.exists())
                 uploadDir.mkdir();
-            }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_five.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_five.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
