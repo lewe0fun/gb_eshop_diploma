@@ -10,13 +10,11 @@ spring:
     properties:
       hibernate.format_sql: true
   generate-ddl: true
-#  flyway:
-#    baselineOnMigrate: true
-#    baseline-version: 0
-#место откуда загружать изображения
+
 upload:
   #path: /home/iopa/uploads
   path: E:\uploads
+
   # Категории товаров:
 category:
   1: "baths"

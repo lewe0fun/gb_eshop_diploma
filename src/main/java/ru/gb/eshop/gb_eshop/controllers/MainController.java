@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Главный контроллер
+ */
 @Controller
 public class MainController {
 
@@ -52,6 +55,10 @@ public class MainController {
     private final String SEARCH_PRODUCT = "search_product";
     private final String SEARCH_ASC = "sorted_by_ascending_price";
     private final String SEARCH_DES = "sorted_by_descending_price";
+    private final String VALUE_SEARCH = "value_search";
+    private final String PRISE_OT = "value_price_ot";
+    private final String PRISE_DO = "value_price_do";
+
     @Autowired
     public MainController(ProductRepository productRepository, PersonValidator personValidator, PersonService personService,
                           ProductService productService, CartRepository cartRepository, OrderRepository orderRepository) {
@@ -65,8 +72,6 @@ public class MainController {
 
     @GetMapping("/personalAccount")
     public String index(Model model) {
-        // Получаем объект аутентификации -> с помощью SpringContextHolder обращаемся к контексту и на нем вызываем метод аутентификации. Из сессии текущего пользователя получаем объект,
-        // который был положен в данную сессию после аутентификации пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         Role role = personDetails.getPerson().getRole();
@@ -113,14 +118,14 @@ public class MainController {
                         if (category.equals(CATEGORY1)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
                         } else if (category.equals(CATEGORY2)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
-                        } else if (category.equals(CATEGORY3)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
-                        }else if (category.equals(CATEGORY4)) {
+                        } else if (category.equals(CATEGORY3)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
+                        } else if (category.equals(CATEGORY4)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 4));
-                        }else if (category.equals(CATEGORY5)) {
+                        } else if (category.equals(CATEGORY5)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 5));
-                        }else if (category.equals(CATEGORY6)) {
+                        } else if (category.equals(CATEGORY6)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
                         }
                     } else {
@@ -128,18 +133,18 @@ public class MainController {
                     }
                 } else if (price.equals(SEARCH_DES)) {
                     if (!category.isEmpty()) {
-                        System.out.println(category);
+                        // System.out.println(category);
                         if (category.equals(CATEGORY1)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
                         } else if (category.equals(CATEGORY2)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
-                        } else if (category.equals(CATEGORY3)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
-                        }else if (category.equals(CATEGORY4)) {
+                        } else if (category.equals(CATEGORY3)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
+                        } else if (category.equals(CATEGORY4)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 4));
-                        }else if (category.equals(CATEGORY5)) {
+                        } else if (category.equals(CATEGORY5)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 5));
-                        }else if (category.equals(CATEGORY6)) {
+                        } else if (category.equals(CATEGORY6)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
                         }
                     } else {
@@ -153,9 +158,9 @@ public class MainController {
             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search));
         }
 
-        model.addAttribute("value_search", search);
-        model.addAttribute("value_price_ot", ot);
-        model.addAttribute("value_price_do", Do);
+        model.addAttribute(VALUE_SEARCH, search);
+        model.addAttribute(PRISE_OT, ot);
+        model.addAttribute(PRISE_DO, Do);
         model.addAttribute(SEARCH_ASC, price);
         model.addAttribute(SEARCH_DES, price);
         model.addAttribute(CATEGORY1, category);
@@ -225,22 +230,22 @@ public class MainController {
         return "redirect:/cart";
     }
 
+    /**
+     * Создания заказа
+     */
+
     @GetMapping("/order/create")
     public String order() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
         int id_person = personDetails.getPerson().getId();
-
         List<Cart> cartList = cartRepository.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
 
-        // Получаем продукты из корзины по id товара
         for (Cart cart : cartList) {
             productList.add(productService.getProductId(cart.getProductId()));
         }
 
-        // Вычисление итоговой цена
         float price = 0;
         for (Product product : productList) {
             price += product.getPrice();
@@ -255,7 +260,10 @@ public class MainController {
         return "redirect:/orders";
     }
 
-    // Получение списка заказов авторизованного пользователя
+    /**
+     * Получение списка заказов авторизованного пользователя
+     */
+
     @GetMapping("/orders")
     public String orderUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -7,6 +7,10 @@ import org.springframework.validation.Validator;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.services.PersonService;
 
+/**
+ * Клас вспомогательный, для проверки отсутствующих/повторяющихся сущностей
+ */
+
 @Component
 public class PersonValidator implements Validator {
     private final PersonService personService;
