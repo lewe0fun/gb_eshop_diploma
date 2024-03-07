@@ -118,92 +118,63 @@ public class AdminController {
             model.addAttribute("category", categoryRepository.findAll());
             return "/product/addProduct";
         }
-        if(file_one != null){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists()){
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file_one.getOriginalFilename();
-            file_one.transferTo(new File(uploadPath + "/" + resultFileName));
-            Image image = new Image();
-            image.setProduct(product);
-            image.setFileName(resultFileName);
-            product.updateImageProduct(image);
-        }
-
-        if(file_two != null){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists())
-                uploadDir.mkdir();
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file_two.getOriginalFilename();
-            file_two.transferTo(new File(uploadPath + "/" + resultFileName));
-            Image image = new Image();
-            image.setProduct(product);
-            image.setFileName(resultFileName);
-            product.updateImageProduct(image);
-        }
-
-        if(file_three != null){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists())
-                uploadDir.mkdir();
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file_three.getOriginalFilename();
-            file_three.transferTo(new File(uploadPath + "/" + resultFileName));
-            Image image = new Image();
-            image.setProduct(product);
-            image.setFileName(resultFileName);
-            product.updateImageProduct(image);
-        }
-
-        if(file_four != null){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists())
-                uploadDir.mkdir();
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file_four.getOriginalFilename();
-            file_four.transferTo(new File(uploadPath + "/" + resultFileName));
-            Image image = new Image();
-            image.setProduct(product);
-            image.setFileName(resultFileName);
-            product.updateImageProduct(image);
-        }
-
-        if(file_five != null){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists())
-                uploadDir.mkdir();
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file_five.getOriginalFilename();
-            file_five.transferTo(new File(uploadPath + "/" + resultFileName));
-            Image image = new Image();
-            image.setProduct(product);
-            image.setFileName(resultFileName);
-            product.updateImageProduct(image);
-        }
-
+        fileUploadHelper(file_one,product);
+        fileUploadHelper(file_two,product);
+        fileUploadHelper(file_three,product);
+        fileUploadHelper(file_four,product);
+        fileUploadHelper(file_five,product);
         productService.saveProduct(product, category_db);
         return "redirect:/admin";
     }
 
-    // Метод по удалению товара по id
+    public void fileUploadHelper(MultipartFile file,Product product) throws IOException {
+        if(file != null){
+            File uploadDir = new File(uploadPath);
+            if(!uploadDir.exists())
+                uploadDir.mkdir();
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFileName));
+            Image image = new Image();
+            image.setProduct(product);
+            image.setFileName(resultFileName);
+            product.updateImageProduct(image);
+        }
+    }
+
+    /**
+     * Метод удалению товара по id
+     * @param id id товара
+     * @return редирект на ендпоинт админа
+     */
+
     @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id){
         productService.deleteProduct(id);
         return "redirect:/admin";
     }
 
+    /**
+     * Метод получения модели редактирования товара
+     * @param model модель
+     * @param id id товара
+     * @return представление редактирования товара
+     */
     @GetMapping("/product/edit/{id}")
     public String editProduct(Model model, @PathVariable("id") int id){
         model.addAttribute("product", productService.getProductId(id));
         model.addAttribute("category", categoryRepository.findAll());
         return "product/editProduct";
-
-
     }
 
+    /**
+     * Метод заполнения модели товара
+     * @param product переданный товар
+     * @param bindingResult ошибки валидации
+     * @param id id товара
+     * @param model модель
+     * @return редирект на страницу админа
+     */
     @PostMapping("/product/edit/{id}")
     public String editProduct(@ModelAttribute("product") @Valid Product product,
                               BindingResult bindingResult,
@@ -216,19 +187,23 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-
-
-    // Методы для работы с пользователями для администратора
-
-
-
-    // Метод возвращает страницу с выводом пользователей и кладет объект пользователя в модель
+    /**
+     * Метод показывающий список пользователей
+     * @param model модель
+     * @return представление списка пользователей
+     */
     @GetMapping("/person")
     public String person(Model model){;
         model.addAttribute("person", personService.getAllPerson());
         return "person/person";
     }
 
+    /**
+     * Метод показывающий данные пользователя
+     * @param id id пользователя
+     * @param model модель
+     * @return представление страницы информации о пользователе
+     */
     // Метод возвращает страницу с подробной информацией о пользователе
     @GetMapping("/person/info/{id}")
     public String infoPerson(@PathVariable("id") int id, Model model){
