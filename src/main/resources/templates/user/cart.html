@@ -13,7 +13,8 @@
 </form>
 <hr>
 <div th:each="product : ${cart_product}">
-  <img class="cartImg" th:src="'/pics/' + ${product.imageList[0].getFileName()}">
+  <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}"/>
+  <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
   <br>
   <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
   <p th:text="'Цена: ' + ${product.getPrice()}"></p>

@@ -29,7 +29,8 @@
 <h3>Загруженные товары</h3>
 <div class="ordersInfo">
 <div class="orderInfo" th:each="product : ${products}">
-  <img class="orderImg" th:src="'/pics/' + ${product.imageList[0].getFileName()}">
+  <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}"/>
+  <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
   <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
   <!--<p th:text="'Описание: ' + ${product.getDescription()}"></p>-->
   <p th:text="'Цена: ' + ${product.getPrice()}"></p>

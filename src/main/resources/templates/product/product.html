@@ -78,7 +78,8 @@
 <div class="productListDiv">
   <div class="productDiv" th:each="product : ${search_product_header}">
     <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-      <img th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px">
+      <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
+      <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
     </a>
     <br>
     <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
@@ -89,7 +90,8 @@
 <div class="productListDiv">
   <div class="productDiv" th:each="product : ${search_product}">
     <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-      <img th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px">
+      <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
+      <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
     </a>
     <br>
     <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
@@ -101,7 +103,8 @@
 <div class="productListDiv">
 <div class="productDiv" th:each="product : ${products}">
   <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-  <img th:src="'/pics/' + ${product.imageList[0].getFileName()}">
+    <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
+    <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" />
   </a>
   <br>
   <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>

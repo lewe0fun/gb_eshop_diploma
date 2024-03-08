@@ -1,3 +1,4 @@
+  #Настройки базы данных
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/eshop
@@ -13,9 +14,8 @@ spring:
   flyway:
     baselineOnMigrate: true
     baseline-version: 0
-  #mvc:
-    #static-path-pattern: "/resources/**"
 
+  #Путь загрузки картинок
 upload:
   #path: /home/iopa/uploads
   path: E:\uploads
