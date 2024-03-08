@@ -77,6 +77,11 @@ public class MainController {
         Person person = personDetails.getPerson();
         model.addAttribute("person", person);
         Role role = person.getRole();
+        Product product = new Product();
+        List<Product> products = productService.getAllProduct();
+        for (Product prod : products) {
+            boolean q = prod.getImageList().get(0).getFileName().contains("demo");
+        }
         if (role == Role.ROLE_ADMIN) {
             return "redirect:/admin";
         }

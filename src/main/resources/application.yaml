@@ -13,8 +13,8 @@ spring:
   flyway:
     baselineOnMigrate: true
     baseline-version: 0
-  mvc:
-    static-path-pattern: /**
+  #mvc:
+    #static-path-pattern: "/resources/**"
 
 upload:
   #path: /home/iopa/uploads

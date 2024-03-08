@@ -35,7 +35,7 @@ public class Person {
 
     @ManyToMany()
     @JoinTable(name = "product_cart", joinColumns = @JoinColumn(name = "person_id"),inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> peroductList;
+    private List<Product> productList;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<Order> orderList;

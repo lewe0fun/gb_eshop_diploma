@@ -29,8 +29,6 @@ public class ProductService {
 
     @Transactional
     public void saveProduct(Product product, Category category_db){
-
-//        product.setCategory(category);
         productRepository.save(product);
     }
 
