@@ -39,16 +39,16 @@ input{
 }
 
 .logo{
-    width: 200px;
+    width: 150px;
     align-content: start;
     border-radius: 0;
 }
 
 .header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 2fr;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .header form{
@@ -67,7 +67,7 @@ input{
     color: white;
     font-weight: bolder;
     border-radius: 0px;
-    height: 53px;
+    height: 60px;
     width: 200px;
     float: left;
     text-align: center;
@@ -83,7 +83,7 @@ input{
 
 .searchHeader{
     display: flex;
-    align-items: center;
+    align-items: right;
 }
 
 .searchHeader input{

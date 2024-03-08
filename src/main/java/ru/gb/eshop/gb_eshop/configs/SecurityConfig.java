@@ -19,28 +19,6 @@ import ru.gb.eshop.gb_eshop.services.PersonDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-/*    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers("/authentication", "/registration", "/error", "/resources/**", "/static/**", "/css/**", "/js/**",
-                        "/pics/**", "/images/**", "/product", "/product/info/{id}", "/product/search", "/product/searchHeader", "/logout").permitAll()
-                .anyRequest()
-                .authenticated()
-        );
-        http.formLogin(login -> login
-                .loginPage("/authentication")
-                //.usernameParameter("email")
-                .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/personalAccount", true)
-                .failureUrl("/authentication?error")
-                .permitAll());
-        http.logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/authentication")
-                .permitAll());
-        return http.build();
-    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

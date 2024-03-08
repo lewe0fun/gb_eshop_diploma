@@ -13,6 +13,9 @@ spring:
   flyway:
     baselineOnMigrate: true
     baseline-version: 0
+  mvc:
+    static-path-pattern: /**
+
 upload:
   #path: /home/iopa/uploads
   path: E:\uploads

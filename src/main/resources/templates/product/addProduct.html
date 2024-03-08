@@ -29,7 +29,7 @@
     <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
     <br>
     <br>
-    <label for="warehouse">Введите cклад, на котором расположен товар: </label>
+    <label for="warehouse">Введите склад, на котором расположен товар: </label>
     <input type="text" th:field="*{warehouse}" placeholder="Cклад" id="warehouse">
     <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
     <br>
@@ -48,7 +48,7 @@
     <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
     <br>
     <br>
-    <p style="color: red">Вы можете добавить до 5 фотографий. Первая фотография не может быть пустой т.к она будет являтся главной при выводе карточки товара</p>
+    <p style="color: red">Вы можете добавить до 5 фотографий. Первая фотография не может быть пустой т.к она будет являться главной при выводе карточки товара</p>
     <input type="file" name="image1">
     <input type="file" name="image2">
     <input type="file" name="image3">

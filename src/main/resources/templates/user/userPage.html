@@ -8,7 +8,7 @@
 <body>
 <div class="header">
     <div>
-        <a th:href="@{/product}">
+        <a>
             <img class="logo" th:src="@{/images/logo.png}">
         </a>
     </div>
@@ -25,7 +25,7 @@
             <li>
                 <form method="post" th:action="@{/logout}">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                    <button type="submit">Выйти из ЛК</button>
+                    <button type="submit" th:text="'Выйти из ЛК    '+${person.getLogin()}">Выйти из ЛК</button>
                 </form>
             </li>
         </ul>
@@ -68,7 +68,7 @@
             </div>
         </fieldset>
     </form>
-    <img th:src="@{/images/banner2.jpg}">
+    <!--<img th:src="@{/images/banner2.jpg}">-->
 </div>
 
 <div class="productListDiv">
@@ -104,7 +104,8 @@
         <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
         <p th:text="'Цена: ' + ${product.getPrice()}"></p>
         <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
-            <button type="submit">Купить</button><br>
+            <button type="submit">Купить</button>
+            <br>
         </form>
     </div>
 </div>
@@ -127,14 +128,15 @@
         <img class="logoFooter" th:src="@{/images/logo.jpg}">
     </div>
     <div>
-        ©2023  Интернет-магазин MyStore<br>
+        ©2023 Интернет-магазин MyStore<br>
         Дипломная работа Колпакова И.В.<br>
         Группа: FSJ-3-22
     </div>
     <div class="goBack">
         <div>
             <form href="#">
-                <button type="submit">Наверх</button><br>
+                <button type="submit">Наверх</button>
+                <br>
             </form>
         </div>
     </div>

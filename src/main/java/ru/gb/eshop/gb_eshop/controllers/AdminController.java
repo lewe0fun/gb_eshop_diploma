@@ -64,10 +64,11 @@ public class AdminController {
     public String admin(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        Role role = personDetails.getPerson().getRole();
-
+        Person person = personDetails.getPerson();
+        model.addAttribute("person", person);
+        Role role = person.getRole();
         if(role==Role.ROLE_USER)
-            return "redirect:/index";
+            return "redirect:/userPage";
 
         model.addAttribute("products", productService.getAllProduct());
         model.addAttribute("persons", personService.getAllPersons());
@@ -130,8 +131,7 @@ public class AdminController {
             File uploadDir = new File(uploadPath);
             if(!uploadDir.exists())
                 uploadDir.mkdir();
-            String uuidFile = UUID.randomUUID().toString();
-            String fileName = uuidFile + "." + file.getOriginalFilename();
+            String fileName = UUID.randomUUID()+ "." + file.getOriginalFilename();
             file.transferTo(new File(uploadPath + "/" + fileName));
             Image image = new Image();
             image.setProduct(product);

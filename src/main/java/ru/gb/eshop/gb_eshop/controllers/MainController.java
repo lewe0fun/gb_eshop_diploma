@@ -74,12 +74,14 @@ public class MainController {
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        Role role = personDetails.getPerson().getRole();
+        Person person = personDetails.getPerson();
+        model.addAttribute("person", person);
+        Role role = person.getRole();
         if (role == Role.ROLE_ADMIN) {
             return "redirect:/admin";
         }
         model.addAttribute("products", productService.getAllProduct());
-        return "/user/index";
+        return "/user/userPage";
     }
 
     @GetMapping("/registration")
@@ -133,7 +135,6 @@ public class MainController {
                     }
                 } else if (price.equals(SEARCH_DES)) {
                     if (!category.isEmpty()) {
-                        // System.out.println(category);
                         if (category.equals(CATEGORY1)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
                         } else if (category.equals(CATEGORY2)) {
