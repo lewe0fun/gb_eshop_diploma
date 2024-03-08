@@ -14,8 +14,8 @@ spring:
     baselineOnMigrate: true
     baseline-version: 0
 upload:
-  path: /home/iopa/uploads
-  #path: E:\uploads
+  #path: /home/iopa/uploads
+  path: E:\uploads
 
   # Категории товаров:
 category:

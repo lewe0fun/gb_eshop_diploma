@@ -70,7 +70,7 @@ public class MainController {
         this.orderRepository = orderRepository;
     }
 
-    @GetMapping("/personalAccount")
+    @GetMapping("/userPage")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();

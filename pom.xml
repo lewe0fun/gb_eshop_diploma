@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>ru.gb.eshop</groupId>
 	<artifactId>gb_eshop</artifactId>
@@ -63,7 +63,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-maven-plugin</artifactId>

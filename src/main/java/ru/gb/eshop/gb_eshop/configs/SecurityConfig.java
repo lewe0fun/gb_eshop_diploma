@@ -19,7 +19,7 @@ import ru.gb.eshop.gb_eshop.services.PersonDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Bean
+/*    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
@@ -38,6 +38,29 @@ public class SecurityConfig {
         http.logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/authentication")
+                .permitAll());
+        return http.build();
+    }*/
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers( "/registration", "/error", "/resources/**", "/static/**", "/css/**", "/js/**",
+                        "/pics/**", "/images/**", "/product", "/product/info/{id}", "/product/search", "/product/searchHeader", "/logout").permitAll()
+                .anyRequest()
+                .authenticated()
+        );
+        http.formLogin(login -> login
+                .loginPage("/login")
+                //.usernameParameter("email")
+                .loginProcessingUrl("/loginProcess")
+                .defaultSuccessUrl("/userPage", true)
+                .failureUrl("/login?error")
+                .permitAll());
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
                 .permitAll());
         return http.build();
     }

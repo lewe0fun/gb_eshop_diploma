@@ -16,7 +16,6 @@ import ru.gb.eshop.gb_eshop.enums.Role;
 import ru.gb.eshop.gb_eshop.enums.Status;
 import ru.gb.eshop.gb_eshop.models.*;
 import ru.gb.eshop.gb_eshop.repositories.CategoryRepository;
-import ru.gb.eshop.gb_eshop.repositories.ImageRepository;
 import ru.gb.eshop.gb_eshop.repositories.OrderRepository;
 import ru.gb.eshop.gb_eshop.security.PersonDetails;
 import ru.gb.eshop.gb_eshop.services.OrderService;
@@ -42,21 +41,20 @@ public class AdminController {
     private final OrderService orderService;
     private final CategoryRepository categoryRepository;
     private final OrderRepository orderRepository;
-    private final ImageRepository imageRepository;
+
     @Value("${upload.path}")
     private String uploadPath;
 
-
     @Autowired
-    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, OrderService orderService,
-                           CategoryRepository categoryRepository, OrderRepository orderRepository, ImageRepository imageRepository) {
+    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService,
+                           OrderService orderService, CategoryRepository categoryRepository, OrderRepository orderRepository) {
         this.productValidator = productValidator;
         this.productService = productService;
         this.personService = personService;
         this.orderService = orderService;
         this.categoryRepository = categoryRepository;
         this.orderRepository = orderRepository;
-        this.imageRepository = imageRepository;
+
     }
 
     /**
@@ -91,11 +89,11 @@ public class AdminController {
      * Заполнение модели товара
      * @param product добавляемый товар
      * @param bindingResult ошибки валидации
-     * @param file_one файл картинки товара
-     * @param file_two файл картинки товара
-     * @param file_three файл картинки товара
-     * @param file_four файл картинки товара
-     * @param file_five файл картинки товара
+     * @param image1 файл картинки товара
+     * @param image2 файл картинки товара
+     * @param image3 файл картинки товара
+     * @param image4 файл картинки товара
+     * @param image5 файл картинки товара
      * @param category категория товара
      * @param model модель
      * @throws IOException
@@ -104,11 +102,11 @@ public class AdminController {
     @PostMapping("/product/add")
     public String addProduct(@ModelAttribute("product") @Valid Product product,
                              BindingResult bindingResult,
-                             @RequestParam("file_one") MultipartFile file_one,
-                             @RequestParam("file_two") MultipartFile file_two,
-                             @RequestParam("file_three") MultipartFile file_three,
-                             @RequestParam("file_four") MultipartFile file_four,
-                             @RequestParam("file_five") MultipartFile file_five,
+                             @RequestParam("image1") MultipartFile image1,
+                             @RequestParam("image2") MultipartFile image2,
+                             @RequestParam("image3") MultipartFile image3,
+                             @RequestParam("image4") MultipartFile image4,
+                             @RequestParam("image5") MultipartFile image5,
                              @RequestParam ("category") int category,
                              Model model) throws IOException {
         Category category_db = categoryRepository.findById(category)
@@ -118,26 +116,26 @@ public class AdminController {
             model.addAttribute("category", categoryRepository.findAll());
             return "/product/addProduct";
         }
-        fileUploadHelper(file_one,product);
-        fileUploadHelper(file_two,product);
-        fileUploadHelper(file_three,product);
-        fileUploadHelper(file_four,product);
-        fileUploadHelper(file_five,product);
+        setImageToProduct(image1,product);
+        setImageToProduct(image2,product);
+        setImageToProduct(image3,product);
+        setImageToProduct(image4,product);
+        setImageToProduct(image5,product);
         productService.saveProduct(product, category_db);
         return "redirect:/admin";
     }
 
-    public void fileUploadHelper(MultipartFile file,Product product) throws IOException {
-        if(file != null){
+    public void setImageToProduct(MultipartFile file, Product product) throws IOException {
+        if(!file.isEmpty()){
             File uploadDir = new File(uploadPath);
             if(!uploadDir.exists())
                 uploadDir.mkdir();
             String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFileName));
+            String fileName = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + fileName));
             Image image = new Image();
             image.setProduct(product);
-            image.setFileName(resultFileName);
+            image.setFileName(fileName);
             product.updateImageProduct(image);
         }
     }

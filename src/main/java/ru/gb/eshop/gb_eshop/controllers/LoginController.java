@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Контроллер аутентификации
  */
 @Controller
-public class AuthController {
-    @GetMapping("/authentication")
-    public String login(){
-        return "authentication";
+public class LoginController {
+    @GetMapping("/login")
+    public String auth(){
+        return "login";
     }
 }
