@@ -265,22 +265,14 @@ public class MainController {
      */
     @GetMapping("/cart/delete/{id}")
     public String removeProductFromCart(@PathVariable("id") int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        List<Cart> cartList = cartRepository.findByPersonId(personDetails.getPerson().getId());
-        List<Product> productList = new ArrayList<>();
-
-        for (Cart cart : cartList)
-            productList.add(productService.getProductId(cart.getProductId()));
-
         cartRepository.deleteCartByProductId(id);
         return "redirect:/cart";
     }
 
     /**
-     * Создания заказа
+     * Оформление заказа
+     * @return представление заказов
      */
-
     @GetMapping("/order/create")
     public String order() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -293,10 +285,10 @@ public class MainController {
             productList.add(productService.getProductId(cart.getProductId()));
         }
 
-        float price = 0;
+/*        float price = 0;
         for (Product product : productList) {
             price += product.getPrice();
-        }
+        }*/
 
         String uuid = UUID.randomUUID().toString();
         for (Product product : productList) {

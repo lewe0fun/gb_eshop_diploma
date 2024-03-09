@@ -59,7 +59,7 @@ public class PersonService {
 
     @Transactional
     public void changePassword(int id, String password) {
-        personRepository.updatePersonById(id, passwordEncoder.encode(password));
+        personRepository.changePasswordPersonById(id, passwordEncoder.encode(password));
     }
 
     public List<Person> getAllPersons() {

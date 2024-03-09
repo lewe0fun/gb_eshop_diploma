@@ -7,7 +7,9 @@ import ru.gb.eshop.gb_eshop.models.Product;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Репозиторий продуктов
+ */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 

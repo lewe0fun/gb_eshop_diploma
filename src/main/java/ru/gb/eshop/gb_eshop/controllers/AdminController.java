@@ -137,7 +137,7 @@ public class AdminController {
             Image image = new Image();
             image.setProduct(product);
             image.setFileName(fileName);
-            product.updateImageProduct(image);
+            product.addImageProduct(image);
         }
     }
 
@@ -197,7 +197,6 @@ public class AdminController {
      */
     @GetMapping("/person")
     public String person(Model model) {
-        ;
         model.addAttribute("person", personService.getAllPerson());
         return "person/person";
     }

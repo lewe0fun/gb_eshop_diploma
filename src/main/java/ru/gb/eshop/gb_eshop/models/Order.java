@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import ru.gb.eshop.gb_eshop.enums.Status;
 
 import java.time.LocalDateTime;
+/**
+ * Класс сущности заказ
+ */
 @Data
 @NoArgsConstructor
 @Entity

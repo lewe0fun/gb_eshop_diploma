@@ -37,18 +37,40 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Метод возвращает представление со всеми товарами
+     * @param model модель
+     * @return представление со всеми товарами
+     */
     @GetMapping("")
     public String getAllProduct(Model model) {
         model.addAttribute("products", productService.getAllProduct());
         return "/product/product";
     }
 
+    /**
+     * Метод возвращает представление с инфой о товаре
+     * @param id id товара
+     * @param model модель
+     * @return представление с инфой о товаре
+     */
     @GetMapping("/info/{id}")
     public String infoProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.getProductId(id));
         return "/product/infoProduct";
     }
 
+    /**
+     * Метод поиска товаров по параметрам
+     *
+     * @param search   ключевое слово для поиска
+     * @param ot       нижний передел цены
+     * @param Do       верхний предел цены
+     * @param price    цена
+     * @param category категория товара
+     * @param model    модель
+     * @return представление страницы с найденными товарами
+     */
     @PostMapping("/search")
     public String productSearch(@RequestParam("search") String search,
                                 @RequestParam("ot") String ot,

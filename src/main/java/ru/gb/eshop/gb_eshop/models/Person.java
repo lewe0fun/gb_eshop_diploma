@@ -10,6 +10,9 @@ import ru.gb.eshop.gb_eshop.enums.Role;
 
 import java.util.List;
 import java.util.Objects;
+/**
+ * Класс сущности пользователь
+ */
 @Data
 @NoArgsConstructor
 @Entity
