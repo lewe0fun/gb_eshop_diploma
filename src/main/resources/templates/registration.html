@@ -7,32 +7,50 @@
 </head>
 <body>
 
-<h3>Регистрация</h3>
+  <div class="registr_big_block">
+   <div class="registr_big_block_white">
 
-<div class="headerMenu">
-  <ul class="navigation">
-    <div>
-      <a th:href="@{/product}">
-        <img class="logo" th:src="@{/images/logo.png}">
-      </a>
-    </div>
-    <li><a href="/login">Авторизация</a></li>
-    <li><a href="/product">Каталог</a></li>
-  </ul>
+     <div class="registr_big_block_logo">
+       <a class="logo_ss" href="/product">
+         <img class="logo_new" th:src="@{/images/orig.jpg}">
+       </a>
+     </div>
+
+
+     <div class="registr_block">
+       <h2>Регистрация</h2>
+     </div>
+
+
+     <div class="registr_input">
+       <form method="post" th:actioin="@{/registration}" th:object="${person}">
+         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+         <label class="lab_usname" for="login">Введите логин: </label>
+         <input type="text" th:field="*{login}" id="login">
+         <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+         <br>
+         <label for="password">Введите пароль: </label>
+         <input type="password" th:field="*{password}" id="password">
+         <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+         <br>
+         <br>
+         <button type="submit">Зарегистрироваться</button>
+       </form>
+     </div>
+
+     <div class="registr_big_block_h5">
+       <h5>У Вас уже есть аккаунт?</h5>
+     </div>
+
+     <div class="registr_big_block_reg">
+       <form method="GET" th:actioin="@{/authentication}">
+         <a class="registr_big_block_but" href="/authentication">Вход</a>
+       </form>
+
+     </div>
+
+  </div>
 </div>
-
-<form method="post" th:actioin="@{/registration}" th:object="${person}">
-  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-  <label for="login">Введите логин: </label>
-  <input type="text" th:field="*{login}" id="login">
-  <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
-  <br>
-  <label for="password">Введите пароль: </label>
-  <input type="password" th:field="*{password}" id="password">
-  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-  <br>
-  <button type="submit">Зарегистрироваться</button>
-</form>
 
 </body>
 </html>
