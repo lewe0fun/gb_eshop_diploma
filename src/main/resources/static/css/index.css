@@ -265,6 +265,12 @@ button:hover{
     width: 100px;
 }
 
+.logo_ss{
+    width: 100px;
+     border: none;
+     background: none
+}
+
 .logo_block{
     display: flex;
     flex-wrap: wrap;

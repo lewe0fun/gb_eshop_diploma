@@ -70,6 +70,12 @@ public class MainController {
         this.orderRepository = orderRepository;
     }
 
+    /**
+     * Метод возвращающий представление страницы пользователя
+     *
+     * @param model
+     * @return представление страницы пользователя
+     */
     @GetMapping("/userPage")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -77,7 +83,6 @@ public class MainController {
         Person person = personDetails.getPerson();
         model.addAttribute("person", person);
         Role role = person.getRole();
-        Product product = new Product();
         List<Product> products = productService.getAllProduct();
         for (Product prod : products) {
             boolean q = prod.getImageList().get(0).getFileName().contains("demo");
@@ -89,11 +94,24 @@ public class MainController {
         return "/user/userPage";
     }
 
+    /**
+     * Метод возвращающий представление страницы регистрации нового пользователя в модели
+     *
+     * @param person новый пользователь
+     * @return представление страницы регистрации
+     */
     @GetMapping("/registration")
     public String registration(@ModelAttribute("person") Person person) {
         return "registration";
     }
 
+    /**
+     * Метод регистрации нового пользователя
+     *
+     * @param person        пользователь с формы
+     * @param bindingResult ошибки валидации
+     * @return перенаправление в ЛК
+     */
     @PostMapping("/registration")
     public String resultRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         personValidator.validate(person, bindingResult);
@@ -104,12 +122,30 @@ public class MainController {
         return "redirect:/personalAccount";
     }
 
+    /**
+     * Метод возвращающий представление страницы товара
+     *
+     * @param id    id товара
+     * @param model модель
+     * @return представление страницы товара
+     */
     @GetMapping("/personalAccount/product/info/{id}")
     public String infoProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.getProductId(id));
         return "/user/infoProduct";
     }
 
+    /**
+     * Метод поиска товаров по параметрам
+     *
+     * @param search   ключевое слово для поиска
+     * @param ot       нижний передел цены
+     * @param Do       верхний предел цены
+     * @param price    цена
+     * @param category категория товара
+     * @param model    модель
+     * @return представление страницы с найденными товарами
+     */
     @PostMapping("/personalAccount/product/search")
     public String productSearch(@RequestParam("search") String search,
                                 @RequestParam("ot") String ot,
@@ -179,36 +215,38 @@ public class MainController {
         return "/product/product";
     }
 
+    /**
+     * Метод добавления товара в корзину
+     *
+     * @param id    id товара
+     * @param model модель
+     * @return перенаправление на корзину пользователя
+     */
     @GetMapping("/cart/add/{id}")
     public String addProductInCart(@PathVariable("id") int id, Model model) {
-        // Получаем продукт по id
         Product product = productService.getProductId(id);
-        // Извлекаем объект аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
-        int id_person = personDetails.getPerson().getId();
-        Cart cart = new Cart(id_person, product.getId());
-        cartRepository.save(cart);
+        cartRepository.save(new Cart(personDetails.getPerson().getId(), product.getId()));
         return "redirect:/cart";
     }
 
+    /**
+     * Метод отображения корзины пользователя
+     *
+     * @param model модель
+     * @return
+     */
     @GetMapping("/cart")
     public String cart(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
         int id_person = personDetails.getPerson().getId();
-
         List<Cart> cartList = cartRepository.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
-
-        // Получаем продукты из корзины по id товара
-        for (Cart cart : cartList) {
+        for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
-        }
 
-        // Вычисление итоговой цена
         float price = 0;
         for (Product product : productList) {
             price += product.getPrice();
@@ -219,19 +257,22 @@ public class MainController {
         return "/user/cart";
     }
 
+    /**
+     * Метод удаления товара из корзины
+     *
+     * @param id id товара
+     * @return
+     */
     @GetMapping("/cart/delete/{id}")
-    public String deleteProductFromCart(Model model, @PathVariable("id") int id) {
+    public String removeProductFromCart(@PathVariable("id") int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
-        int id_person = personDetails.getPerson().getId();
-        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        List<Cart> cartList = cartRepository.findByPersonId(personDetails.getPerson().getId());
         List<Product> productList = new ArrayList<>();
 
-        // Получаем продукты из корзины по id товара
-        for (Cart cart : cartList) {
+        for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
-        }
+
         cartRepository.deleteCartByProductId(id);
         return "redirect:/cart";
     }
@@ -267,7 +308,10 @@ public class MainController {
     }
 
     /**
-     * Получение списка заказов авторизованного пользователя
+     * Метод получение списка заказов авторизованного пользователя
+     *
+     * @param model модель
+     * @return представление заказов
      */
 
     @GetMapping("/orders")

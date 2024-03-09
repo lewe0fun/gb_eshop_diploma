@@ -6,10 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * Контроллер аутентификации
  */
+
 @Controller
 public class LoginController {
+
+    /**
+     * Метод получение страницы логина
+     *
+     * @return представление страницы логина
+     */
     @GetMapping("/login")
-    public String auth(){
+    public String auth() {
         return "login";
     }
 }
