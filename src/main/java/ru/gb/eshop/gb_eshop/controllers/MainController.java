@@ -16,10 +16,10 @@ import ru.gb.eshop.gb_eshop.models.Cart;
 import ru.gb.eshop.gb_eshop.models.Order;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.models.Product;
-import ru.gb.eshop.gb_eshop.repositories.CartRepository;
-import ru.gb.eshop.gb_eshop.repositories.OrderRepository;
 import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
 import ru.gb.eshop.gb_eshop.security.PersonDetails;
+import ru.gb.eshop.gb_eshop.services.CartService;
+import ru.gb.eshop.gb_eshop.services.OrderService;
 import ru.gb.eshop.gb_eshop.services.PersonService;
 import ru.gb.eshop.gb_eshop.services.ProductService;
 import ru.gb.eshop.gb_eshop.util.PersonValidator;
@@ -38,8 +38,8 @@ public class MainController {
     private final PersonValidator personValidator;
     private final PersonService personService;
     private final ProductService productService;
-    private final CartRepository cartRepository;
-    private final OrderRepository orderRepository;
+    private final CartService cartService;
+    private final OrderService orderService;
     @Value("${category.1}")
     private String CATEGORY1;
     @Value("${category.2}")
@@ -61,13 +61,13 @@ public class MainController {
 
     @Autowired
     public MainController(ProductRepository productRepository, PersonValidator personValidator, PersonService personService,
-                          ProductService productService, CartRepository cartRepository, OrderRepository orderRepository) {
+                          ProductService productService, CartService cartService, OrderService orderService) {
         this.productRepository = productRepository;
         this.personValidator = personValidator;
         this.personService = personService;
         this.productService = productService;
-        this.cartRepository = cartRepository;
-        this.orderRepository = orderRepository;
+        this.cartService = cartService;
+        this.orderService = orderService;
     }
 
     /**
@@ -227,7 +227,7 @@ public class MainController {
         Product product = productService.getProductId(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        cartRepository.save(new Cart(personDetails.getPerson().getId(), product.getId()));
+        cartService.save(new Cart(personDetails.getPerson().getId(), product.getId()));
         return "redirect:/cart";
     }
 
@@ -242,7 +242,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         int id_person = personDetails.getPerson().getId();
-        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        List<Cart> cartList = cartService.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
         for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
@@ -265,7 +265,7 @@ public class MainController {
      */
     @GetMapping("/cart/delete/{id}")
     public String removeProductFromCart(@PathVariable("id") int id) {
-        cartRepository.deleteCartByProductId(id);
+        cartService.deleteCartByProductId(id);
         return "redirect:/cart";
     }
 
@@ -278,7 +278,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         int id_person = personDetails.getPerson().getId();
-        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        List<Cart> cartList = cartService.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
 
         for (Cart cart : cartList) {
@@ -293,8 +293,8 @@ public class MainController {
         String uuid = UUID.randomUUID().toString();
         for (Product product : productList) {
             Order newOrder = new Order(uuid, product, personDetails.getPerson(), 1, product.getPrice(), Status.WAITING);
-            orderRepository.save(newOrder);
-            cartRepository.deleteCartByProductId(product.getId());
+            orderService.save(newOrder);
+            cartService.deleteCartByProductId(product.getId());
         }
         return "redirect:/orders";
     }
@@ -310,7 +310,7 @@ public class MainController {
     public String orderUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        List<Order> orderList = orderRepository.findByPerson(personDetails.getPerson());
+        List<Order> orderList = orderService.findByPerson(personDetails.getPerson());
         model.addAttribute("orders", orderList);
         return "/user/orders";
     }

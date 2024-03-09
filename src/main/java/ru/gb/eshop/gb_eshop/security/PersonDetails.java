@@ -10,6 +10,9 @@ import ru.gb.eshop.gb_eshop.models.Person;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Класс информации о пользователе
+ */
 public class PersonDetails implements UserDetails {
     private final Person person;
 
@@ -24,7 +27,6 @@ public class PersonDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(person.getRole().toString()));
     }
-
     @Override
     public String getPassword() {
         return this.person.getPassword();
@@ -35,25 +37,21 @@ public class PersonDetails implements UserDetails {
         return this.person.getLogin();
     }
 
-    // Метод проверяет то, что аккаунт действителен
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    // Метод проверяет то, что аккаунт не заблокирован
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    // Метод проверяет то, что пароль является действительным
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    // Метод проверяет то, что аккаунт активен
     @Override
     public boolean isEnabled() {
         return true;

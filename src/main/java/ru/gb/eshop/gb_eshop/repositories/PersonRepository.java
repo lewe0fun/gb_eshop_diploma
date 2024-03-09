@@ -20,7 +20,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     Optional<Person> findByLogin(String login);
 
     /**
-     * Метод обновления пользователя
+     * Метод обновления пользователя (в разработке)
      * @param id id пользователя
      * @param password пароль пользователя
      */

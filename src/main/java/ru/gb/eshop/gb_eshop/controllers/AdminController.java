@@ -96,7 +96,7 @@ public class AdminController {
      * @param image3        файл картинки товара
      * @param image4        файл картинки товара
      * @param image5        файл картинки товара
-     * @param category      категория товара
+     * @param category_id      категория товара
      * @param model         модель
      * @throws IOException
      */
@@ -109,10 +109,10 @@ public class AdminController {
                              @RequestParam("image3") MultipartFile image3,
                              @RequestParam("image4") MultipartFile image4,
                              @RequestParam("image5") MultipartFile image5,
-                             @RequestParam("category") int category,
+                             //@RequestParam("category") int category_id,
                              Model model) throws IOException {
-        Category category_db = categoryRepository.findById(category)
-                .orElseThrow(() -> new EntityNotFoundException("category not found"));
+/*        Category category_db = categoryRepository.findById(category_id)
+                .orElseThrow(() -> new EntityNotFoundException("category not found"));*/
         productValidator.validate(product, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("category", categoryRepository.findAll());
@@ -123,7 +123,7 @@ public class AdminController {
         setImageToProduct(image3, product);
         setImageToProduct(image4, product);
         setImageToProduct(image5, product);
-        productService.saveProduct(product, category_db);
+        productService.saveProduct(product);
         return "redirect:/admin";
     }
 
