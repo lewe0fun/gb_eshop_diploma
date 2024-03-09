@@ -7,49 +7,46 @@
 </head>
 <body>
 
-<!--!!!!!!!-->
-
-<div class="registr_big_block">
-  <div class="registr_big_block_white">
-    <div class="registr_big_block_logo">
-      <a class="logo_ss" href="/product">
-        <img class="logo_new" th:src="@{/images/orig.jpg}">
-      </a>
-    </div>
+  <div class="registr_big_block">
+    <div class="registr_big_block_white">
+      <div class="registr_big_block_logo">
+        <a class="logo_ss" href="/product">
+          <img class="logo_new" th:src="@{/images/orig.jpg}">
+        </a>
+      </div>
 
 
-    <div class="registr_block">
-      <h2>Вход в личный кабинет</h2>
-    </div>
+      <div class="registr_block">
+        <h2>Вход в личный кабинет</h2>
+      </div>
 
-    <div class="registr_input">
-      <form method="post" action="/process_login">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <label class="lab_usname" for="username">Введите логин: </label>
-        <input type="text" placeholder="Введите логин" name="username" id="username">
-        <br>
-        <label for="password">Введите пароль: </label>
-        <input type="password" placeholder="Введите пароль" name="password" id="password">
-        <br>
-        <br>
-        <br>
-        <button type="submit">Войти</button>
-      </form>
-    </div>
+      <div class="registr_input">
+        <form method="post" action="/loginProcess">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+          <label class="lab_usname" for="username">Введите логин: </label>
+          <input type="text" placeholder="Введите логин" name="username" id="username">
+          <br>
+          <label for="password">Введите пароль: </label>
+          <input type="password" placeholder="Введите пароль" name="password" id="password">
+          <br>
+          <br>
+          <br>
+          <button type="submit">Войти</button>
+        </form>
+      </div>
 
-    <div class="registr_big_block_h5">
-      <h5>У Вас нет учетной записи?</h5>
-    </div>
+      <div class="registr_big_block_h5">
+        <h5>У Вас нет учетной записи?</h5>
+      </div>
 
-    <div class="registr_big_block_reg">
-      <form method="GET" th:actioin="@{/registration}">
-        <a class="registr_big_block_but" href="/registration">Регистрация</a>
-      </form>
+      <div class="registr_big_block_reg">
+        <form method="GET" th:actioin="@{/registration}">
+          <a class="registr_big_block_but" href="/registration">Регистрация</a>
+        </form>
 
+      </div>
     </div>
   </div>
-</div>
-
 
 
 <div th:if="${param.error}" style="color: red">
