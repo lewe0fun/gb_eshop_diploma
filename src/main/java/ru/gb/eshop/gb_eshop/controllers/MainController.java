@@ -17,7 +17,6 @@ import ru.gb.eshop.gb_eshop.models.Order;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.models.Product;
 import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
-import ru.gb.eshop.gb_eshop.security.PersonDetails;
 import ru.gb.eshop.gb_eshop.services.CartService;
 import ru.gb.eshop.gb_eshop.services.OrderService;
 import ru.gb.eshop.gb_eshop.services.PersonService;
@@ -79,14 +78,9 @@ public class MainController {
     @GetMapping("/userPage")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        Person person = personDetails.getPerson();
+        Person person = (Person) authentication.getPrincipal();
         model.addAttribute("person", person);
         Role role = person.getRole();
-        List<Product> products = productService.getAllProduct();
-        for (Product prod : products) {
-            boolean q = prod.getImageList().get(0).getFileName().contains("demo");
-        }
         if (role == Role.ROLE_ADMIN) {
             return "redirect:/admin";
         }
@@ -219,15 +213,14 @@ public class MainController {
      * Метод добавления товара в корзину
      *
      * @param id    id товара
-     * @param model модель
      * @return перенаправление на корзину пользователя
      */
     @GetMapping("/cart/add/{id}")
-    public String addProductInCart(@PathVariable("id") int id, Model model) {
+    public String addProductInCart(@PathVariable("id") int id) {
         Product product = productService.getProductId(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        cartService.save(new Cart(personDetails.getPerson().getId(), product.getId()));
+        Person person = (Person) authentication.getPrincipal();
+        cartService.save(new Cart(person.getId(), product.getId()));
         return "redirect:/cart";
     }
 
@@ -240,8 +233,8 @@ public class MainController {
     @GetMapping("/cart")
     public String cart(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        int id_person = personDetails.getPerson().getId();
+        Person person = (Person) authentication.getPrincipal();
+        int id_person = person.getId();
         List<Cart> cartList = cartService.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
         for (Cart cart : cartList)
@@ -276,8 +269,8 @@ public class MainController {
     @GetMapping("/order/create")
     public String order() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        int id_person = personDetails.getPerson().getId();
+        Person person = (Person) authentication.getPrincipal();
+        int id_person = person.getId();
         List<Cart> cartList = cartService.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
 
@@ -292,7 +285,7 @@ public class MainController {
 
         String uuid = UUID.randomUUID().toString();
         for (Product product : productList) {
-            Order newOrder = new Order(uuid, product, personDetails.getPerson(), 1, product.getPrice(), Status.WAITING);
+            Order newOrder = new Order(uuid, product, person, 1, product.getPrice(), Status.WAITING);
             orderService.save(newOrder);
             cartService.deleteCartByProductId(product.getId());
         }
@@ -309,8 +302,8 @@ public class MainController {
     @GetMapping("/orders")
     public String orderUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        List<Order> orderList = orderService.findByPerson(personDetails.getPerson());
+        Person person = (Person) authentication.getPrincipal();
+        List<Order> orderList = orderService.findByPerson(person);
         model.addAttribute("orders", orderList);
         return "/user/orders";
     }

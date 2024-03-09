@@ -1,7 +1,6 @@
 package ru.gb.eshop.gb_eshop.controllers;
 
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gb.eshop.gb_eshop.enums.Role;
 import ru.gb.eshop.gb_eshop.enums.Status;
-import ru.gb.eshop.gb_eshop.models.*;
+import ru.gb.eshop.gb_eshop.models.Image;
+import ru.gb.eshop.gb_eshop.models.Order;
+import ru.gb.eshop.gb_eshop.models.Person;
+import ru.gb.eshop.gb_eshop.models.Product;
 import ru.gb.eshop.gb_eshop.repositories.CategoryRepository;
 import ru.gb.eshop.gb_eshop.repositories.OrderRepository;
-import ru.gb.eshop.gb_eshop.security.PersonDetails;
 import ru.gb.eshop.gb_eshop.services.OrderService;
 import ru.gb.eshop.gb_eshop.services.PersonService;
 import ru.gb.eshop.gb_eshop.services.ProductService;
@@ -63,13 +64,11 @@ public class AdminController {
     @GetMapping()
     public String admin(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        Person person = personDetails.getPerson();
+        Person person = (Person) authentication.getPrincipal();
         model.addAttribute("person", person);
         Role role = person.getRole();
         if (role == Role.ROLE_USER)
             return "redirect:/userPage";
-
         model.addAttribute("products", productService.getAllProduct());
         model.addAttribute("persons", personService.getAllPersons());
         model.addAttribute("orders", orderService.getAllOrders());
@@ -96,7 +95,6 @@ public class AdminController {
      * @param image3        файл картинки товара
      * @param image4        файл картинки товара
      * @param image5        файл картинки товара
-     * @param category_id      категория товара
      * @param model         модель
      * @throws IOException
      */
@@ -109,10 +107,7 @@ public class AdminController {
                              @RequestParam("image3") MultipartFile image3,
                              @RequestParam("image4") MultipartFile image4,
                              @RequestParam("image5") MultipartFile image5,
-                             //@RequestParam("category") int category_id,
                              Model model) throws IOException {
-/*        Category category_db = categoryRepository.findById(category_id)
-                .orElseThrow(() -> new EntityNotFoundException("category not found"));*/
         productValidator.validate(product, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("category", categoryRepository.findAll());
