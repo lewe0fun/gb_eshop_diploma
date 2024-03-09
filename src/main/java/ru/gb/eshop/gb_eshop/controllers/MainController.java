@@ -16,10 +16,9 @@ import ru.gb.eshop.gb_eshop.models.Cart;
 import ru.gb.eshop.gb_eshop.models.Order;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.models.Product;
-import ru.gb.eshop.gb_eshop.repositories.CartRepository;
-import ru.gb.eshop.gb_eshop.repositories.OrderRepository;
 import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
-import ru.gb.eshop.gb_eshop.security.PersonDetails;
+import ru.gb.eshop.gb_eshop.services.CartService;
+import ru.gb.eshop.gb_eshop.services.OrderService;
 import ru.gb.eshop.gb_eshop.services.PersonService;
 import ru.gb.eshop.gb_eshop.services.ProductService;
 import ru.gb.eshop.gb_eshop.util.PersonValidator;
@@ -38,8 +37,8 @@ public class MainController {
     private final PersonValidator personValidator;
     private final PersonService personService;
     private final ProductService productService;
-    private final CartRepository cartRepository;
-    private final OrderRepository orderRepository;
+    private final CartService cartService;
+    private final OrderService orderService;
     @Value("${category.1}")
     private String CATEGORY1;
     @Value("${category.2}")
@@ -58,30 +57,31 @@ public class MainController {
     private final String VALUE_SEARCH = "value_search";
     private final String PRISE_OT = "value_price_ot";
     private final String PRISE_DO = "value_price_do";
+    private final String PRODUCTS = "products";
 
     @Autowired
     public MainController(ProductRepository productRepository, PersonValidator personValidator, PersonService personService,
-                          ProductService productService, CartRepository cartRepository, OrderRepository orderRepository) {
+                          ProductService productService, CartService cartService, OrderService orderService) {
         this.productRepository = productRepository;
         this.personValidator = personValidator;
         this.personService = personService;
         this.productService = productService;
-        this.cartRepository = cartRepository;
-        this.orderRepository = orderRepository;
+        this.cartService = cartService;
+        this.orderService = orderService;
     }
 
+    /**
+     * Метод возвращающий представление страницы пользователя
+     *
+     * @param model модель
+     * @return представление страницы пользователя
+     */
     @GetMapping("/userPage")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        Person person = personDetails.getPerson();
+        Person person = (Person) authentication.getPrincipal();
         model.addAttribute("person", person);
         Role role = person.getRole();
-        Product product = new Product();
-        List<Product> products = productService.getAllProduct();
-        for (Product prod : products) {
-            boolean q = prod.getImageList().get(0).getFileName().contains("demo");
-        }
         if (role == Role.ROLE_ADMIN) {
             return "redirect:/admin";
         }
@@ -89,11 +89,24 @@ public class MainController {
         return "/user/userPage";
     }
 
+    /**
+     * Метод возвращающий представление страницы регистрации нового пользователя в модели
+     *
+     * @param person новый пользователь
+     * @return представление страницы регистрации
+     */
     @GetMapping("/registration")
     public String registration(@ModelAttribute("person") Person person) {
         return "registration";
     }
 
+    /**
+     * Метод регистрации нового пользователя
+     *
+     * @param person        пользователь с формы
+     * @param bindingResult ошибки валидации
+     * @return перенаправление в ЛК
+     */
     @PostMapping("/registration")
     public String resultRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         personValidator.validate(person, bindingResult);
@@ -104,36 +117,59 @@ public class MainController {
         return "redirect:/personalAccount";
     }
 
+    /**
+     * Метод возвращающий представление страницы товара
+     *
+     * @param id    id товара
+     * @param model модель
+     * @return представление страницы товара
+     */
     @GetMapping("/personalAccount/product/info/{id}")
     public String infoProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.getProductId(id));
         return "/user/infoProduct";
     }
 
+    /**
+     * Метод поиска товаров по параметрам
+     *
+     * @param search   ключевое слово для поиска
+     * @param ot       нижний передел цены
+     * @param Do       верхний предел цены
+     * @param price    цена
+     * @param category категория товара
+     * @param model    модель
+     * @return представление страницы с найденными товарами
+     */
     @PostMapping("/personalAccount/product/search")
-    public String productSearch(@RequestParam("search") String search,
+    public String productSearch(@RequestParam(value = "search", required = false, defaultValue = "") String search,
                                 @RequestParam("ot") String ot,
                                 @RequestParam("do") String Do,
                                 @RequestParam(value = "price", required = false, defaultValue = "") String price,
-                                @RequestParam(value = "category", required = false, defaultValue = "") String category, Model model) {
-        model.addAttribute("products", productService.getAllProduct());
-
+                                @RequestParam(value = "category", required = false, defaultValue = "") String category,
+                                Model model) {
         if (!ot.isEmpty() & !Do.isEmpty()) {
             if (!price.isEmpty()) {
                 if (price.equals(SEARCH_ASC)) {
                     if (!category.isEmpty()) {
                         if (category.equals(CATEGORY1)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
                         } else if (category.equals(CATEGORY2)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
                         } else if (category.equals(CATEGORY3)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
                         } else if (category.equals(CATEGORY4)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 4));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 4));
                         } else if (category.equals(CATEGORY5)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 5));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 5));
                         } else if (category.equals(CATEGORY6)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
                         }
                     } else {
                         model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
@@ -141,26 +177,100 @@ public class MainController {
                 } else if (price.equals(SEARCH_DES)) {
                     if (!category.isEmpty()) {
                         if (category.equals(CATEGORY1)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 1));
                         } else if (category.equals(CATEGORY2)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 2));
                         } else if (category.equals(CATEGORY3)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 3));
                         } else if (category.equals(CATEGORY4)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 4));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 4));
                         } else if (category.equals(CATEGORY5)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 5));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 5));
                         } else if (category.equals(CATEGORY6)) {
-                            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
                         }
                     } else {
-                        model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
                     }
                 }
             } else {
-                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
+                model.addAttribute(SEARCH_PRODUCT, productRepository
+                        .findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
             }
-        } else {
+        }
+        if (!price.isEmpty()) {
+            if (price.equals(SEARCH_ASC)) {
+                if (!category.isEmpty()) {
+                    if (category.equals(CATEGORY1)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 1));
+                    } else if (category.equals(CATEGORY2)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 2));
+                    } else if (category.equals(CATEGORY3)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 3));
+                    } else if (category.equals(CATEGORY4)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 4));
+                    } else if (category.equals(CATEGORY5)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 5));
+                    } else if (category.equals(CATEGORY6)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 6));
+                    }
+                } else {
+                    model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleOrderByPriceAsc(search.toLowerCase()));
+                }
+            } else if (price.equals(SEARCH_DES)) {
+                if (!category.isEmpty()) {
+                    if (category.equals(CATEGORY1)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 1));
+                    } else if (category.equals(CATEGORY2)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 2));
+                    } else if (category.equals(CATEGORY3)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 3));
+                    } else if (category.equals(CATEGORY4)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 4));
+                    } else if (category.equals(CATEGORY5)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 5));
+                    } else if (category.equals(CATEGORY6)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 6));
+                    }
+                } else {
+                    model.addAttribute(SEARCH_PRODUCT, productRepository
+                            .findByTitleOrderByPriceDesc(search.toLowerCase()));
+                }
+            }
+        } else if (!category.isEmpty()) {//только категории
+            if (category.equals(CATEGORY1)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 1));
+            } else if (category.equals(CATEGORY2)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 2));
+            } else if (category.equals(CATEGORY3)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 3));
+            } else if (category.equals(CATEGORY4)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 4));
+            } else if (category.equals(CATEGORY5)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 5));
+            } else if (category.equals(CATEGORY6)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 6));
+            }
+        } else {// всв товары
             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search));
         }
 
@@ -175,40 +285,41 @@ public class MainController {
         model.addAttribute(CATEGORY4, category);
         model.addAttribute(CATEGORY5, category);
         model.addAttribute(CATEGORY6, category);
-        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
     }
 
+    /**
+     * Метод добавления товара в корзину
+     *
+     * @param id id товара
+     * @return перенаправление на корзину пользователя
+     */
     @GetMapping("/cart/add/{id}")
-    public String addProductInCart(@PathVariable("id") int id, Model model) {
-        // Получаем продукт по id
+    public String addProductInCart(@PathVariable("id") int id) {
         Product product = productService.getProductId(id);
-        // Извлекаем объект аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
-        int id_person = personDetails.getPerson().getId();
-        Cart cart = new Cart(id_person, product.getId());
-        cartRepository.save(cart);
+        Person person = (Person) authentication.getPrincipal();
+        cartService.save(new Cart(person.getId(), product.getId()));
         return "redirect:/cart";
     }
 
+    /**
+     * Метод отображения корзины пользователя
+     *
+     * @param model модель
+     * @return корзина
+     */
     @GetMapping("/cart")
     public String cart(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
-        int id_person = personDetails.getPerson().getId();
-
-        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        Person person = (Person) authentication.getPrincipal();
+        int id_person = person.getId();
+        List<Cart> cartList = cartService.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
-
-        // Получаем продукты из корзины по id товара
-        for (Cart cart : cartList) {
+        for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
-        }
 
-        // Вычисление итоговой цена
         float price = 0;
         for (Product product : productList) {
             price += product.getPrice();
@@ -219,62 +330,61 @@ public class MainController {
         return "/user/cart";
     }
 
+    /**
+     * Метод удаления товара из корзины
+     *
+     * @param id id товара
+     * @return перенаправление в корину
+     */
     @GetMapping("/cart/delete/{id}")
-    public String deleteProductFromCart(Model model, @PathVariable("id") int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        // Извлекаем id пользователя из объекта
-        int id_person = personDetails.getPerson().getId();
-        List<Cart> cartList = cartRepository.findByPersonId(id_person);
-        List<Product> productList = new ArrayList<>();
-
-        // Получаем продукты из корзины по id товара
-        for (Cart cart : cartList) {
-            productList.add(productService.getProductId(cart.getProductId()));
-        }
-        cartRepository.deleteCartByProductId(id);
+    public String removeProductFromCart(@PathVariable("id") int id) {
+        cartService.deleteCartByProductId(id);
         return "redirect:/cart";
     }
 
     /**
-     * Создания заказа
+     * Оформление заказа
+     *
+     * @return представление заказов
      */
-
     @GetMapping("/order/create")
     public String order() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        int id_person = personDetails.getPerson().getId();
-        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        Person person = (Person) authentication.getPrincipal();
+        int id_person = person.getId();
+        List<Cart> cartList = cartService.findByPersonId(id_person);
         List<Product> productList = new ArrayList<>();
 
         for (Cart cart : cartList) {
             productList.add(productService.getProductId(cart.getProductId()));
         }
 
-        float price = 0;
+/*        float price = 0;
         for (Product product : productList) {
             price += product.getPrice();
-        }
+        }*/
 
         String uuid = UUID.randomUUID().toString();
         for (Product product : productList) {
-            Order newOrder = new Order(uuid, product, personDetails.getPerson(), 1, product.getPrice(), Status.WAITING);
-            orderRepository.save(newOrder);
-            cartRepository.deleteCartByProductId(product.getId());
+            Order newOrder = new Order(uuid, product, person, 1, product.getPrice(), Status.WAITING);
+            orderService.save(newOrder);
+            cartService.deleteCartByProductId(product.getId());
         }
         return "redirect:/orders";
     }
 
     /**
-     * Получение списка заказов авторизованного пользователя
+     * Метод получение списка заказов авторизованного пользователя
+     *
+     * @param model модель
+     * @return представление заказов
      */
 
     @GetMapping("/orders")
     public String orderUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        List<Order> orderList = orderRepository.findByPerson(personDetails.getPerson());
+        Person person = (Person) authentication.getPrincipal();
+        List<Order> orderList = orderService.findByPerson(person);
         model.addAttribute("orders", orderList);
         return "/user/orders";
     }

@@ -31,32 +31,60 @@ public class ProductController {
     private final String SEARCH_PRODUCT = "search_product";
     private final String SEARCH_ASC = "sorted_by_ascending_price";
     private final String SEARCH_DES = "sorted_by_descending_price";
+    private final String VALUE_SEARCH = "value_search";
+    private final String PRISE_OT = "value_price_ot";
+    private final String PRISE_DO = "value_price_do";
+    private final String PRODUCTS = "products";
+    private final String PRODUCT = "product";
 
     public ProductController(ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
         this.productRepository = productRepository;
     }
 
+    /**
+     * Метод возвращает представление со всеми товарами
+     *
+     * @param model модель
+     * @return представление со всеми товарами
+     */
     @GetMapping("")
     public String getAllProduct(Model model) {
-        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
     }
 
+    /**
+     * Метод возвращает представление с инфой о товаре
+     *
+     * @param id    id товара
+     * @param model модель
+     * @return представление с инфой о товаре
+     */
     @GetMapping("/info/{id}")
     public String infoProduct(@PathVariable("id") int id, Model model) {
-        model.addAttribute("product", productService.getProductId(id));
+        model.addAttribute(PRODUCT, productService.getProductId(id));
         return "/product/infoProduct";
     }
 
+    /**
+     * Метод поиска товаров по параметрам
+     *
+     * @param search   ключевое слово для поиска
+     * @param ot       нижний передел цены
+     * @param Do       верхний предел цены
+     * @param price    цена
+     * @param category категория товара
+     * @param model    модель
+     * @return представление страницы с найденными товарами
+     */
     @PostMapping("/search")
-    public String productSearch(@RequestParam("search") String search,
+    public String productSearch(@RequestParam(value = "search", required = false, defaultValue = "") String search,
                                 @RequestParam("ot") String ot,
                                 @RequestParam("do") String Do,
                                 @RequestParam(value = "price", required = false, defaultValue = "") String price,
-                                @RequestParam(value = "category", required = false, defaultValue = "") String category, Model model) {
-        model.addAttribute("products", productService.getAllProduct());
-
+                                @RequestParam(value = "category", required = false, defaultValue = "") String category,
+                                Model model) {
         if (!ot.isEmpty() & !Do.isEmpty()) {
             if (!price.isEmpty()) {
                 if (price.equals(SEARCH_ASC)) {
@@ -113,14 +141,79 @@ public class ProductController {
                 model.addAttribute(SEARCH_PRODUCT, productRepository
                         .findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
             }
-        } else {
-            model.addAttribute(SEARCH_PRODUCT, productRepository
-                    .findByTitleContainingIgnoreCase(search));
+        }
+        if (!price.isEmpty()) {
+            if (price.equals(SEARCH_ASC)) {
+                if (!category.isEmpty()) {
+                    if (category.equals(CATEGORY1)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 1));
+                    } else if (category.equals(CATEGORY2)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 2));
+                    } else if (category.equals(CATEGORY3)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 3));
+                    } else if (category.equals(CATEGORY4)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 4));
+                    } else if (category.equals(CATEGORY5)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 5));
+                    } else if (category.equals(CATEGORY6)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 6));
+                    }
+                } else {
+                    model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleOrderByPriceAsc(search.toLowerCase()));
+                }
+            } else if (price.equals(SEARCH_DES)) {
+                if (!category.isEmpty()) {
+                    if (category.equals(CATEGORY1)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 1));
+                    } else if (category.equals(CATEGORY2)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 2));
+                    } else if (category.equals(CATEGORY3)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 3));
+                    } else if (category.equals(CATEGORY4)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 4));
+                    } else if (category.equals(CATEGORY5)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 5));
+                    } else if (category.equals(CATEGORY6)) {
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 6));
+                    }
+                } else {
+                    model.addAttribute(SEARCH_PRODUCT, productRepository
+                            .findByTitleOrderByPriceDesc(search.toLowerCase()));
+                }
+            }
+        } else if (!category.isEmpty()) {//только категории
+            if (category.equals(CATEGORY1)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 1));
+            } else if (category.equals(CATEGORY2)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 2));
+            } else if (category.equals(CATEGORY3)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 3));
+            } else if (category.equals(CATEGORY4)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 4));
+            } else if (category.equals(CATEGORY5)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 5));
+            } else if (category.equals(CATEGORY6)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 6));
+            }
+        } else {// всв товары
+            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search));
         }
 
-        model.addAttribute("value_search", search);
-        model.addAttribute("value_price_ot", ot);
-        model.addAttribute("value_price_do", Do);
+        model.addAttribute(VALUE_SEARCH, search);
+        model.addAttribute(PRISE_OT, ot);
+        model.addAttribute(PRISE_DO, Do);
         model.addAttribute(SEARCH_ASC, price);
         model.addAttribute(SEARCH_DES, price);
         model.addAttribute(CATEGORY1, category);
@@ -129,20 +222,20 @@ public class ProductController {
         model.addAttribute(CATEGORY4, category);
         model.addAttribute(CATEGORY5, category);
         model.addAttribute(CATEGORY6, category);
-        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
     }
 
     /**
      * Поиск в хедере
+     *
      * @param search ключевое слово
      */
     @PostMapping("/searchHeader")
     public String productSearchHeader(@RequestParam("search") String search, Model model) {
-        model.addAttribute("products", productService.getAllProduct());
         model.addAttribute("search_product_header", productRepository.findByTitleContainingIgnoreCase(search));
         model.addAttribute("value_search", search);
-        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
     }
 }

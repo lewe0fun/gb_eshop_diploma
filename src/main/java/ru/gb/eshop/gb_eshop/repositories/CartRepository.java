@@ -10,11 +10,24 @@ import ru.gb.eshop.gb_eshop.models.Cart;
 
 import java.util.List;
 
+/**
+ * Репозиторий корзин
+ */
 @Transactional
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
+    /**
+     * Метод поиска корзин пользователя по id пользователя
+     *
+     * @param id id пользователя
+     * @return корзины
+     */
     List<Cart> findByPersonId(int id);
 
+    /**
+     * Метод удаления продукта по id
+     * @param id id продукта
+     */
     @Modifying
     @Query(value = "delete from product_cart where product_id=?1", nativeQuery = true)
     void deleteCartByProductId(int id);
