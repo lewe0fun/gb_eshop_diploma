@@ -6,33 +6,81 @@
   <title>Каталог товаров</title>
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<div class="header">
-  <div>
-  <a th:href="@{/product}">
-<img class="logo" th:src="@{/images/logo.png}">
-  </a>
+
+
+<body class="body_user_lc">
+
+
+
+<!--  <div>-->
+<!--  <a th:href="@{/product}">-->
+<!--<img class="logo" th:src="@{/images/logo.png}">-->
+<!--  </a>-->
+<!--  </div>-->
+
+
+<!--  <div class="searchHeader">-->
+<!--    <form th:method="POST" th:action="@{/product/searchHeader}">-->
+<!--    <input type="text" id="searchHeader" name="search" th:value="*{value_search}">-->
+<!--      <button type="submit">Найти</button>-->
+<!--    </form>-->
+<!--  </div>-->
+
+
+<!--  <div class="headerMenu">-->
+<!--    <ul class="navigation">-->
+<!--      <div></div>-->
+<!--      <li><a href="/login">Авторизация</a></li>-->
+<!--      <li><a href="/registration">Регистрация</a></li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+
+  <div class="header_user_lc">
+
+    <div class="header_user_lc_logo">
+      <a class="logo_ss" href="/product">
+        <img class="logo_new" th:src="@{/images/orig.jpg}">
+      </a>
+    </div>
+
+    <div class="header_search">
+      <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
+        <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
+        <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}"></button>
+      </form>
+    </div>
+
+    <div class="header_user_lc_block">
+
+      <div class="header_user_lc_orders">
+        <a class="orders_ss" href="/orders">
+          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
+        </a>
+      </div>
+
+      <div class="header_user_lc_basket">
+        <a class="basket_ss" href="/cart">
+          <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
+        </a>
+      </div>
+
+      <div class="header_user_lc_auth">
+        <a class="user_auth" href="/login">
+          <img class="user_auth_img" th:src="@{/images/profile-1336-svgrepo-com.svg}">
+        </a>
+      </div>
+
+    </div>
+
+
   </div>
 
 
-  <div class="searchHeader">
-    <form th:method="POST" th:action="@{/product/searchHeader}">
-    <input type="text" id="searchHeader" name="search" th:value="*{value_search}">
-      <button type="submit">Найти</button>
-    </form>
-  </div>
 
 
-  <div class="headerMenu">
-    <ul class="navigation">
-      <div></div>
-      <li><a href="/login">Авторизация</a></li>
-      <li><a href="/registration">Регистрация</a></li>
-    </ul>
-</div>
-</div>
 <a th:href="@{/product/info/31}">
-<img class="banner" th:src="@{/images/banner.jpg}"}>
+  <img class="banner" th:src="@{/images/santehnika_reklama.jpg}"}>
 </a>
 
 
@@ -103,47 +151,48 @@
 <div class="productListDiv">
 <div class="productDiv" th:each="product : ${products}">
   <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-    <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
+    <img class="product_img" th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
     <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" />
   </a>
   <br>
-  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+  <a class="product_name_text" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
   <p th:text="'Цена: ' + ${product.getPrice()}"></p>
   <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
-    <button type="submit">Купить</button><br>
+    <button class="product_btn" type="submit">Купить</button><br>
   </form>
 </div>
 </div>
 <br>
 <hr>
-<div class="footer">
+<div class="footer_product">
+
+
+  <div class="header_user_lc_logo">
+    <a class="logo_ss" href="/product">
+      <img class="logo_new" th:src="@{/images/orig.jpg}">
+    </a>
+  </div>
+
     <div>
+      Информация о характеристиках товара, его наличию и доставке носит<br>
+      исключительно ознакомительный характер и ни при каких условиях<br>
+      не является публичной офертой, определяемой положениями Статьи 437<br>
+      Гражданского кодекса РФ
+    </div>
 
-      <li><a href="/login">Авторизация</a></li>
-      <li><a href="/registration">Регистрация</a></li>
 
-  </div>
-  <div>
-    Информация о характеристиках товара, его наличию и доставке носит<br>
-    исключительно ознакомительный характер и ни при каких условиях<br>
-    не является публичной офертой, определяемой положениями Статьи 437<br>
-    Гражданского кодекса РФ
-  </div>
-  <div>
-    <img class="logoFooter" th:src="@{/images/logo.jpg}">
-  </div>
-<div>
-  ©2023  Интернет-магазин MyStore<br>
-  Дипломная работа Колпакова И.В.<br>
-  Группа: FSJ-3-22
-</div>
-  <div class="goBack">
+    <div>
+      ©2023 Интернет-магазин Сан ТеХ Проф<br>
+      Дипломная работа -----------<br>
+      Группа:---------
+    </div>
+    <div class="goBack">
       <div>
         <form href="#">
           <button type="submit">Наверх</button><br>
         </form>
       </div>
-  </div>
+    </div>
 </div>
 </body>
 </html>

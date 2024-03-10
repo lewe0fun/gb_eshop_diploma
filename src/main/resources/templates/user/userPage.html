@@ -5,113 +5,123 @@
     <title>Главная страница</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<div class="header">
-    <div>
-        <a>
-            <img class="logo" th:src="@{/images/logo.png}">
-        </a>
-    </div>
-    <div class="searchHeader">
-        <form th:method="POST" th:action="@{/product/searchHeader}">
-            <input type="text" id="searchHeader" name="search" th:value="*{value_search}">
-            <button type="submit">Найти</button>
-        </form>
-    </div>
-    <div class="headerMenu">
-        <ul class="navigation">
-            <li><a href="/orders">Мои заказы</a></li>
-            <li><a href="/cart">Корзина</a></li>
-            <li>
-                <form method="post" th:action="@{/logout}">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                    <button type="submit" th:text="'Выйти из ЛК    '+${person.getLogin()}">Выйти из ЛК</button>
-                </form>
-            </li>
-        </ul>
-    </div>
-</div>
 
-<div class="searchPlusBanner">
-    <form th:method="POST" th:action="@{/product/search}">
-        <fieldset>
-            <legend>Выберите параметры для поиска/сортировки/фильтрации:</legend>
-            <label for="search">Поиск по наименованию:</label>
-            <input type="text" id="search" name="search" th:value="*{value_search}">
-            <br>
-            <label for="ot">Цена от:</label>
-            <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
-            <label for="do">Цена до:</label>
-            <input type="text" name="do" id="do" th:value="*{value_price_do}">
-            <br>
-            <div>
-                <p>Сортировка</p>
-                <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
-                <label for="ascending_price">По возрастанию цены</label>
-                <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
-                <label for="descending_price">По убыванию цены</label>
-                <p>Категория товаров:</p>
-                <input type="radio" id="baths" name="category" value="baths">
-                <label for="baths">Ванны</label>
-                <input type="radio" id="sanitary ware" name="category" value="sanitary ware">
-                <label for="sanitary ware">Санфаянс</label>
-                <input type="radio" id="mixers" name="category" value="mixers">
-                <label for="mixers">Смесители</label>
-                <input type="radio" id="shower stalls" name="category" value="shower stalls">
-                <label for="shower stalls">Душевые кабинки</label>
-                <input type="radio" id="kitchen sinks" name="category" value="kitchen sinks">
-                <label for="kitchen sinks">Кухонные мойки</label>
-                <input type="radio" id="fittings" name="category" value="fittings">
-                <label for="fittings">Арматура</label>
-                <br>
-                <input class="findButton" type="submit" value="Найти">
+
+<body class="body_user_lc">
+
+    <div class="header_user_lc">
+
+        <div class="header_user_lc_logo">
+            <a class="logo_ss" href="/product">
+                <img class="logo_new" th:src="@{/images/orig.jpg}">
+            </a>
+        </div>
+
+        <div class="header_search">
+            <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
+                <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
+                <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}"></button>
+            </form>
+        </div>
+
+        <div class="header_user_lc_block">
+
+            <div class="header_user_lc_orders">
+                <a class="orders_ss" href="/orders">
+                    <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
+                </a>
             </div>
-        </fieldset>
-    </form>
-    <!--<img th:src="@{/images/banner2.jpg}">-->
-</div>
 
-<div class="productListDiv">
-    <div class="productDiv" th:each="product : ${search_product_header}">
-        <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-            <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
-            <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
-        </a>
-        <br>
-        <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-    </div>
-</div>
+            <div class="header_user_lc_basket">
+                <a class="basket_ss" href="/cart">
+                    <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
 
-<div class="productListDiv">
-    <div class="productDiv" th:each="product : ${search_product}">
-        <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-            <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
-            <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
-        </a>
-        <br>
-        <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-        <hr>
-    </div>
-</div>
+                </a>
+            </div>
 
-<h3>Наши товары</h3>
-<div class="productListDiv">
-    <div class="productDiv" th:each="product : ${products}">
-        <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-            <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
-            <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
-        </a>
-        <br>
-        <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-        <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
-            <button type="submit">Купить</button>
-            <br>
-        </form>
+            <div class="header_user_lc_exit">
+                <form method="post" th:action="@{/logout}">
+                <button class="header_user_lc_ex_bt" >
+                    <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+                </button>
+                </form>
+            </div>
+        </div>
+
+
     </div>
-</div>
+
+    <div class="product_list">
+
+        <div class="searchSort">
+            <form th:method="POST" th:action="@{/product/search}">
+                <fieldset class="searchSort_block">
+                    <legend>Выберите параметры :</legend>
+                    <!--                <label for="search">Поиск по наименованию:</label>-->
+                    <!--                <input type="text" id="search" name="search" th:value="*{value_search}">-->
+                    <br>
+                    <label for="ot">Цена от:</label>
+                    <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
+                    <label for="do">Цена до:</label>
+                    <input type="text" name="do" id="do" th:value="*{value_price_do}">
+                    <br>
+
+                    <div>
+                        <p>Сортировка</p>
+                        <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+                        <label for="ascending_price">По возрастанию цены</label>
+                        <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+                        <label for="descending_price">По убыванию цены</label>
+                        <p>Категория товаров:</p>
+                        <input type="radio" id="baths" name="category" value="baths">
+                        <label for="baths">Ванны</label>
+                        <br>
+                        <input type="radio" id="sanitary ware" name="category" value="sanitary ware">
+                        <label for="sanitary ware">Санфаянс</label>
+                        <br>
+                        <input type="radio" id="mixers" name="category" value="mixers">
+                        <label for="mixers">Смесители</label>
+                        <br>
+                        <input type="radio" id="shower stalls" name="category" value="shower stalls">
+                        <label for="shower stalls">Душевые кабинки</label>
+                        <br>
+                        <input type="radio" id="kitchen sinks" name="category" value="kitchen sinks">
+                        <label for="kitchen sinks">Кухонные мойки</label>
+                        <br>
+                        <input type="radio" id="fittings" name="category" value="fittings">
+                        <label for="fittings">Арматура</label>
+                        <br>
+                        <input class="findButton" type="submit" value="Найти">
+                    </div>
+                </fieldset>
+            </form>
+            <!--<img th:src="@{/images/banner2.jpg}">-->
+        </div>
+
+
+        <div >
+<!--            <h3>Наши товары</h3>-->
+            <div class="productListDiv">
+                <div class="productDiv" th:each="product : ${products}">
+                    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+                        <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
+                        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
+                    </a>
+                    <br>
+                    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+                    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+                    <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
+                        <button type="submit">Купить</button>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 <br>
 <hr>
 <div class="footer">
@@ -127,13 +137,16 @@
         не является публичной офертой, определяемой положениями Статьи 437<br>
         Гражданского кодекса РФ
     </div>
-    <div>
-        <img class="logoFooter" th:src="@{/images/logo.jpg}">
+
+    <div class="header_user_lc_logo">
+        <a class="logo_ss" href="/product">
+            <img class="logo_new" th:src="@{/images/orig.jpg}">
+        </a>
     </div>
     <div>
-        ©2023 Интернет-магазин MyStore<br>
-        Дипломная работа Колпакова И.В.<br>
-        Группа: FSJ-3-22
+        ©2023 Интернет-магазин Сан ТеХ Проф<br>
+        Дипломная работа -----------<br>
+        Группа:---------
     </div>
     <div class="goBack">
         <div>

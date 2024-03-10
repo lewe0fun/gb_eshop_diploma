@@ -6,26 +6,77 @@
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
     <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h3>Ваши заказы</h3>
-<form th:action="@{/userPage}">
-    <button type="submit">Личный кабинет</button>
-    <br>
-</form>
-<br>
 
-<div class="ordersInfo">
-    <div class="orderInfo" th:each="order : ${orders}">
-        <img th:if="${order.getProduct().imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${order.getProduct().imageList[0].getFileName()}"/>
-        <img th:unless="${order.getProduct().imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${order.getProduct().imageList[0].getFileName()}"/>
-        <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
-        <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
-        <p th:text="'Количество: ' + ${order.getCount()}">
-        <p th:text="'Цена: ' + ${order.getPrice()}">
-        <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
-        <p th:text="'Cтатус: ' + ${order.getStatus()}">
+<body class="body_user_lc">
+
+  <div class="header_user_lc">
+
+    <div class="header_user_lc_logo">
+    <a class="logo_ss" href="/product">
+      <img class="logo_new" th:src="@{/images/orig.jpg}">
+    </a>
+  </div>
+
+    <div class="header_search">
+    <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
+      <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
+      <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}"></button>
+    </form>
+  </div>
+
+    <div class="header_user_lc_block">
+
+    <div class="header_user_lc_orders">
+      <a class="orders_ss" href="/orders">
+        <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
+      </a>
     </div>
-</div>
+
+    <div class="header_user_lc_basket">
+      <a class="basket_ss" href="/cart">
+        <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
+      </a>
+    </div>
+
+    <div class="header_user_lc_exit">
+      <form method="post" th:action="@{/logout}">
+        <button class="header_user_lc_ex_bt" >
+          <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  </div>
+
+  <div class="orders_user_lc">
+    <form th:action="@{/userPage}">
+      <button type="submit">Назад к личному кабинету</button><br>
+    </form>
+  </div>
+  <hr>
+
+
+  <div class="orders_h3" >
+    <h3>Мои заказы</h3>
+  </div>
+
+
+
+  <div class="ordersInfo">
+    <div class="orderInfo" th:each="order : ${orders}">
+      <img class="orderInfo_img" th:if="${order.getProduct().imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${order.getProduct().imageList[0].getFileName()}"/>
+      <img th:unless="${order.getProduct().imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${order.getProduct().imageList[0].getFileName()}"/>
+      <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
+      <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
+      <p th:text="'Количество: ' + ${order.getCount()}">
+      <p th:text="'Цена: ' + ${order.getPrice()}">
+      <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
+      <p th:text="'Cтатус: ' + ${order.getStatus()}">
+    </div>
+  </div>
+
 
 <div class="goBack">
     <div>
