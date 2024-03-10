@@ -79,7 +79,7 @@ public class ProductController {
      * @return представление страницы с найденными товарами
      */
     @PostMapping("/search")
-    public String productSearch(@RequestParam("search") String search,
+    public String productSearch(@RequestParam(value ="search", required = false, defaultValue = "") String search,
                                 @RequestParam("ot") String ot,
                                 @RequestParam("do") String Do,
                                 @RequestParam(value = "price", required = false, defaultValue = "") String price,
