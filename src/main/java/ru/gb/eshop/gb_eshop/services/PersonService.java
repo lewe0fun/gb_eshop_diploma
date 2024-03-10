@@ -12,7 +12,11 @@ import ru.gb.eshop.gb_eshop.repositories.PersonRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервис пользователей
+ */
 @Service
+@Transactional(readOnly = true)
 public class PersonService {
     private final PersonRepository personRepository;
     private final PasswordEncoder passwordEncoder;
@@ -23,11 +27,19 @@ public class PersonService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Метод проверяет занят ли логин
+     */
     public Person findByLogin(Person person) {
         Optional<Person> person_db = personRepository.findByLogin(person.getLogin());
         return person_db.orElse(null);
     }
 
+    /**
+     * Метод регистрации пользователя
+     *
+     * @param person новый пользователь
+     */
     @Transactional
     public void register(Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
@@ -35,33 +47,64 @@ public class PersonService {
         personRepository.save(person);
     }
 
-
+    /**
+     * Метод возвращает всех пользователей
+     *
+     * @return список всех пользователей
+     */
     public List<Person> getAllPerson() {
         return personRepository.findAll();
     }
 
-
+    /**
+     * Находит пользователя по id
+     *
+     * @param id id пользователя
+     * @return найденный пользователь
+     */
     public Person getPersonById(int id) {
         Optional<Person> optionalPerson = personRepository.findById(id);
         return optionalPerson.orElse(null);
     }
 
+    /**
+     * Обновление пользователя
+     *
+     * @param id     id пользователя, которого нужно обновить
+     * @param person пользователь с обновленными данными
+     */
     @Transactional
     public void updatePerson(int id, Person person) {
         person.setId(id);
         personRepository.save(person);
     }
 
+    /**
+     * Удаление пользователя
+     *
+     * @param id id пользователя
+     */
     @Transactional
     public void deletePerson(int id) {
         personRepository.deleteById(id);
     }
 
+    /**
+     * Метод смены пароля (в разработке)
+     *
+     * @param id       id пользователя
+     * @param password
+     */
     @Transactional
     public void changePassword(int id, String password) {
-        personRepository.updatePersonById(id, passwordEncoder.encode(password));
+        personRepository.changePasswordPersonById(id, passwordEncoder.encode(password));
     }
 
+    /**
+     * Метод возвращает всех пользователей
+     *
+     * @return список пользователей
+     */
     public List<Person> getAllPersons() {
         return personRepository.findAll();
     }

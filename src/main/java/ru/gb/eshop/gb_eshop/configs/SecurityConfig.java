@@ -24,7 +24,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers( "/registration", "/error", "/resources/**", "/static/**", "/css/**", "/js/**",
+                .requestMatchers("/registration", "/error", "/resources/**", "/static/**", "/css/**", "/js/**",
                         "/pics/**", "/images/**", "/product", "/product/info/{id}", "/product/search", "/product/searchHeader", "/logout").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -47,10 +47,12 @@ public class SecurityConfig {
     public PasswordEncoder getPasswordEncode() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public PersonDetailsService personDetailsService() {
         return new PersonDetailsService();
     }
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

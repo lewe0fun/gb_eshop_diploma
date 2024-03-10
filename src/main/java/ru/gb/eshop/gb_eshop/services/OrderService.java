@@ -5,16 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.eshop.gb_eshop.models.Order;
+import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.repositories.OrderRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервис заказов
+ */
 @Service
 @Transactional(readOnly = true)
 public class OrderService {
     private final OrderRepository orderRepository;
 
+    @Autowired
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Transactional
     public Order getAllOrders(int id, Order order) {
@@ -22,12 +30,6 @@ public class OrderService {
         orderRepository.save(order);
         return order;
     }
-
-    @Autowired
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
-
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
@@ -51,5 +53,13 @@ public class OrderService {
     @Transactional
     public void deleteOrder(int id){
         orderRepository.deleteById(id);
+    }
+    @Transactional
+    public void save(Order newOrder) {
+        orderRepository.save(newOrder);
+    }
+
+    public List<Order> findByPerson(Person person) {
+        return orderRepository.findByPerson(person);
     }
 }

@@ -8,27 +8,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.repositories.PersonRepository;
-import ru.gb.eshop.gb_eshop.security.PersonDetails;
+
 
 import java.util.Optional;
 
+/**
+ * Сервис информации о пользователе
+ */
 @Service
 public class PersonDetailsService implements UserDetailsService {
     @Autowired
     private PersonRepository personRepository;
 
-
-/*    @Autowired
-    public PersonDetailsService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }*/
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> person = personRepository.findByLogin(username);
-        if(person.isEmpty()){
-            throw new UsernameNotFoundException("Пользователь с именем "+username+" не найден");
+        if (person.isEmpty()) {
+            throw new UsernameNotFoundException("Пользователь с именем " + username + " не найден");
         }
-        return new PersonDetails(person.get());
+        return person.get();
     }
 }
