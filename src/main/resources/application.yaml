@@ -18,7 +18,8 @@ spring:
   #Путь загрузки картинок
 upload:
   #path: /home/iopa/uploads
-  path: E:\uploads
+  #path: E:\uploads
+  path: D:\OBUCHENIE\Diplom\dip\src\main\resources\static\images
 
   # Категории товаров:
 category:

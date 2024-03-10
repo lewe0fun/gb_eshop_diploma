@@ -6,6 +6,10 @@ body{
     margin-right: 10%;
 }
 
+.body_user_lc{
+    background-color:honeydew;
+}
+
 img{
     width: 100%;
     border-radius: 20px;
@@ -16,10 +20,6 @@ a{
     font-weight: bold;
 }
 
-a:hover{
-    color: rgb(12,103,148);
-    font-weight: bolder;
-}
 
 h3{
     text-align: left;
@@ -85,16 +85,70 @@ input{
     background-color: lightgrey;
 }
 
-.searchHeader{
+.header_user_lc{
+    background-color: #69bff8;
+
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.searchHeader input{
-    border-radius: 0px;
-    height: 20px;
-    width: 250px;
+.header_user_lc_logo{
+    padding-left: 50px;
 }
+
+
+.header_user_lc_block{
+    display: flex;
+    gap: 30px;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding-right: 30px;
+}
+
+.header_user_lc_ex_bt{
+    width: 85px;
+    height: 78px;
+}
+
+.basket_logo{
+    width: 50px;
+}
+
+.basket_logo_btn{
+    width: 40px ;
+}
+
+.user_auth_img{
+    width: 45px;
+}
+
+
+.header_search_btn{
+    width: 75px;
+}
+
+.header_input_search{
+    width: 320px;
+}
+
+.header_search_form{
+    display: flex;
+}
+
+/*.searchHeader{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.searchHeader input{*/
+/*    border-radius: 0px;*/
+/*    height: 20px;*/
+/*    width: 250px;*/
+/*}*/
 
 .searchHeader button{
     position: relative;
@@ -111,6 +165,22 @@ input{
 .searchHeader button:hover{
     color: white;
     background-color: lightgrey;
+}
+
+.searchSort_block{
+    width: 250px;
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-image: initial;
 }
 
 .navigation{
@@ -144,8 +214,8 @@ input{
 }
 
 .navigation li:hover, a:hover{
-    color: white;
-    background-color: rgb(12,103,148);
+    /*color: white;*/
+    color: darkorange;
 }
 
 .navigation li ul{
@@ -159,7 +229,7 @@ input{
 }
 
 .findButton{
-    background: grey;
+    background: rgb(12,103,148);;
     color: white;
     border-radius: 50px;
     border-color: black;
@@ -176,23 +246,27 @@ input{
 }
 
 .banner{
-    width: 95%;
+    /*width: 95%;*/
     margin-bottom: 30px;
 }
 
-.searchPlusBanner{
+.searchSort{
     display: grid;
     grid-template-columns: 50% 40%;
-    margin-left: 50px;
+    padding-top: 30px;
 }
 
 fieldset legend{
     margin: 0 auto;
 }
 
+.product_list{
+    display: flex;
+}
+
 .productListDiv{
     Display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 20px;
 }
 
@@ -228,9 +302,32 @@ button:hover{
     background: darkorange;
 }
 
+.product_btn{
+    width: 260px;
+}
+
+.product_img{
+    width: 260px;
+    height: 260px;
+}
+
+.product_name_text{
+    max-width: 260px;
+}
+
+.product_name_text:hover{
+    color: darkorange;
+}
+
 .footer{
     display: grid;
     grid-template-columns: 2fr 4fr 1fr 2fr;
+    padding: 20px;
+}
+
+.footer_product{
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
     padding: 20px;
 }
 
@@ -240,7 +337,15 @@ button:hover{
 }
 
 .logoFooter{
-    width: 110px;
+    width: 100px;
+}
+
+.logo_search{
+    width: 25px;
+}
+
+.orders_logo{
+    width: 50px;
 }
 
 .goBack button{
@@ -262,8 +367,11 @@ button:hover{
 }
 
 .logo_new{
-    width: 100px;
+    width: 60px;
+
 }
+
+
 
 .logo_block{
     display: flex;

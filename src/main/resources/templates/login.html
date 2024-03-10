@@ -29,6 +29,9 @@
           <label for="password">Введите пароль: </label>
           <input type="password" placeholder="Введите пароль" name="password" id="password">
           <br>
+          <div th:if="${param.error}" style="color: red">
+            Неправильный логин или пароль
+          </div>
           <br>
           <br>
           <button type="submit">Войти</button>
@@ -49,9 +52,7 @@
   </div>
 
 
-<div th:if="${param.error}" style="color: red">
-  Неправильный логин или пароль
-</div>
+
 
 </body>
 </html>

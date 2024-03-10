@@ -6,14 +6,62 @@
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
   <link th:href="@{/css/cart.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h3>Корзина товаров</h3>
-<form th:action="@{/userPage}">
-  <button type="submit">В кабинет пользователя</button><br>
-</form>
-<hr>
+<body class="body_user_lc">
+
+  <div class="header_user_lc">
+
+    <div class="header_user_lc_logo">
+    <a class="logo_ss" href="/product">
+      <img class="logo_new" th:src="@{/images/orig.jpg}">
+    </a>
+  </div>
+
+    <div class="header_search">
+    <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
+      <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
+      <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}"></button>
+    </form>
+  </div>
+
+    <div class="header_user_lc_block">
+
+    <div class="header_user_lc_orders">
+      <a class="orders_ss" href="/orders">
+        <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
+      </a>
+    </div>
+
+    <div class="header_user_lc_basket">
+      <a class="basket_ss" href="/cart">
+        <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
+      </a>
+    </div>
+
+    <div class="header_user_lc_exit">
+      <form method="post" th:action="@{/logout}">
+        <button class="header_user_lc_ex_bt" >
+          <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  </div>
+
+  <div class="cart_user_lc">
+    <form th:action="@{/userPage}">
+      <button type="submit">Назад к личному кабинету</button><br>
+    </form>
+  </div>
+  <hr>
+
+  <div class="cart_h3">
+    <h3>Корзина товаров</h3>
+  </div>
+
 <div th:each="product : ${cart_product}">
-  <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}"/>
+  <img class="cart_basket_img" th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}"/>
   <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
   <br>
   <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>

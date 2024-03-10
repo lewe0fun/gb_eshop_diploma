@@ -6,3 +6,16 @@
 .cartA{
     color: darkred;
 }
+
+.cart_basket_img{
+    width: 260px;
+}
+.cart_user_lc {
+    padding-top: 50px;
+    padding-left: 30px;
+}
+
+.cart_h3 {
+    padding-top: 30px;
+    padding-left: 30px;
+}

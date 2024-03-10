@@ -3,13 +3,15 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 20px;
     padding: 20px;
+
+    gap:20px;
 }
 
 .orderInfo{
     width: 100%;
     font-size: 15px;
-    margin: 20px;
-    padding: 20px;
+
+
 }
 
 .orderImg{
@@ -25,4 +27,19 @@
 
 .adminImg{
     width: 50px;
+}
+
+.orders_user_lc{
+    padding-top: 50px;
+    padding-left: 30px;
+}
+
+.orders_h3{
+    padding-top: 30px;
+
+    padding-left: 30px;
+}
+
+.orderInfo_img{
+
 }
