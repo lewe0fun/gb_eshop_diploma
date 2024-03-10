@@ -57,6 +57,8 @@ public class MainController {
     private final String VALUE_SEARCH = "value_search";
     private final String PRISE_OT = "value_price_ot";
     private final String PRISE_DO = "value_price_do";
+    private final String PRODUCTS="products";
+    private final String PRODUCT="product";
 
     @Autowired
     public MainController(ProductRepository productRepository, PersonValidator personValidator, PersonService personService,
@@ -72,7 +74,7 @@ public class MainController {
     /**
      * Метод возвращающий представление страницы пользователя
      *
-     * @param model
+     * @param model модель
      * @return представление страницы пользователя
      */
     @GetMapping("/userPage")
@@ -146,7 +148,7 @@ public class MainController {
                                 @RequestParam("do") String Do,
                                 @RequestParam(value = "price", required = false, defaultValue = "") String price,
                                 @RequestParam(value = "category", required = false, defaultValue = "") String category, Model model) {
-        model.addAttribute("products", productService.getAllProduct());
+        //model.addAttribute(PRODUCTS, productService.getAllProduct());
 
         if (!ot.isEmpty() & !Do.isEmpty()) {
             if (!price.isEmpty()) {
@@ -190,6 +192,20 @@ public class MainController {
             } else {
                 model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
             }
+        } else if (!category.isEmpty()) {//тут цен нет
+            if (category.equals(CATEGORY1)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 1));
+            } else if (category.equals(CATEGORY2)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 2));
+            } else if (category.equals(CATEGORY3)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 3));
+            } else if (category.equals(CATEGORY4)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 4));
+            } else if (category.equals(CATEGORY5)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 5));
+            } else if (category.equals(CATEGORY6)) {
+                model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 6));
+            }
         } else {
             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search));
         }
@@ -205,14 +221,14 @@ public class MainController {
         model.addAttribute(CATEGORY4, category);
         model.addAttribute(CATEGORY5, category);
         model.addAttribute(CATEGORY6, category);
-        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
     }
 
     /**
      * Метод добавления товара в корзину
      *
-     * @param id    id товара
+     * @param id id товара
      * @return перенаправление на корзину пользователя
      */
     @GetMapping("/cart/add/{id}")
@@ -228,7 +244,7 @@ public class MainController {
      * Метод отображения корзины пользователя
      *
      * @param model модель
-     * @return
+     * @return корзина
      */
     @GetMapping("/cart")
     public String cart(Model model) {
@@ -254,7 +270,7 @@ public class MainController {
      * Метод удаления товара из корзины
      *
      * @param id id товара
-     * @return
+     * @return перенаправление в корину
      */
     @GetMapping("/cart/delete/{id}")
     public String removeProductFromCart(@PathVariable("id") int id) {
@@ -264,6 +280,7 @@ public class MainController {
 
     /**
      * Оформление заказа
+     *
      * @return представление заказов
      */
     @GetMapping("/order/create")
