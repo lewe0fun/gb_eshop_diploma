@@ -93,7 +93,7 @@ public class PersonService {
      * Метод смены пароля (в разработке)
      *
      * @param id       id пользователя
-     * @param password
+     * @param password пароль
      */
     @Transactional
     public void changePassword(int id, String password) {
