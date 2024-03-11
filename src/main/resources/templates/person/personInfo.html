@@ -4,24 +4,52 @@
     <meta charset="UTF-8">
     <title>Информация о пользователе</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h3>Информация о пользователе</h3>
-<br>
-<br>
-<div class="watch_product">
-    <a class="link" style="text-decoration: none; color: rgb(12,103,148); font-size: 25px" href="/admin/person">Назад к списку пользователей</a>
-</div>
-<br>
-<br>
 
-<p th:text="'Логин: ' + ${person.getLogin()}"/>
-<p th:text="'Роль: ' + ${person.getRole()}"/>
-<br>
-<a th:href="@{/admin/person/edit/{id}(id=${person.getId()})}">Редактировать пользователя</a>
-<br>
-<br>
-<a style="color: red" th:href="@{/admin/person/delete/{id}(id=${person.getId()})}">Удалить пользователя</a>
+<body class="body_user_lc">
+
+
+        <div class="header_user_lc">
+
+            <div class="header_user_lc_logo">
+                <a class="logo_ss" href="/product">
+                    <img class="logo_new" th:src="@{/images/orig.jpg}">
+                </a>
+            </div>
+
+            <h2>Информация о пользователе</h2>
+
+            <div class="header_user_lc_block">
+                <div class="header_user_lc_exit">
+                    <form method="post" th:action="@{/logout}">
+                        <button class="header_user_lc_ex_bt" >
+                            <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="adminButtons">
+            <form th:action="@{/admin/person}">
+                <button type="submit">Назад в меню администратора</button>
+            </form>
+        </div>
+        <hr>
+
+
+        <div class="adminUserProfile">
+            <p th:text="'Логин: ' + ${person.getLogin()}"/>
+            <p th:text="'Роль: ' + ${person.getRole()}"/>
+            <br>
+            <a th:href="@{/admin/person/edit/{id}(id=${person.getId()})}">Редактировать пользователя</a>
+            <br>
+            <br>
+            <a style="color: red" th:href="@{/admin/person/delete/{id}(id=${person.getId()})}">Удалить пользователя</a>
+
+        </div>
 
 </body>
 </html>
