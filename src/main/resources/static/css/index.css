@@ -48,6 +48,36 @@ input{
     border-radius: 0;
 }
 
+.header_product_header{
+    height: 20px;
+    background-color: darkorange;
+
+    padding-left: 20px;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 30px;
+}
+
+.header_location_logo{
+    width: 12px;
+}
+
+.header_location_logo_link{
+    text-decoration: none;
+}
+
+.header_location_logo_link:hover{
+    color: aliceblue;
+}
+
+.header_info{
+    display: flex;
+    gap: 10px;
+}
+
 .header {
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
@@ -92,6 +122,8 @@ input{
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    padding-top: 6px;
 }
 
 .header_user_lc_logo{
@@ -523,3 +555,157 @@ button:hover{
 	border-radius: 0 8px 8px 0;
 
 }
+
+
+.adminUserProfile{
+    padding-left: 50px;
+    padding-top: 30px;
+}
+
+
+/*contacts*/
+.contacts_block{
+    padding-top: 150px;
+
+    gap: 50px;
+    display: flex;
+
+    justify-content: center;
+    align-items: baseline;
+
+}
+
+.contacts_callCenter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacts_callCenter_logo{
+    width: 100px;
+}
+
+.contacts_phone{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacts_phone_logo{
+    width: 88px;
+}
+
+.contacts_message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacts_message_logo{
+    width: 94px;
+}
+
+.contacts_message_mes{
+    display: flex;
+    align-items: center;
+}
+
+.contacts_message_mes_w_logo{
+    width: 60px;
+}
+
+.contacts_message_mes_t_logo{
+    width: 45px;
+}
+
+
+/*aboutCompany*/
+.aboutCompany_block1{
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    padding-left: 30px;
+}
+
+.aboutCompany_block1_p{
+    width: 600px;
+}
+
+.aboutCompany_block2{
+    display: flex;
+    padding-top: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.aboutCompany_block2_img{
+    width: 800px;
+    height: 400px;
+}
+
+.aboutCompany_block3{
+    display: flex;
+    padding-top: 30px;
+    gap: 119px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+/*wholesalers*/
+.wholesalers_block1{
+    padding-top: 100px;
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.wholesalers_block1_img1{
+    width: 140px;
+}
+
+.wholesalers_block1_img{
+    width: 500px;
+}
+
+.wholesalers_block2{
+    padding-top: 50px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wholesalers_block3{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-top: 50px;
+    padding-left: 30px;
+}
+
+.wholesalers_block3_1_img{
+    width: 200px;
+}
+
+.wholesalers_block3_2_img{
+    width: 200px;
+}
+
+.wholesalers_block3_3_img{
+    width: 200px;
+}
+
+.wholesalers_p{
+    width: 300px;
+}
+
+

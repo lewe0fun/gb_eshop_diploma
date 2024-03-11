@@ -9,6 +9,23 @@
 
 <body class="body_user_lc">
 
+
+  <div class="header_product_header">
+
+    <div class="header_location">
+      <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+      <a class="header_location_logo_link" href="#"> Москва</a>
+    </div>
+
+    <div class="header_info" >
+      <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+      <a class="header_location_logo_link" href="/company"> О компании</a>
+      <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+    </div>
+
+
+  </div>
+
   <div class="header_user_lc">
 
     <div class="header_user_lc_logo">
@@ -56,10 +73,7 @@
     <div class="searchPlusBanner">
       <form th:method="POST" th:action="@{/product/search}">
       <fieldset>
-        <legend>Выберите параметры для поиска/сортировки/фильтрации:</legend>
-        <label for="search">Поиск по наименованию:</label>
-        <input type="text" id="search" name="search" th:value="*{value_search}">
-        <br>
+        <legend>Выберите параметры:</legend>
         <label for="ot">Цена от:</label>
         <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
         <label for="do">Цена до:</label>
