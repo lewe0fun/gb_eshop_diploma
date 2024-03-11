@@ -366,7 +366,7 @@ public class MainController {
 
         String uuid = UUID.randomUUID().toString();
         for (Product product : productList) {
-            Order newOrder = new Order(uuid, product, person, 1, product.getPrice(), Status.WAITING);
+            Order newOrder = new Order(uuid, product, person, 1, product.getPrice(), Status.ОЖИДАНИЕ);
             orderService.save(newOrder);
             cartService.deleteCartByProductId(product.getId());
         }
