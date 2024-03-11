@@ -56,10 +56,7 @@
     <div class="searchPlusBanner">
       <form th:method="POST" th:action="@{/product/search}">
       <fieldset>
-        <legend>Выберите параметры для поиска/сортировки/фильтрации:</legend>
-        <label for="search">Поиск по наименованию:</label>
-        <input type="text" id="search" name="search" th:value="*{value_search}">
-        <br>
+        <legend>Выберите параметры:</legend>
         <label for="ot">Цена от:</label>
         <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
         <label for="do">Цена до:</label>
