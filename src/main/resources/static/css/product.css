@@ -106,3 +106,31 @@
     padding-top: 30px;
     padding-left: 50px;
 }
+
+.admin_order_info{
+    padding-left: 50px;
+    padding-top: 30px;
+    max-width: 800px
+}
+
+.admin_order_info_btn{
+    width: 185px;
+}
+
+.admin_editProduct_form{
+    padding-top: 30px;
+    padding-left: 50px;
+}
+
+.admin_editProduct_form_inpName{
+    width: 272px;
+}
+
+.admin_editProduct_form_inpDesc{
+    width: 330px;
+
+}
+
+.admin_editProduct_form_inpProd{
+    width: 314px;
+}
