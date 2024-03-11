@@ -4,18 +4,51 @@
     <meta charset="UTF-8">
     <title>Результат поиска по номеру заказа</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<br>
-<div th:each="order : ${search_order}">
-    <h3>Результат поиска:</h3>
-    <a th:href="@{/admin/orders/{id}(id=${order.getId()})}" th:text="${order.getNumber()}"></a>
-</div>
-</form>
-<br>
-<br>
-<form th:action="@{/admin/orders}">
-    <button>К списку заказов</button><br>
-</form>
+
+<body class="body_user_lc">
+
+        <div class="header_user_lc">
+
+            <div class="header_user_lc_logo">
+                <a class="logo_ss" href="/product">
+                    <img class="logo_new" th:src="@{/images/orig.jpg}">
+                </a>
+            </div>
+
+            <h2>Результат поиска:</h2>
+
+            <div class="header_user_lc_block">
+                <div class="header_user_lc_exit">
+                    <form method="post" th:action="@{/logout}">
+                        <button class="header_user_lc_ex_bt" >
+                            <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="adminButtons">
+            <form th:action="@{/admin/orders}">
+                <button>К списку заказов</button><br>
+            </form>
+        </div>
+        <hr>
+
+        <div>
+            <h3>По вашему запросу нашлось:</h3>
+        </div>
+
+
+        <div class="adminSearch_orders_table_result" th:each="order : ${search_order}">
+            <a th:href="@{/admin/orders/{id}(id=${order.getId()})}" th:text="${order.getNumber()}"></a>
+        </div>
+
+
+
 </body>
 </html>

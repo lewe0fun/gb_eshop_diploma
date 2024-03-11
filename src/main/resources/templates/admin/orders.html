@@ -5,54 +5,85 @@
     <title>Заказы</title>
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
   <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<form th:action="@{/admin}">
-  <button type="submit">Назад в меню администратора</button><br>
-</form>
-<br>
-<hr>
-<br>
-<h3>Информация о заказах</h3>
 
-<form th:method="POST" th:action="@{/admin/orders/search}">
-  <div>
-    <label for="search">Поиск по номеру заказа</label>
-    <br>
-    <input name="value" type="search" id="search">
-    <br>
-  </div>
-    <button type="submit">Поиск</button>
-  <br>
-  </form>
-<br>
-<table style="margin: auto; border-spacing: 50px 10px">
-  <thead>
-  <tr>
-    <th>Номер</th>
-    <th>Товар в заказе</th>
-    <th>Статус заказа</th>
-    <th>Итого, руб.</th>
-  </tr>
-  </thead>
+<body class="body_user_lc">
 
-  <tbody>
-  <tr th:each="order:${orders}">
-    <td>
-      <a th:href="@{/admin/orders/{id}(id=${order.getId()})}" th:text="${order.getNumber()}"></a>
-    </td>
-    <td th:text="${order.getProduct().getTitle()}"></td>
-    <td th:text="${order.getStatus()}"></td>
-    <td th:text="${order.getPrice()}"></td>
-  </tr>
-  </tbody>
-</table>
-<div class="goBack">
-  <div>
-    <form href="#">
-      <button type="submit">Наверх</button><br>
-    </form>
-  </div>
-</div>
+      <div class="header_user_lc">
+
+        <div class="header_user_lc_logo">
+          <a class="logo_ss" href="/product">
+            <img class="logo_new" th:src="@{/images/orig.jpg}">
+          </a>
+        </div>
+
+        <h2>Информация о заказах</h2>
+
+        <div class="header_user_lc_block">
+          <div class="header_user_lc_exit">
+            <form method="post" th:action="@{/logout}">
+              <button class="header_user_lc_ex_bt" >
+                <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="adminButtons">
+        <form th:action="@{/admin}">
+          <button type="submit">Назад в меню администратора</button><br>
+        </form>
+      </div>
+      <hr>
+
+
+      <div class="adminSearch_orders">
+        <form th:method="POST" th:action="@{/admin/orders/search}">
+            <label for="search">Поиск по номеру заказа</label>
+            <input class="adminSearch_orders_input" name="value" type="search" id="search">
+            <button class="adminSearch_orders_btn" type="submit">Поиск</button>
+        </form>
+      </div>
+
+
+
+      <div class="adminSearch_orders_table">
+
+        <table style="margin: auto; border-spacing: 50px 10px">
+          <thead>
+            <tr>
+              <th>Номер</th>
+              <th>Товар в заказе</th>
+              <th>Статус заказа</th>
+              <th>Итого, руб.</th>
+              <th>Изменить</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr th:each="order:${orders}">
+              <td th:text="${order.getNumber()}"></td>
+              <td th:text="${order.getProduct().getTitle()}"></td>
+              <td th:text="${order.getStatus()}"></td>
+              <td th:text="${order.getPrice()}"></td>
+
+              <td><a class="adminSearch_orders_table_link" th:href="@{/admin/orders/{id}(id=${order.getId()})}" >Click</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
+      <div class="goBack">
+        <div>
+          <form href="#">
+            <button type="submit">Наверх</button><br>
+          </form>
+        </div>
+      </div>
 </body>
 </html>

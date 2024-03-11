@@ -77,3 +77,32 @@
     width: 230px;
     height: 230px;
 }
+
+.adminSearch_orders{
+    padding-top: 30px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.adminSearch_orders_btn{
+    width: 110px;
+}
+
+.adminSearch_orders_input{
+    width: 300px;
+}
+
+.adminSearch_orders_table{
+    padding-top: 30px;
+}
+
+.adminSearch_orders_table_link{
+    color: red;
+    text-decoration: none;
+}
+
+.adminSearch_orders_table_result{
+    padding-top: 30px;
+    padding-left: 50px;
+}
