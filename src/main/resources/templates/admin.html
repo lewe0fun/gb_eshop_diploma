@@ -7,7 +7,45 @@
   <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
   <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
+
+<body class="body_user_lc">
+
+    <div class="header_user_lc">
+
+        <div class="header_user_lc_logo">
+          <a class="logo_ss" href="/product">
+            <img class="logo_new" th:src="@{/images/orig.jpg}">
+          </a>
+        </div>
+
+        <h2 th:text="'Личный кабинет пользователя: '+${person.getLogin()}">Личный кабинет администратора</h2>
+
+        <div class="header_user_lc_block">
+
+          <div class="header_user_lc_orders">
+            <a class="orders_ss" href="/orders">
+              <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
+            </a>
+          </div>
+
+          <div class="header_user_lc_basket">
+            <a class="basket_ss" href="/cart">
+              <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
+
+            </a>
+          </div>
+
+          <div class="header_user_lc_exit">
+            <form method="post" th:action="@{/logout}">
+              <button class="header_user_lc_ex_bt" >
+                <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+              </button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+
 <h1 th:text="'Личный кабинет администратора: '+${person.getLogin()}">Личный кабинет администратора</h1>
 <div class="adminButtons">
   <form method="post" th:action="@{/logout}">
