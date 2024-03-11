@@ -64,4 +64,16 @@
 .adminButtons{
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
+
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+.admin_h3{
+    padding-left: 30px;
+}
+
+.admin_orderInfo_img{
+    width: 230px;
+    height: 230px;
 }
