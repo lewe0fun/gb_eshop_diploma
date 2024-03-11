@@ -527,3 +527,9 @@ button:hover{
 	border-radius: 0 8px 8px 0;
 
 }
+
+
+.adminUserProfile{
+    padding-left: 50px;
+    padding-top: 30px;
+}
