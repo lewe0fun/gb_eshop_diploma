@@ -4,15 +4,42 @@
     <meta charset="UTF-8">
   <title>Добавление товара</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h3>Добавление товара</h3>
-<form th:action="@{/admin}">
-    <button type="submit">Назад в меню администратора</button>
-</form>
-<br>
-<br>
-<br>
+
+<body class="body_user_lc">
+
+    <div class="header_user_lc">
+
+        <div class="header_user_lc_logo">
+            <a class="logo_ss" href="/product">
+                <img class="logo_new" th:src="@{/images/orig.jpg}">
+            </a>
+        </div>
+
+        <h2>Добавление товара</h2>
+
+        <div class="header_user_lc_block">
+            <div class="header_user_lc_exit">
+                <form method="post" th:action="@{/logout}">
+                    <button class="header_user_lc_ex_bt" >
+                        <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="adminButtons">
+        <form th:action="@{/admin}">
+            <button type="submit">Назад в меню администратора</button>
+        </form>
+    </div>
+    <hr>
+    <br>
+    <br>
+    <br>
 <form th:method="POST" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data">
     <label for="title">Введите наименование товара: </label>
     <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
