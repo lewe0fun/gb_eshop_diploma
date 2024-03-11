@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
@@ -10,44 +9,18 @@
 
 <body class="body_user_lc">
 
-
-
-<!--  <div>-->
-<!--  <a th:href="@{/product}">-->
-<!--<img class="logo" th:src="@{/images/logo.png}">-->
-<!--  </a>-->
-<!--  </div>-->
-
-
-<!--  <div class="searchHeader">-->
-<!--    <form th:method="POST" th:action="@{/product/searchHeader}">-->
-<!--    <input type="text" id="searchHeader" name="search" th:value="*{value_search}">-->
-<!--      <button type="submit">Найти</button>-->
-<!--    </form>-->
-<!--  </div>-->
-
-
-<!--  <div class="headerMenu">-->
-<!--    <ul class="navigation">-->
-<!--      <div></div>-->
-<!--      <li><a href="/login">Авторизация</a></li>-->
-<!--      <li><a href="/registration">Регистрация</a></li>-->
-<!--    </ul>-->
-<!--</div>-->
-
-
   <div class="header_user_lc">
 
     <div class="header_user_lc_logo">
       <a class="logo_ss" href="/product">
-        <img class="logo_new" th:src="@{/images/orig.jpg}">
+        <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo">
       </a>
     </div>
 
     <div class="header_search">
       <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
         <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
-        <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}"></button>
+        <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}" alt="logo_search"></button>
       </form>
     </div>
 
@@ -55,73 +28,69 @@
 
       <div class="header_user_lc_orders">
         <a class="orders_ss" href="/orders">
-          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
+          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">
         </a>
       </div>
 
       <div class="header_user_lc_basket">
         <a class="basket_ss" href="/cart">
-          <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
+          <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}" alt="basket_logo">
         </a>
       </div>
 
       <div class="header_user_lc_auth">
         <a class="user_auth" href="/login">
-          <img class="user_auth_img" th:src="@{/images/profile-1336-svgrepo-com.svg}">
+          <img class="user_auth_img" th:src="@{/images/profile-1336-svgrepo-com.svg}" alt="user_auth_img">
         </a>
       </div>
 
     </div>
-
-
   </div>
 
 
+  <a th:href="@{/product}">
+    <img class="banner" th:src="@{/images/santehnika_reklama.jpg}" alt="banner">
+  </a>
 
 
-<a th:href="@{/product/info/31}">
-  <img class="banner" th:src="@{/images/santehnika_reklama.jpg}"}>
-</a>
+    <div class="searchPlusBanner">
+      <form th:method="POST" th:action="@{/product/search}">
+      <fieldset>
+        <legend>Выберите параметры для поиска/сортировки/фильтрации:</legend>
+        <label for="search">Поиск по наименованию:</label>
+        <input type="text" id="search" name="search" th:value="*{value_search}">
+        <br>
+        <label for="ot">Цена от:</label>
+        <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
+        <label for="do">Цена до:</label>
+        <input type="text" name="do" id="do" th:value="*{value_price_do}">
+        <br>
+        <div>
+          <p>Сортировка</p>
+          <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+          <label for="ascending_price">По возрастанию цены</label>
+          <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+          <label for="descending_price">По убыванию цены</label>
+          <p>Категория товаров:</p>
+          <input type="radio" id="baths" name="category" value="baths">
+          <label for="baths">Ванны</label>
+          <input type="radio" id="sanitary ware" name="category" value="sanitary ware">
+          <label for="sanitary ware">Санфаянс</label>
+          <input type="radio" id="mixers" name="category" value="mixers">
+          <label for="mixers">Смесители</label>
+          <input type="radio" id="shower stalls" name="category" value="shower stalls">
+          <label for="shower stalls">Душевые кабинки</label>
+          <input type="radio" id="kitchen sinks" name="category" value="kitchen sinks">
+          <label for="kitchen sinks">Кухонные мойки</label>
+          <input type="radio" id="fittings" name="category" value="fittings">
+          <label for="fittings">Арматура</label>
+          <br>
+          <input class="findButton" type="submit" value="Найти">
+        </div>
+      </fieldset>
+    </form>
 
-
-<div class="searchPlusBanner">
-  <form th:method="POST" th:action="@{/product/search}">
-  <fieldset>
-    <legend>Выберите параметры для поиска/сортировки/фильтрации:</legend>
-    <label for="search">Поиск по наименованию:</label>
-    <input type="text" id="search" name="search" th:value="*{value_search}">
-    <br>
-    <label for="ot">Цена от:</label>
-    <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
-    <label for="do">Цена до:</label>
-    <input type="text" name="do" id="do" th:value="*{value_price_do}">
-    <br>
-    <div>
-      <p>Сортировка</p>
-      <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
-      <label for="ascending_price">По возрастанию цены</label>
-      <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
-      <label for="descending_price">По убыванию цены</label>
-      <p>Категория товаров:</p>
-      <input type="radio" id="baths" name="category" value="baths">
-      <label for="baths">Ванны</label>
-      <input type="radio" id="sanitary ware" name="category" value="sanitary ware">
-      <label for="sanitary ware">Санфаянс</label>
-      <input type="radio" id="mixers" name="category" value="mixers">
-      <label for="mixers">Смесители</label>
-      <input type="radio" id="shower stalls" name="category" value="shower stalls">
-      <label for="shower stalls">Душевые кабинки</label>
-      <input type="radio" id="kitchen sinks" name="category" value="kitchen sinks">
-      <label for="kitchen sinks">Кухонные мойки</label>
-      <input type="radio" id="fittings" name="category" value="fittings">
-      <label for="fittings">Арматура</label>
-      <br>
-      <input class="findButton" type="submit" value="Найти">
     </div>
-  </fieldset>
-</form>
-
-</div>
 
 <div class="productListDiv">
   <div class="productDiv" th:each="product : ${search_product_header}">
@@ -169,7 +138,7 @@
 
   <div class="header_user_lc_logo">
     <a class="logo_ss" href="/product">
-      <img class="logo_new" th:src="@{/images/orig.jpg}">
+      <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo_new">
     </a>
   </div>
 

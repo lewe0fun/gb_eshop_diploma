@@ -64,4 +64,73 @@
 .adminButtons{
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
+
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+.admin_h3{
+    padding-left: 30px;
+}
+
+.admin_orderInfo_img{
+    width: 230px;
+    height: 230px;
+}
+
+.adminSearch_orders{
+    padding-top: 30px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.adminSearch_orders_btn{
+    width: 110px;
+}
+
+.adminSearch_orders_input{
+    width: 300px;
+}
+
+.adminSearch_orders_table{
+    padding-top: 30px;
+}
+
+.adminSearch_orders_table_link{
+    color: red;
+    text-decoration: none;
+}
+
+.adminSearch_orders_table_result{
+    padding-top: 30px;
+    padding-left: 50px;
+}
+
+.admin_order_info{
+    padding-left: 50px;
+    padding-top: 30px;
+    max-width: 800px
+}
+
+.admin_order_info_btn{
+    width: 185px;
+}
+
+.admin_editProduct_form{
+    padding-top: 30px;
+    padding-left: 50px;
+}
+
+.admin_editProduct_form_inpName{
+    width: 272px;
+}
+
+.admin_editProduct_form_inpDesc{
+    width: 330px;
+
+}
+
+.admin_editProduct_form_inpProd{
+    width: 314px;
 }
