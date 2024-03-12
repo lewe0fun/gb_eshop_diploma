@@ -56,24 +56,24 @@
 
 
 
-<table class="table">
-    <thead>
-    <tr>
-        <th> Имя</th>
-        <th> Роль</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${person.empty}">
-        <td colspan="2"> Пользователей еще нет</td>
-    </tr>
-    <tr th:each="element : ${person}">
-        <td><a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}"
-               th:text="${element.getLogin()}"></a></td>
-        <td><span th:text="${element.getRole()}"> Роль </span></td>
-    </tr>
-    </tbody>
-</table>
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Имя</th>
+                <th> Роль</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${person.empty}">
+                <td colspan="2"> Пользователей еще нет</td>
+            </tr>
+            <tr th:each="element : ${person}">
+                <td><a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}"
+                       th:text="${element.getLogin()}"></a></td>
+                <td><span th:text="${element.getRole()}"> Роль </span></td>
+            </tr>
+            </tbody>
+        </table>
 
 </body>
 </html>

@@ -30,8 +30,6 @@
             </div>
         </div>
 
-
-
         <div class="adminButtons">
             <form th:action="@{/admin/orders}">
                 <button>К списку заказов</button><br>
@@ -47,8 +45,6 @@
         <div class="adminSearch_orders_table_result" th:each="order : ${search_order}">
             <a th:href="@{/admin/orders/{id}(id=${order.getId()})}" th:text="${order.getNumber()}"></a>
         </div>
-
-
 
 </body>
 </html>

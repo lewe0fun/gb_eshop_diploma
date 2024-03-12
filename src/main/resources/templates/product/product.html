@@ -70,7 +70,7 @@
 
 
     <div class="searchPlusBanner">
-      <form th:method="POST" th:action="@{/product/search}">
+      <form class="formSearchProd" th:method="POST" th:action="@{/product/search}">
       <fieldset>
         <legend>Выберите параметры:</legend>
         <label for="ot">Цена от:</label>
@@ -91,6 +91,7 @@
           <label for="Санфаянс">Санфаянс</label>
           <input type="radio" id="Смесители" name="category" value="Смесители">
           <label for="Смесители">Смесители</label>
+          <br>
           <input type="radio" id="Душевые кабинки" name="category" value="Душевые кабинки">
           <label for="Душевые кабинки">Душевые кабинки</label>
           <input type="radio" id="Кухонные раковины" name="category" value="Кухонные раковины">
