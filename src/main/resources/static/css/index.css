@@ -10,6 +10,10 @@ body{
     background-color:honeydew;
 }
 
+.userrole{
+    opacity: 0;
+}
+
 img{
     width: 100%;
     border-radius: 20px;
@@ -38,8 +42,33 @@ input{
     font-family: Arial;
 }
 
-.lab_usname{
+.lab_auth_usname{
     padding-right: 10px;
+}
+
+.lab_usname{
+    padding-right: 30px;
+}
+
+.lab_password{
+    padding-right: 20px;
+}
+
+.lab_firstName{
+    padding-right: 45px;
+}
+
+
+.lab_telephone{
+    padding-right: 7px;
+}
+
+.lab_email{
+    padding-right: 31px;
+}
+
+.lab_address{
+    padding-right: 27px;
 }
 
 .logo{
@@ -48,13 +77,15 @@ input{
     border-radius: 0;
 }
 
+.header_logo_name{
+    width: 330px;
+    height: 40px;
+}
+
 .header_product_header{
     height: 20px;
     background-color: darkorange;
-
     padding-left: 20px;
-
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -117,19 +148,19 @@ input{
 
 .header_user_lc{
     background-color: #69bff8;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-
     padding-top: 6px;
 }
 
 .header_user_lc_logo{
-    padding-left: 50px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
 
 .header_user_lc_block{
     display: flex;
@@ -137,7 +168,6 @@ input{
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-
     padding-right: 30px;
 }
 
@@ -164,23 +194,12 @@ input{
 }
 
 .header_input_search{
-    width: 320px;
+    width: 300px;
 }
 
 .header_search_form{
     display: flex;
 }
-
-/*.searchHeader{*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.searchHeader input{*/
-/*    border-radius: 0px;*/
-/*    height: 20px;*/
-/*    width: 250px;*/
-/*}*/
 
 .searchHeader button{
     position: relative;
@@ -246,7 +265,6 @@ input{
 }
 
 .navigation li:hover, a:hover{
-    /*color: white;*/
     color: darkorange;
 }
 
@@ -272,21 +290,117 @@ input{
 }
 
 .findButton:hover{
-    opacity: 0.6;
     transition: 0.5s;
     cursor: pointer;
+    background-color: darkorange;
 }
 
 .banner{
-    /*width: 95%;*/
     margin-bottom: 30px;
+    width: 100%;
+    height: 400px;
 }
 
 .searchSort{
     display: grid;
     grid-template-columns: 50% 40%;
-    padding-top: 30px;
+    padding-top: 90px;
 }
+
+.searchPlusBanner{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.formSearchProd{
+    width: 100vh;
+}
+
+.product_block{
+    display: flex;
+    gap: 20px;
+    padding-top: 40px;
+}
+
+
+.card1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+    width: 500px;
+    background-image: url("../images/dushKab.jpg");
+    background-size: cover;
+    border-radius: 25px;
+}
+
+.card2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+    width: 500px;
+    background-image: url("../images/b2-500x250.jpg");
+    background-size: cover;
+    border-radius: 25px;
+}
+
+.card3{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+    width: 500px;
+    background-image: url("../images/b3-500x250.jpg");
+    background-size: cover;
+    border-radius: 25px;
+}
+
+.card_header{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(0,0,0, .2);
+    height: 30px;
+    border-radius: 25px 25px 0 0;
+    padding: 15px;
+    color: #fff;
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card_footer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(0,0,0, .2);
+    height: 30px;
+    border-radius:  0 0 25px 25px;
+    padding: 15px;
+    color: #fff;
+}
+
+.toggleHide{
+    opacity: 0;
+    transition: .5s;
+}
+
+.card1:hover .toggleHide{
+opacity: 1;
+}
+
+.card2:hover .toggleHide{
+    opacity: 1;
+}
+
+.card3:hover .toggleHide{
+    opacity: 1;
+}
+
 
 fieldset legend{
     margin: 0 auto;
@@ -298,7 +412,13 @@ fieldset legend{
 
 .productListDiv{
     Display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+}
+
+.productListDivUserPage{
+    Display: grid;
+    grid-template-columns: 1fr 1fr ;
     padding: 20px;
 }
 
@@ -361,11 +481,18 @@ button:hover{
     display: grid;
     grid-template-columns: 1fr 4fr 2fr;
     padding: 20px;
+    gap: 10px;
+    background-color: #69bff8;
 }
 
 .footer p{
     display: flex;
     align-items: flex-end;
+}
+
+.logo_new_footer{
+    height: 40px;
+    width: 200px;
 }
 
 .logoFooter{
@@ -403,7 +530,10 @@ button:hover{
 
 }
 
-
+.logo_ss{
+     border: none;
+     background: none
+}
 
 .logo_block{
     display: flex;
@@ -419,10 +549,27 @@ button:hover{
     padding-top: 200px;
 }
 
+.auth_big_block_white{
+    background-color: aliceblue;
+    width: 470px;
+    height: 510px;
+    border-radius: 30px;
+}
+
+.reg_header_user_lc_logo{
+    padding-top: 40px;
+    padding-left: 75px;
+}
+
+.auth_header_user_lc_logo{
+    padding-left: 70px;
+    padding-top: 45px;
+}
+
 .registr_big_block_white{
     background-color: aliceblue;
     width: 470px;
-    height: 600px;
+    height: 690px;
     border-radius: 30px;
 }
 
@@ -433,17 +580,23 @@ button:hover{
     padding-top: 40px;
 }
 
+.auth_big_block_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
 .registr_block{
     display: flex;
     justify-content: center;
-    padding-bottom: 20px;
-    padding-top: 50px;
+    padding-top: 12px;
 }
 
 .registr_big_block_h5{
     display: flex;
     justify-content: center;
-    padding-top:30px;
+    padding-top: 18px;
 }
 
 .registr_big_block_reg{
@@ -468,6 +621,14 @@ button:hover{
     transition: 0.5s;
 }
 
+.registr_big_block_btn{
+    width: 150px;
+}
+
+.auth_big_block_btn{
+    width: 240px;
+}
+
 .nameMag{
     color: darkorange;
     font-family: Lato;
@@ -485,94 +646,183 @@ button:hover{
 }
 
 .table {
-
 	width: 100%;
-
 	border: none;
-
 	margin-bottom: 20px;
-
     padding-top: 30px;
-
 }
 
 .table thead th {
-
 	font-weight: bold;
-
 	text-align: left;
-
 	border: none;
-
 	padding: 10px 15px;
-
 	background: #d8d8d8;
-
 	font-size: 14px;
-
 }
 
 .table thead tr th:first-child {
-
 	border-radius: 8px 0 0 8px;
-
 }
 
 .table thead tr th:last-child {
-
 	border-radius: 0 8px 8px 0;
-
 }
 
 .table tbody td {
-
 	text-align: left;
-
 	border: none;
-
 	padding: 10px 15px;
-
 	font-size: 14px;
-
 	vertical-align: top;
-
 }
 
 .table tbody tr:nth-child(even){
-
 	background: #f3f3f3;
-
 }
 
 .table tbody tr td:first-child {
-
 	border-radius: 8px 0 0 8px;
-
 }
 
 .table tbody tr td:last-child {
-
 	border-radius: 0 8px 8px 0;
-
 }
-
 
 .adminUserProfile{
     padding-left: 50px;
     padding-top: 30px;
 }
 
+/*editPerson*/
+.form-label{
+    padding-right: 80px;
+}
+
+.form-label_login{
+    padding-right: 30px;
+}
+
+.form-label_name{
+    padding-right: 43px;
+}
+
+.form-label_user_login{
+    padding-right: 31px;
+}
+
+.form-label_user_name{
+    padding-right: 43px;
+}
+
+
+/*userPage*/
+.userPage_h1{
+    padding-top: 50px;
+    padding-left: 50px;
+}
+
+.userPage_h2{
+    padding-top: 30px;
+    padding-left: 50px;
+    border: ridge;
+    padding-bottom: 30px;
+}
+
+.userPage_block1{
+    display: grid;
+    grid-template-columns: 3fr 3fr ;
+    gap: 30px;
+}
+
+.lichnDan{
+    border: solid;
+}
+
+.lichnDan_header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.lichnDan_header_logo{
+    width: 50px;
+}
+
+.lichnDan_header_btn{
+    width: 150px;
+}
+
+.skidki{
+    border: solid;
+}
+
+.skidki_header{
+    display: flex;
+    justify-content: center;
+}
+
+.skidki_header_logo{
+    width: 50px;
+}
+
+.zakaz{
+    border: solid;
+}
+
+.zakaz_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.zakaz_header_logo{
+    width: 50px;
+}
+
+.userPage_block2{
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    gap: 30px;
+}
+
+
+.moiObrash{
+    border: solid;
+}
+
+.moiObrash_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moiObrash_header_logo{
+    width: 50px;
+}
+
+.footerUserPage{
+    display: grid;
+    grid-template-columns: 1fr 4fr 3fr;
+    padding: 20px;
+    gap: 15px;
+    background-color: #69bff8;
+}
+
+/*updatePassword*/
+.smenaPass_block{
+    padding-top: 30px;
+    padding-left: 50px;
+}
 
 /*contacts*/
 .contacts_block{
     padding-top: 150px;
-
     gap: 50px;
     display: flex;
-
     justify-content: center;
     align-items: baseline;
-
+    padding-bottom: 123px;
 }
 
 .contacts_callCenter{
@@ -707,5 +957,71 @@ button:hover{
 .wholesalers_p{
     width: 300px;
 }
+
+@media(max-width:1350px){
+    .productListDiv_btn{
+        width: 280px;
+    }
+}
+
+
+@media(max-width:1190px){
+    .header_user_lc_logo{
+        padding-left: 0px;
+    }
+
+    .header_user_lc_block{
+        padding-right: 0px;
+    }
+
+    .header_input_search {
+        width: 200px;
+    }
+
+    .footer_product{
+        display: flex;
+        gap: 33px;
+    }
+
+    .productListDiv{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .productListDiv_btn{
+        width: 200px;
+    }
+}
+
+@media(max-width:1000px){
+    .orders_logo {
+        width: 35px;
+    }
+
+    .basket_logo {
+        width: 35px;
+    }
+
+    .user_auth_img {
+        width: 35px;
+    }
+
+    .header_input_search {
+        width: 200px;
+    }
+
+    .logo_search {
+        width: 15px;
+    }
+
+    .header_search_btn {
+        width: 67px;
+    }
+
+    .productListDiv_btn{
+        width: 150px;
+    }
+}
+
+
 
 

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Каталог товаров</title>
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/cart.css}" type="text/css" rel="stylesheet">
 </head>
 
 
@@ -11,7 +12,6 @@
 
 
   <div class="header_product_header">
-
     <div class="header_location">
       <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
       <a class="header_location_logo_link" href="#"> Москва</a>
@@ -22,15 +22,12 @@
       <a class="header_location_logo_link" href="/company"> О компании</a>
       <a class="header_location_logo_link" href="/contacts"> Контакты</a>
     </div>
-
-
   </div>
 
   <div class="header_user_lc">
-
     <div class="header_user_lc_logo">
       <a class="logo_ss" href="/product">
-        <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo">
+      <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
       </a>
     </div>
 
@@ -42,12 +39,6 @@
     </div>
 
     <div class="header_user_lc_block">
-
-      <div class="header_user_lc_orders">
-        <a class="orders_ss" href="/orders">
-          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">
-        </a>
-      </div>
 
       <div class="header_user_lc_basket">
         <a class="basket_ss" href="/cart">
@@ -64,97 +55,160 @@
     </div>
   </div>
 
+  <div class="container">
+    <div class="slider_wrapper">
+      <div class="sliders">
+        <img src="/images/banner3.jpg" id="slide-1">
+        <img src="/images/p18073_Lx79qg.jpg" id="slide-2">
+        <img src="/images/banerDemo7.png" id="slide-3">
+        <img src="/images/banerDemo4.jpg" id="slide-4">
+        <img src="/images/banerDemo8.jpg" id="slide-5">
+      </div>
+      <div class="controls">
+        <a href="#slide-1"></a>
+        <a href="#slide-2"></a>
+        <a href="#slide-3"></a>
+        <a href="#slide-4"></a>
+        <a href="#slide-5"></a>
+      </div>
+    </div>
+  </div>
 
-  <a th:href="@{/product}">
-    <img class="banner" th:src="@{/images/santehnika_reklama.jpg}" alt="banner">
-  </a>
 
-
-    <div class="searchPlusBanner">
-      <form th:method="POST" th:action="@{/product/search}">
-      <fieldset>
-        <legend>Выберите параметры:</legend>
-        <label for="ot">Цена от:</label>
-        <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
-        <label for="do">Цена до:</label>
-        <input type="text" name="do" id="do" th:value="*{value_price_do}">
-        <br>
-        <div>
-          <p>Сортировка</p>
-          <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
-          <label for="ascending_price">По возрастанию цены</label>
-          <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
-          <label for="descending_price">По убыванию цены</label>
-          <p>Категория товаров:</p>
-          <input type="radio" id="Ванны" name="category" value="Ванны">
-          <label for="Ванны">Ванны</label>
-          <input type="radio" id="Санфаянс" name="category" value="Санфаянс">
-          <label for="Санфаянс">Санфаянс</label>
-          <input type="radio" id="Смесители" name="category" value="Смесители">
-          <label for="Смесители">Смесители</label>
-          <input type="radio" id="Душевые кабинки" name="category" value="Душевые кабинки">
-          <label for="Душевые кабинки">Душевые кабинки</label>
-          <input type="radio" id="Кухонные раковины" name="category" value="Кухонные раковины">
-          <label for="Кухонные раковины">Кухонные мойки</label>
-          <input type="radio" id="Арматура" name="category" value="Арматура">
-          <label for="Арматура">Арматура</label>
-          <br>
-          <input class="findButton" type="submit" value="Найти">
+  <div class="product_block">
+    <div class="card1">
+      <div class="card_header toggleHide">
+        <div class="top">
+          <p>Стильные модели</p>
+          <p>Душевые кабины</p>
         </div>
-      </fieldset>
-    </form>
+      </div>
+      <div class="card_footer toggleHide">
+        <p>Всегда в наличии!</p>
+      </div>
+    </div>
+    <div class="card2">
+      <div class="card_header toggleHide">
+        <div class="top">
+          <p>Инсталяции для подвесных унитазов</p>
+          <p></p>
+        </div>
+      </div>
+      <div class="card_footer toggleHide">
+        <p>Новинка!</p>
+      </div>
+    </div>
+    <div class="card3">
+      <div class="card_header toggleHide">
+        <div class="top">
+          <p></p>
+          <p>Раковины накладные</p>
+        </div>
+      </div>
+      <div class="card_footer toggleHide">
+        <p>Стильно!</p>
+      </div>
+    </div>
+  </div>
 
+  <div class="product_list">
+
+    <div class="searchSort">
+      <form th:method="POST" th:action="@{/product/search}">
+        <fieldset class="searchSort_block">
+          <legend>Выберите параметры :</legend>
+          <br>
+          <label for="min">Цена от:</label>
+          <input type="text" name="min" id="min" th:value="*{min_price}">
+          <label for="max">Цена до:</label>
+          <input type="text" name="max" id="max" th:value="*{max_price}">
+          <br>
+
+          <div>
+            <p>Сортировка</p>
+            <input type="radio" id="ascending_price" name="sort" value="sorted_by_ascending_price">
+            <label for="ascending_price">По возрастанию цены</label>
+            <input type="radio" id="descending_price" name="sort" value="sorted_by_descending_price">
+            <label for="descending_price">По убыванию цены</label>
+            <p>Категория товаров:</p>
+            <input type="radio" id="Ванны" name="category" value="Ванны">
+            <label for="Ванны">Ванны</label>
+            <br>
+            <input type="radio" id="Санфаянс" name="category" value="Санфаянс">
+            <label for="Санфаянс">Санфаянс</label>
+            <br>
+            <input type="radio" id="Смесители" name="category" value="Смесители">
+            <label for="Смесители">Смесители</label>
+            <br>
+            <input type="radio" id="Душевые кабинки" name="category" value="Душевые кабинки">
+            <label for="Душевые кабинки">Душевые кабинки</label>
+            <br>
+            <input type="radio" id="Кухонные раковины" name="category" value="Кухонные раковины">
+            <label for="Кухонные раковины">Кухонные мойки</label>
+            <br>
+            <input type="radio" id="Арматура" name="category" value="Арматура">
+            <label for="Арматура">Арматура</label>
+            <br>
+            <input class="findButton" type="submit" value="Найти">
+          </div>
+        </fieldset>
+      </form>
     </div>
 
-<div class="productListDiv">
-  <div class="productDiv" th:each="product : ${search_product_header}">
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-      <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
-      <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
-    </a>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-  </div>
-</div>
 
-<div class="productListDiv">
-  <div class="productDiv" th:each="product : ${search_product}">
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-      <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
-      <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
-    </a>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-  </div>
-</div>
+    <div >
+      <div class="productListDiv">
+        <div class="productDiv" th:each="product : ${search_product_header}">
+          <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+            <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
+            <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
+          </a>
+          <br>
+          <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        </div>
+      </div>
 
-<h3>Наши товары</h3>
-<div class="productListDiv">
-<div class="productDiv" th:each="product : ${products}">
-  <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-    <img class="product_img" th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
-    <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" />
-  </a>
+      <div class="productListDiv">
+        <div class="productDiv" th:each="product : ${search_product}">
+          <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+            <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
+            <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
+          </a>
+          <br>
+          <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        </div>
+      </div>
+      <h3>Наши товары</h3>
+      <div class="productListDiv">
+        <div class="productDiv" th:each="product : ${products}">
+          <a th:href="@{/product/info/{id}(id=${product.getId()})}">
+            <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
+            <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
+          </a>
+          <br>
+          <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+          <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
+            <button class="productListDiv_btn" type="submit">Купить</button>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <br>
-  <a class="product_name_text" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-  <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-  <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
-    <button class="product_btn" type="submit">Купить</button><br>
-  </form>
-</div>
-</div>
-<br>
-<hr>
-<div class="footer_product">
+  <hr>
+  <div class="footer_product">
 
 
-  <div class="header_user_lc_logo">
-    <a class="logo_ss" href="/product">
-      <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo_new">
-    </a>
-  </div>
+    <div class="header_user_lc_logo">
+      <a class="logo_ss" href="/product">
+        <img class="logo_new_footer" th:src="@{/images/footer-logo.png}">
+      </a>
+    </div>
 
     <div>
       Информация о характеристиках товара, его наличию и доставке носит<br>
@@ -165,9 +219,13 @@
 
 
     <div>
-      ©2023 Интернет-магазин Сан ТеХ Проф<br>
-      Дипломная работа -----------<br>
-      Группа:---------
+      Интернет-магазин Посейдон<br>
+      Дипломная работа студентов: <br>
+      Пакулин Ю.А., Строев Д.В., Брылин М.В.
+      <br>
+      Группа:4811
+      <br>
+      ©2024
     </div>
     <div class="goBack">
       <div>
@@ -176,6 +234,6 @@
         </form>
       </div>
     </div>
-</div>
+  </div>
 </body>
 </html>

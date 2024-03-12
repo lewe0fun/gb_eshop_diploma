@@ -29,7 +29,7 @@
 
             <div class="header_user_lc_logo">
                 <a class="logo_ss" href="/product">
-                    <img class="logo_new" th:src="@{/images/orig.jpg}">
+                    <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
                 </a>
             </div>
 
@@ -56,24 +56,32 @@
 
 
 
-<table class="table">
-    <thead>
-    <tr>
-        <th> Имя</th>
-        <th> Роль</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${person.empty}">
-        <td colspan="2"> Пользователей еще нет</td>
-    </tr>
-    <tr th:each="element : ${person}">
-        <td><a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}"
-               th:text="${element.getLogin()}"></a></td>
-        <td><span th:text="${element.getRole()}"> Роль </span></td>
-    </tr>
-    </tbody>
-</table>
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Логин</th>
+                <th> Имя</th>
+                <th> Фамилия</th>
+                <th> Телефон</th>
+                <th> Email</th>
+                <th> Адрес доставки</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${person.empty}">
+                <td colspan="2"> Пользователей еще нет</td>
+            </tr>
+            <tr th:each="element : ${person}">
+                <td><a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}"
+                       th:text="${element.getLogin()}"></a></td>
+                <td><span th:text="${element.getFirstName()}"> Имя </span></td>
+                <td><span th:text="${element.getLastName()}"> Фамилия </span></td>
+                <td><span th:text="${element.getTelephone()}"> Телефон </span></td>
+                <td><span th:text="${element.getEmail()}"> Email </span></td>
+                <td><span th:text="${element.getAddress()}"> Адрес доставки </span></td>
+            </tr>
+            </tbody>
+        </table>
 
 </body>
 </html>

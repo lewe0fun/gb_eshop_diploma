@@ -14,7 +14,7 @@
 
         <div class="header_user_lc_logo">
           <a class="logo_ss" href="/product">
-            <img class="logo_new" th:src="@{/images/orig.jpg}">
+            <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
           </a>
         </div>
 
@@ -38,13 +38,11 @@
       </div>
       <hr>
 
-
-
-
       <div class="admin_order_info">
         <form th:method="POST" th:action="@{/admin/orders/{id}(id=${info_order.getId()})}" th:object="${info_order}">
 
           <div th:each="order:${info_order}">
+            <p th:text="${info_order.getPerson().getLogin()}"></p>
             <p th:text="${info_order.getNumber()}"></p>
             <p th:text="${info_order.getStatus()}"></p>
 

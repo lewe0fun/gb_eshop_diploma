@@ -9,144 +9,161 @@
 
 <body class="body_user_lc">
 
-    <div class="header_product_header">
+<div class="header_product_header">
 
-        <div class="header_location">
-            <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
-            <a class="header_location_logo_link" href="#"> Москва</a>
-        </div>
-
-        <div class="header_info" >
-            <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
-            <a class="header_location_logo_link" href="/company"> О компании</a>
-            <a class="header_location_logo_link" href="/contacts"> Контакты</a>
-        </div>
-
-
+    <div class="header_location">
+        <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+        <a class="header_location_logo_link" href="#"> Москва</a>
     </div>
 
-    <div class="header_user_lc">
+    <div class="header_info">
+        <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+        <a class="header_location_logo_link" href="/company"> О компании</a>
+        <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+    </div>
 
-        <div class="header_user_lc_logo">
-            <a class="logo_ss" href="/product">
-                <img class="logo_new" th:src="@{/images/orig.jpg}">
+
+</div>
+
+<div class="header_user_lc">
+
+    <div class="header_user_lc_logo">
+        <a class="logo_ss" href="/product">
+            <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
+        </a>
+    </div>
+    <h2 th:text="'Активный пользователь: '+${person.getLogin()}">Личка</h2>
+
+    <div class="header_user_lc_block">
+
+        <div class="header_user_lc_basket">
+            <a class="basket_ss" href="/cart">
+                <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
             </a>
         </div>
-        <h2 th:text="'Личный кабинет пользователя: '+${person.getLogin()}">Личный кабинет администратора</h2>
-        <div class="header_search">
-            <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
-                <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
-                <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}"></button>
-            </form>
-        </div>
 
-        <div class="header_user_lc_block">
-
-            <div class="header_user_lc_orders">
-                <a class="orders_ss" href="/orders">
-                    <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
-                </a>
-            </div>
-
-            <div class="header_user_lc_basket">
-                <a class="basket_ss" href="/cart">
-                    <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
-
-                </a>
-            </div>
-
-            <div class="header_user_lc_exit">
-                <form method="post" th:action="@{/logout}">
-                <button class="header_user_lc_ex_bt" >
+        <div class="header_user_lc_exit">
+            <form method="post" th:action="@{/logout}">
+                <button class="header_user_lc_ex_bt">
                     <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
                 </button>
-                </form>
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="product_list">
-
-        <div class="searchSort">
-            <form th:method="POST" th:action="@{/product/search}">
-                <fieldset class="searchSort_block">
-                    <legend>Выберите параметры :</legend>
-                                    <label for="search">Поиск по наименованию:</label>
-                                    <input type="text" id="search" name="search" th:value="*{value_search}">
-                    <br>
-                    <label for="ot">Цена от:</label>
-                    <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
-                    <label for="do">Цена до:</label>
-                    <input type="text" name="do" id="do" th:value="*{value_price_do}">
-                    <br>
-
-                    <div>
-                        <p>Сортировка</p>
-                        <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
-                        <label for="ascending_price">По возрастанию цены</label>
-                        <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
-                        <label for="descending_price">По убыванию цены</label>
-                        <p>Категория товаров:</p>
-                        <input type="radio" id="Ванны" name="category" value="Ванны">
-                        <label for="Ванны">Ванны</label>
-                        <br>
-                        <input type="radio" id="Санфаянс" name="category" value="Санфаянс">
-                        <label for="Санфаянс">Санфаянс</label>
-                        <br>
-                        <input type="radio" id="Смесители" name="category" value="Смесители">
-                        <label for="Смесители">Смесители</label>
-                        <br>
-                        <input type="radio" id="Душевые кабинки" name="category" value="Душевые кабинки">
-                        <label for="Душевые кабинки">Душевые кабинки</label>
-                        <br>
-                        <input type="radio" id="Кухонные раковины" name="category" value="Кухонные раковины">
-                        <label for="Кухонные раковины">Кухонные мойки</label>
-                        <br>
-                        <input type="radio" id="Арматура" name="category" value="Арматура">
-                        <label for="Арматура">Арматура</label>
-                        <br>
-                        <input class="findButton" type="submit" value="Найти">
-                    </div>
-                </fieldset>
             </form>
-            <!--<img th:src="@{/images/banner2.jpg}">-->
         </div>
+    </div>
+
+</div>
+
+<div class="userPage_h1">
+    <h1>Личный кабинет</h1>
+</div>
 
 
-        <div >
-<!--            <h3>Наши товары</h3>-->
-            <div class="productListDiv">
-                <div class="productDiv" th:each="product : ${products}">
-                    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-                        <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
-                        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
-                    </a>
-                    <br>
-                    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-                    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-                    <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
-                        <button type="submit">Купить</button>
-                        <br>
-                    </form>
-                </div>
+<div class="userPage_h2">
+    <h2 th:text="'Здравствуйте  '+${person.getLogin()} +', добро пожаловать в личный кабинет! '">Личка</h2>
+</div>
+
+<br>
+<br>
+
+<div class="userData">
+    <div class="userPage_block1">
+        <div class="lichnDan">
+            <div class="lichnDan_header">
+                <img class="lichnDan_header_logo" src="/images/profile.svg" alt="logo">
+                <h3>Личные данные</h3>
+                <form  method="GET" th:action="@{/admin/personUser/edit/{id}(id=${person.getId()})}" >
+                    <button class="lichnDan_header_btn" >Подробнее</button>
+                </form>
+
+
+            </div>
+            <div class="lichnDan_body">
+                <hr>
+                <h3 th:text="${person.getLogin()} ">Личка</h3>
+                <h3 th:text=" 'Имя: '+ ${person.getFirstName()} ">Имя:</h3>
+                <h3 th:text=" 'Фамилия: '+ ${person.getLastName()} ">Фамилия:</h3>
+                <h3 th:text=" 'Телефон: '+ ${person.getTelephone()} ">Телефон:</h3>
+                <h3 th:text=" 'Email: '+ ${person.getEmail()} ">Email:</h3>
+                <h3 th:text=" 'Адрес доставки: '+ ${person.getAddress()} ">Адрес доставки:</h3>
+            </div>
+        </div>
+        <div class="skidki">
+            <div class="skidki_header">
+                <img class="skidki_header_logo" src="/images/percent.svg" alt="logo">
+                <h3>Скидки</h3>
+            </div>
+            <div class="skidki_body">
+                <hr>
+                <h3 th:text="${person.getLogin()} + ' - у Вас пока нет скидок' ">Скидки</h3>
             </div>
         </div>
     </div>
 
+    <br>
 
+    <div class="zakaz">
+        <div class="zakaz_header">
+            <img class="zakaz_header_logo" src="/images/cart.svg" alt="logo">
+            <h3>Заказы</h3>
+            <form method="get" th:action="@{/orders}">
+                <button class="lichnDan_header_btn" >Подробнее</button>
+            </form>
+        </div>
+        <div class="zakaz_body">
+            <hr>
+            <div class="adminSearch_orders_table">
+                <table style="margin: auto; border-spacing: 50px 10px">
+                    <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Товар в заказе</th>
+                        <th>Статус заказа</th>
+                        <th>Итого, руб.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order:${orders}">
+                        <td th:text="${order.getNumber()}"></td>
+                        <td th:text="${order.getProduct().getTitle()}"></td>
+                        <td th:text="${order.getStatus()}"></td>
+                        <td th:text="${order.getPrice()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<br>
+
+
+    <div class="userPage_block2">
+        <div class="moiObrash">
+            <div class="moiObrash_header">
+                <img class="moiObrash_header_logo" src="/images/email.svg" alt="logo">
+                <h3>Обращения</h3>
+            </div>
+            <div class="moiObrash_body">
+                <hr>
+                <h3 th:text="${person.getLogin()} + ' - у Вас пока нет обращений' ">Обращения</h3>
+            </div>
+        </div>
+        <div>
+            <img class="moiObrash_logo" src="/images/banner2.jpg" alt="logo">
+        </div>
+    </div>
+
+</div>
 
 
 <br>
 <hr>
-<div class="footer">
-    <div>
-
-        <li><a href="/orders?">История заказов</a></li>
-        <li><a href="/cart">Корзина</a></li>
-
+<div class="footerUserPage">
+    <div class="header_user_lc_logo">
+        <a class="logo_ss" href="/product">
+            <img class="logo_new_footer" th:src="@{/images/footer-logo.png}">
+        </a>
     </div>
+
     <div>
         Информация о характеристиках товара, его наличию и доставке носит<br>
         исключительно ознакомительный характер и ни при каких условиях<br>
@@ -154,21 +171,19 @@
         Гражданского кодекса РФ
     </div>
 
-    <div class="header_user_lc_logo">
-        <a class="logo_ss" href="/product">
-            <img class="logo_new" th:src="@{/images/orig.jpg}">
-        </a>
-    </div>
     <div>
-        ©2023 Интернет-магазин Сан ТеХ Проф<br>
-        Дипломная работа -----------<br>
-        Группа:---------
+        Интернет-магазин Посейдон<br>
+        Дипломная работа студентов: <br>
+        Пакулин Ю.А., Строев Д.В., Брылин М.В.
+        <br>
+        Группа:4811
+        <br>
+        ©2024
     </div>
     <div class="goBack">
         <div>
             <form href="#">
-                <button type="submit">Наверх</button>
-                <br>
+                <button type="submit">Наверх</button><br>
             </form>
         </div>
     </div>
