@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About company</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+
+<body class="body_user_lc">
+
+
+        <div class="header_product_header">
+
+            <div class="header_location">
+                <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+                <a class="header_location_logo_link" href="#"> Москва</a>
+            </div>
+
+            <div class="header_info" >
+                <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+                <a class="header_location_logo_link" href="/company"> О компании</a>
+                <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+            </div>
+
+        </div>
+
+        <div class="header_user_lc">
+
+            <div class="header_user_lc_logo">
+                <a class="logo_ss" href="/product">
+                    <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo">
+                </a>
+            </div>
+
+            <div class="header_search">
+                <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
+                    <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
+                    <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}" alt="logo_search"></button>
+                </form>
+            </div>
+
+            <div class="header_user_lc_block">
+
+                <div class="header_user_lc_orders">
+                    <a class="orders_ss" href="/orders">
+                        <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">
+                    </a>
+                </div>
+
+                <div class="header_user_lc_basket">
+                    <a class="basket_ss" href="/cart">
+                        <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}" alt="basket_logo">
+                    </a>
+                </div>
+
+                <div class="header_user_lc_auth">
+                    <a class="user_auth" href="/login">
+                        <img class="user_auth_img" th:src="@{/images/profile-1336-svgrepo-com.svg}" alt="user_auth_img">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="aboutCompany_block1">
+            <h3>О компании</h3>
+            <h3>«Сан Tex Проф» — ответственность перед клиентом</h3>
+            <p class="aboutCompany_block1_p">
+                Гарантируем клиентам оптимальный выбор лучших товаров
+                от ведущих мировых брендов, профессиональные консультации,
+                своевременную доставку заказа и помощь на всех этапах сотрудничества.
+            </p>
+        </div>
+
+
+        <div class="aboutCompany_block2">
+            <img class="aboutCompany_block2_img" th:src="@{/images/marketingimg.png}" alt="mark_img">
+        </div>
+
+
+        <div class="aboutCompany_block3">
+            <div class="aboutCompany_block3_1">
+                <p>- 600 брендов</p>
+                <p>- 5 минут на обработку заказа</p>
+                <p>- Профессиональные консультации</p>
+            </div>
+            <div class="aboutCompany_block3_2">
+                <p>- Служба установки и сервиса</p>
+                <p>- Гарантия производителя, возврат, обмен</p>
+                <p>- Бесплатные дизайн-решения для клиентов</p>
+            </div>
+        </div>
+
+
+
+</body>
+</html>

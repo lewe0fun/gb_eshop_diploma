@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wholesalers</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+
+<body class="body_user_lc">
+
+        <div class="header_product_header">
+
+            <div class="header_location">
+                <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+                <a class="header_location_logo_link" href="#"> Москва</a>
+            </div>
+
+            <div class="header_info" >
+                <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+                <a class="header_location_logo_link" href="/company"> О компании</a>
+                <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+            </div>
+
+        </div>
+
+        <div class="header_user_lc">
+
+            <div class="header_user_lc_logo">
+                <a class="logo_ss" href="/product">
+                    <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo">
+                </a>
+            </div>
+
+            <div class="header_search">
+                <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
+                    <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
+                    <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}" alt="logo_search"></button>
+                </form>
+            </div>
+
+            <div class="header_user_lc_block">
+
+                <div class="header_user_lc_orders">
+                    <a class="orders_ss" href="/orders">
+                        <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">
+                    </a>
+                </div>
+
+                <div class="header_user_lc_basket">
+                    <a class="basket_ss" href="/cart">
+                        <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}" alt="basket_logo">
+                    </a>
+                </div>
+
+                <div class="header_user_lc_auth">
+                    <a class="user_auth" href="/login">
+                        <img class="user_auth_img" th:src="@{/images/profile-1336-svgrepo-com.svg}" alt="user_auth_img">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="wholesalers_block1">
+            <div class="wholesalers_block1_text">
+                <h2>Мы помогаем вам зарабатывать</h2>
+                <h3>Программа лояльности для оптовых клиентов</h3>
+                <div class="wholesalers_block1_textt">
+                    <a class="user_auth" href="/login">
+                        <img class="wholesalers_block1_img1" th:src="@{/images/registrationOpt.svg}" alt="regOpt_img">
+                    </a>
+                </div>
+            </div>
+            <div class="wholesalers_block1_img">
+                <img th:src="@{/images/hero.png}" alt="logo">
+            </div>
+        </div>
+
+
+        <div class="wholesalers_block2">
+            <h2>Что мы предлагаем?</h2>
+        </div>
+
+        <div class="wholesalers_block3">
+            <div class="wholesalers_block3_1">
+                <img class="wholesalers_block3_1_img" th:src="@{/images/discount.svg}" alt="logo">
+                <h2>Гибкая система скидок</h2>
+                <p class="wholesalers_p">Персональные условия в рамках программы лояльности</p>
+            </div>
+            <div class="wholesalers_block3_2">
+                <img class="wholesalers_block3_2_img" th:src="@{/images/car.svg}" alt="logo">
+                <h2>Федеральный масштаб</h2>
+                <p class="wholesalers_p">Своя доставка в 40+ регионов, партнерство с ТК и бесплатный самовывоз из наших магазинов</p>
+            </div>
+            <div class="wholesalers_block3_3">
+                <img class="wholesalers_block3_3_img" th:src="@{/images/computer.svg}" alt="logo">
+                <h2>Личный кабинет</h2>
+                <p class="wholesalers_p">Облачные сервисы, товарный контент, цена и наличие, обработка заказов 24/7</p>
+            </div>
+        </div>
+
+</body>
+</html>

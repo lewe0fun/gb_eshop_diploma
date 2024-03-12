@@ -388,4 +388,20 @@ public class MainController {
         model.addAttribute("orders", orderList);
         return "/user/orders";
     }
+
+    @GetMapping("/contacts")
+    public String contactMarket() {
+        return "contacts";
+    }
+
+    @GetMapping("/company")
+    public String aboutCompanyMarket() {
+        return "aboutCompany";
+    }
+
+    @GetMapping("/wholesalers")
+    public String wholesalersMarket() {
+        return "wholesalers";
+    }
+
 }
