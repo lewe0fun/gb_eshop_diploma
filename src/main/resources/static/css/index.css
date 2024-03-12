@@ -171,16 +171,6 @@ input{
     display: flex;
 }
 
-/*.searchHeader{*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.searchHeader input{*/
-/*    border-radius: 0px;*/
-/*    height: 20px;*/
-/*    width: 250px;*/
-/*}*/
 
 .searchHeader button{
     position: relative;
@@ -299,6 +289,12 @@ fieldset legend{
 .productListDiv{
     Display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+
+.productListDivUserPage{
+    Display: grid;
+    grid-template-columns: 1fr 1fr ;
     padding: 20px;
 }
 
