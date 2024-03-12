@@ -118,4 +118,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByTitleAndCategoryOrderByPriceAsc(String title, int id_category);
     @Query(value = "select * from product where category_id = ?2 and(lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') order by price desc", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceDesc(String title, int id_category);
+    @Query(value = "select * from product where (lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3)", nativeQuery = true)
+    List<Product> findByTitleAndCategoryAndPrice(String title, float ot, float Do);
 }

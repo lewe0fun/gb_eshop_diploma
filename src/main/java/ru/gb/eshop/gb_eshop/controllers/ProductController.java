@@ -132,17 +132,17 @@ public class ProductController {
                             model.addAttribute(SEARCH_PRODUCT, productRepository
                                     .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do), 6));
                         }
-                    } else {
+                    } else {//если нет категории, но с сортировкой и от и до цен
                         model.addAttribute(SEARCH_PRODUCT, productRepository
                                 .findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
                     }
                 }
-            } else {
+            } else {//если от и до есть, но нет сортировки, категории нет
                 model.addAttribute(SEARCH_PRODUCT, productRepository
                         .findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(search.toLowerCase(), Float.parseFloat(ot), Float.parseFloat(Do)));
             }
         }
-        if (!price.isEmpty()) {
+        else if (!price.isEmpty()) {
             if (price.equals(SEARCH_ASC)) {
                 if (!category.isEmpty()) {
                     if (category.equals(CATEGORY1)) {
@@ -207,8 +207,9 @@ public class ProductController {
             } else if (category.equals(CATEGORY6)) {
                 model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 6));
             }
-        } else {// всв товары
-            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search));
+        }
+        else {// всв товары
+            model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search.toLowerCase()));
         }
 
         model.addAttribute(VALUE_SEARCH, search);
