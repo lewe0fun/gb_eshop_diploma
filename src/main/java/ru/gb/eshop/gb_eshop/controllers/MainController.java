@@ -160,12 +160,11 @@ public class MainController {
         List<Product> productList = new ArrayList<>();
         for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
-
         float price = 0;
         for (Product product : productList) {
             price += product.getPrice();
         }
-
+        model.addAttribute("person", person);
         model.addAttribute("price", price);
         model.addAttribute("cart_product", productList);
         return "/user/cart";
@@ -226,6 +225,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person person = (Person) authentication.getPrincipal();
         List<Order> orderList = orderService.findByPerson(person);
+        model.addAttribute("person",person);
         model.addAttribute("orders", orderList);
         return "/user/orders";
     }

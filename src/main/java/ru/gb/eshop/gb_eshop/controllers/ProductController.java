@@ -2,9 +2,13 @@ package ru.gb.eshop.gb_eshop.controllers;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
 import ru.gb.eshop.gb_eshop.services.ProductService;
 
@@ -50,6 +54,17 @@ public class ProductController {
      */
     @GetMapping("")
     public String getAllProduct(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null) {
+            Person person = (Person) auth.getPrincipal();
+            Person guest = new Person();
+            guest.setLogin("гость");
+            if (person != null) {
+                model.addAttribute("person", person);
+            } else {
+                model.addAttribute("person", guest);
+            }
+        }
         model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
     }
@@ -85,6 +100,18 @@ public class ProductController {
                                 @RequestParam(value = "price", required = false, defaultValue = "") String price,
                                 @RequestParam(value = "category", required = false, defaultValue = "") String category,
                                 Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null) {
+            Person person = (Person) auth.getPrincipal();
+            Person guest = new Person();
+            guest.setLogin("гость");
+            if (person != null) {
+                model.addAttribute("person", person);
+            } else {
+                model.addAttribute("person", guest);
+            }
+        }
+
         if (!ot.isEmpty() & !Do.isEmpty()) {
             if (!price.isEmpty()) {
                 if (price.equals(SEARCH_ASC)) {
