@@ -145,6 +145,9 @@ public class AdminController {
 
     @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id) {
+        if(orderRepository.findByProduct_id(id)!=null){
+            return "redirect:/admin";
+        }
         productService.deleteProduct(id);
         return "redirect:/admin";
     }

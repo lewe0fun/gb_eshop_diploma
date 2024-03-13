@@ -4,32 +4,76 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h3>Список пользователей</h3>
-<form th:action="@{/admin}">
-    <button type="submit">Назад в меню администратора</button>
-    <br>
-</form>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th> Имя</th>
-        <th> Роль</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${person.empty}">
-        <td colspan="2"> Пользователей еще нет</td>
-    </tr>
-    <tr th:each="element : ${person}">
-        <td><a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}"
-               th:text="${element.getLogin()}"></a></td>
-        <td><span th:text="${element.getRole()}"> Роль </span></td>
-    </tr>
-    </tbody>
-</table>
+<body class="body_user_lc">
+
+        <div class="header_product_header">
+
+            <div class="header_location">
+                <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+                <a class="header_location_logo_link" href="#"> Москва</a>
+            </div>
+
+            <div class="header_info" >
+                <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+                <a class="header_location_logo_link" href="/company"> О компании</a>
+                <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+            </div>
+
+
+        </div>
+
+        <div class="header_user_lc">
+
+            <div class="header_user_lc_logo">
+                <a class="logo_ss" href="/product">
+                    <img class="logo_new" th:src="@{/images/orig.jpg}">
+                </a>
+            </div>
+
+            <h3>Список пользователей</h3>
+
+            <div class="header_user_lc_block">
+                <div class="header_user_lc_exit">
+                    <form method="post" th:action="@{/logout}">
+                        <button class="header_user_lc_ex_bt" >
+                            <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="adminButtons">
+            <form th:action="@{/admin}">
+                <button type="submit">Назад в меню администратора</button>
+            </form>
+        </div>
+        <hr>
+
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Имя</th>
+                <th> Роль</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${person.empty}">
+                <td colspan="2"> Пользователей еще нет</td>
+            </tr>
+            <tr th:each="element : ${person}">
+                <td><a aria-current="page" th:href="@{/admin/person/info/{id}(id=${element.getId()})}"
+                       th:text="${element.getLogin()}"></a></td>
+                <td><span th:text="${element.getRole()}"> Роль </span></td>
+            </tr>
+            </tbody>
+        </table>
 
 </body>
 </html>

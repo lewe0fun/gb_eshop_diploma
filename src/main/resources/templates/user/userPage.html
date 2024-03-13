@@ -9,6 +9,22 @@
 
 <body class="body_user_lc">
 
+    <div class="header_product_header">
+
+        <div class="header_location">
+            <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+            <a class="header_location_logo_link" href="#"> Москва</a>
+        </div>
+
+        <div class="header_info" >
+            <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+            <a class="header_location_logo_link" href="/company"> О компании</a>
+            <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+        </div>
+
+
+    </div>
+
     <div class="header_user_lc">
 
         <div class="header_user_lc_logo">
@@ -16,7 +32,7 @@
                 <img class="logo_new" th:src="@{/images/orig.jpg}">
             </a>
         </div>
-        <h2 th:text="'Активный пользователь: '+${person.getLogin()}">Личка</h2>
+        <h2 th:text="'Личный кабинет пользователя: '+${person.getLogin()}">Личный кабинет администратора</h2>
         <div class="header_search">
             <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
                 <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
@@ -49,6 +65,10 @@
         </div>
 
 
+    </div>
+
+    <div>
+        <img class="demoBaner" th:src="@{/images/banerDemo2.jpg}" alt="logo">
     </div>
 
     <div class="product_list">
@@ -95,34 +115,8 @@
             </form>
         </div>
 
-
         <div >
-            <h3>Результаты поиска</h3>
-            <div class="productListDiv">
-                <div class="productDiv" th:each="product : ${search_product_header}">
-                    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-                        <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
-                        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
-                    </a>
-                    <br>
-                    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-                    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-                </div>
-            </div>
-
-            <div class="productListDiv">
-                <div class="productDiv" th:each="product : ${search_product}">
-                    <a th:href="@{/product/info/{id}(id=${product.getId()})}">
-                        <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" width="300px"/>
-                        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}" width="300px"/>
-                    </a>
-                    <br>
-                    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-                    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-                </div>
-            </div>
-            <h3>Наши товары</h3>
-            <div class="productListDiv">
+            <div class="productListDivUserPage">
                 <div class="productDiv" th:each="product : ${products}">
                     <a th:href="@{/product/info/{id}(id=${product.getId()})}">
                         <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />

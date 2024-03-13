@@ -25,4 +25,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
      * @return список заказов
      */
     List<Order> findByNumberEndingWith(String endingWith);
+
+    Order findByProduct_id(int product_id);
 }

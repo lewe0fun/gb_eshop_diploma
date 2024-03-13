@@ -4,51 +4,99 @@
   <meta charset="UTF-8">
   <title>Редактирование товара</title>
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h3>Редактирование товара</h3>
-<form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
-  <label for="title">Введите наименование товара: </label>
-  <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
-  <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-  <br>
-  <br>
-  <label for="description">Введите описание товара: </label>
-  <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
-  <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-  <br>
-  <br>
-  <label for="price">Введите цену товара: </label>
-  <input type="number" th:field="*{price}" min="1" step="0.00" placeholder="Цена" id="price">
-  <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-  <br>
-  <br>
-  <label for="warehouse">Введите cклад, на котором расположен товар: </label>
-  <input type="text" th:field="*{warehouse}" placeholder="Cклад" id="warehouse">
-  <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
-  <br>
-  <br>
-  <label for="category">Выберите категорию товара: </label>
+
+<body class="body_user_lc">
+
+    <div class="header_product_header">
+
+      <div class="header_location">
+        <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
+        <a class="header_location_logo_link" href="#"> Москва</a>
+      </div>
+
+      <div class="header_info" >
+        <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
+        <a class="header_location_logo_link" href="/company"> О компании</a>
+        <a class="header_location_logo_link" href="/contacts"> Контакты</a>
+      </div>
 
 
-
-  <select name="category" th:field="*{category}" id="category">
-    <div th:each="element : ${category}">
-      <option th:text="${element.getName()}" th:value="${element.getId()}">
     </div>
-  </select>
 
 
+    <div class="header_user_lc">
 
-  <div style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
-  <br>
-  <br>
-  <label for="seller">Введите данные о продавце: </label>
-  <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
-  <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
-  <br>
-  <br>
-  <input type="submit" value="Сохранить изменения">
-</form>
+      <div class="header_user_lc_logo">
+        <a class="logo_ss" href="/product">
+          <img class="logo_new" th:src="@{/images/orig.jpg}">
+        </a>
+      </div>
+
+      <h2>Редактирование товара</h2>
+
+      <div class="header_user_lc_block">
+        <div class="header_user_lc_exit">
+          <form method="post" th:action="@{/logout}">
+            <button class="header_user_lc_ex_bt" >
+              <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="adminButtons">
+      <form th:action="@{/admin}">
+        <button type="submit">Назад в меню администратора</button>
+      </form>
+    </div>
+    <hr>
+
+
+    <div class="admin_editProduct_form">
+      <form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
+        <label for="title">Введите наименование товара: </label>
+        <input class="admin_editProduct_form_inpName" type="text" th:field="*{title}" placeholder="Наименование" id="title">
+        <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        <br>
+        <br>
+        <label for="description">Введите описание товара: </label>
+        <textarea class="admin_editProduct_form_inpDesc" th:field="*{description}" placeholder="Описание" id="description"></textarea>
+        <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+        <br>
+        <br>
+        <label for="price">Введите цену товара: </label>
+        <input type="number" th:field="*{price}" min="1" step="0.00" placeholder="Цена" id="price">
+        <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        <br>
+        <br>
+        <label for="warehouse">Введите cклад, на котором расположен товар: </label>
+        <input type="text" th:field="*{warehouse}" placeholder="Cклад" id="warehouse">
+        <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+        <br>
+        <br>
+        <label for="category">Выберите категорию товара: </label>
+
+        <select name="category" th:field="*{category}" id="category">
+          <div th:each="element : ${category}">
+            <option th:text="${element.getName()}" th:value="${element.getId()}">
+          </div>
+        </select>
+
+        <div style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+        <br>
+        <br>
+        <label for="seller">Введите данные о продавце: </label>
+        <textarea class="admin_editProduct_form_inpProd" th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
+        <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+        <br>
+        <br>
+        <input type="submit" value="Сохранить изменения">
+      </form>
+    </div>
+
+
 </body>
 </html>

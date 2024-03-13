@@ -7,42 +7,66 @@
   <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
   <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<h1 th:text="'Личный кабинет администратора: '+${person.getLogin()}">Личный кабинет администратора</h1>
-<div class="adminButtons">
-  <form method="post" th:action="@{/logout}">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <button type="submit">Выйти из личного кабинета</button><br>
-  </form>
-  <form th:action="@{/admin/product/add}">
-    <button type="submit">Добавить новый товар</button><br>
-  </form>
-  <form th:action="@{/admin/person}">
-    <button type="submit">Список пользователей</button><br>
-  </form>
-  <form th:action="@{/admin/orders}">
-    <button type="submit">Заказы пользователей</button><br>
-  </form>
-</div>
-<hr>
 
-<h3>Загруженные товары</h3>
-<div class="ordersInfo">
-<div class="orderInfo" th:each="product : ${products}">
-  <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}"/>
-  <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
-  <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
-  <p th:text="'Описание: ' + ${product.getDescription()}"></p>
-  <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-  <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
-  <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
-  <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
-  <br>
-  <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
-  <br>
-  <br>
-  <a style="color: red" th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
-</div>
-</div>
+<body class="body_user_lc">
+
+    <div class="header_user_lc">
+
+        <div class="header_user_lc_logo">
+          <a class="logo_ss" href="/product">
+            <img class="logo_new" th:src="@{/images/orig.jpg}">
+          </a>
+        </div>
+
+        <h2 th:text="'Личный кабинет пользователя: '+${person.getLogin()}">Личный кабинет администратора</h2>
+
+        <div class="header_user_lc_block">
+          <div class="header_user_lc_exit">
+            <form method="post" th:action="@{/logout}">
+              <button class="header_user_lc_ex_bt" >
+                <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
+              </button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="adminButtons">
+      <form th:action="@{/admin/product/add}">
+        <button type="submit">Добавить новый товар</button><br>
+      </form>
+      <form th:action="@{/admin/person}">
+        <button type="submit">Список пользователей</button><br>
+      </form>
+      <form th:action="@{/admin/orders}">
+        <button type="submit">Заказы пользователей</button><br>
+      </form>
+    </div>
+    <hr>
+
+
+    <div class="admin_h3">
+      <h3>Загруженные товары</h3>
+    </div>
+
+
+    <div class="ordersInfo">
+      <div class="orderInfo" th:each="product : ${products}">
+        <img class="admin_orderInfo_img" th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}"/>
+        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
+        <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
+        <p th:text="'Описание: ' + ${product.getDescription()}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
+        <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+        <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
+        <br>
+        <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
+        <br>
+        <br>
+        <a style="color: red" th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
+      </div>
+    </div>
 </body>
 </html>

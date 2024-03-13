@@ -16,11 +16,9 @@
        </a>
      </div>
 
-
      <div class="registr_block">
        <h2>Регистрация</h2>
      </div>
-
 
      <div class="registr_input">
        <form method="post" th:actioin="@{/registration}" th:object="${person}">
@@ -43,8 +41,8 @@
      </div>
 
      <div class="registr_big_block_reg">
-       <form method="GET" th:actioin="@{/login}">
-         <a class="registr_big_block_but" href="/login">Вход</a>
+       <form method="GET" th:actioin="@{/authentication}">
+         <a class="registr_big_block_but" href="/authentication">Вход</a>
        </form>
 
      </div>
