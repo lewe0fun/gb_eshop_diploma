@@ -67,13 +67,16 @@
 
     </div>
 
+    <div>
+        <img class="demoBaner" th:src="@{/images/banerDemo2.jpg}" alt="logo">
+    </div>
+
     <div class="product_list">
 
         <div class="searchSort">
             <form th:method="POST" th:action="@{/product/search}">
                 <fieldset class="searchSort_block">
                     <legend>Выберите параметры :</legend>
-
                     <br>
                     <label for="ot">Цена от:</label>
                     <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
@@ -110,12 +113,10 @@
                     </div>
                 </fieldset>
             </form>
-            <!--<img th:src="@{/images/banner2.jpg}">-->
         </div>
 
         <div >
-<!--            <h3>Наши товары</h3>-->
-            <div class="productListDiv">
+            <div class="productListDivUserPage">
                 <div class="productDiv" th:each="product : ${products}">
                     <a th:href="@{/product/info/{id}(id=${product.getId()})}">
                         <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />

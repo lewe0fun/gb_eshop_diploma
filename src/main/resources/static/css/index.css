@@ -51,10 +51,7 @@ input{
 .header_product_header{
     height: 20px;
     background-color: darkorange;
-
     padding-left: 20px;
-
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -117,12 +114,10 @@ input{
 
 .header_user_lc{
     background-color: #69bff8;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-
     padding-top: 6px;
 }
 
@@ -130,14 +125,12 @@ input{
     padding-left: 50px;
 }
 
-
 .header_user_lc_block{
     display: flex;
     gap: 30px;
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-
     padding-right: 30px;
 }
 
@@ -170,17 +163,6 @@ input{
 .header_search_form{
     display: flex;
 }
-
-/*.searchHeader{*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.searchHeader input{*/
-/*    border-radius: 0px;*/
-/*    height: 20px;*/
-/*    width: 250px;*/
-/*}*/
 
 .searchHeader button{
     position: relative;
@@ -246,7 +228,6 @@ input{
 }
 
 .navigation li:hover, a:hover{
-    /*color: white;*/
     color: darkorange;
 }
 
@@ -278,7 +259,6 @@ input{
 }
 
 .banner{
-    /*width: 95%;*/
     margin-bottom: 30px;
 }
 
@@ -286,6 +266,16 @@ input{
     display: grid;
     grid-template-columns: 50% 40%;
     padding-top: 30px;
+}
+
+.searchPlusBanner{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.formSearchProd{
+    width: 100vh;
 }
 
 fieldset legend{
@@ -299,6 +289,12 @@ fieldset legend{
 .productListDiv{
     Display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+
+.productListDivUserPage{
+    Display: grid;
+    grid-template-columns: 1fr 1fr ;
     padding: 20px;
 }
 
@@ -361,6 +357,7 @@ button:hover{
     display: grid;
     grid-template-columns: 1fr 4fr 2fr;
     padding: 20px;
+    gap: 10px;
 }
 
 .footer p{
@@ -489,77 +486,48 @@ button:hover{
 }
 
 .table {
-
 	width: 100%;
-
 	border: none;
-
 	margin-bottom: 20px;
-
     padding-top: 30px;
-
 }
 
 .table thead th {
-
 	font-weight: bold;
-
 	text-align: left;
-
 	border: none;
-
 	padding: 10px 15px;
-
 	background: #d8d8d8;
-
 	font-size: 14px;
-
 }
 
 .table thead tr th:first-child {
-
 	border-radius: 8px 0 0 8px;
-
 }
 
 .table thead tr th:last-child {
-
 	border-radius: 0 8px 8px 0;
-
 }
 
 .table tbody td {
-
 	text-align: left;
-
 	border: none;
-
 	padding: 10px 15px;
-
 	font-size: 14px;
-
 	vertical-align: top;
-
 }
 
 .table tbody tr:nth-child(even){
-
 	background: #f3f3f3;
-
 }
 
 .table tbody tr td:first-child {
-
 	border-radius: 8px 0 0 8px;
-
 }
 
 .table tbody tr td:last-child {
-
 	border-radius: 0 8px 8px 0;
-
 }
-
 
 .adminUserProfile{
     padding-left: 50px;
@@ -570,13 +538,10 @@ button:hover{
 /*contacts*/
 .contacts_block{
     padding-top: 150px;
-
     gap: 50px;
     display: flex;
-
     justify-content: center;
     align-items: baseline;
-
 }
 
 .contacts_callCenter{
@@ -711,5 +676,54 @@ button:hover{
 .wholesalers_p{
     width: 300px;
 }
+
+
+
+@media(max-width:1150px){
+    .header_user_lc_logo{
+        padding-left: 0px;
+    }
+
+    .header_user_lc_block{
+        padding-right: 0px;
+    }
+
+    .footer_product{
+        display: flex;
+        gap: 33px;
+    }
+
+    .productListDiv{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width:1000px){
+    .orders_logo {
+        width: 35px;
+    }
+
+    .basket_logo {
+        width: 35px;
+    }
+
+    .user_auth_img {
+        width: 35px;
+    }
+
+    .header_input_search {
+        width: 200px;
+    }
+
+    .logo_search {
+        width: 15px;
+    }
+
+    .header_search_btn {
+        width: 67px;
+    }
+}
+
+
 
 
