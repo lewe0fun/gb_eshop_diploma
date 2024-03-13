@@ -5,60 +5,32 @@
     <title>Информация о заказе</title>
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
   <link th:href="@{/css/cart.css}" type="text/css" rel="stylesheet">
-  <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
+<body>
+<div class="info" style="max-width: 800px">
+  <form th:method="POST" th:action="@{/admin/orders/{id}(id=${info_order.getId()})}" th:object="${info_order}">
 
-<body class="body_user_lc">
+    <div th:each="order:${info_order}">
+      <p th:text="${info_order.getNumber()}"></p>
+      <p th:text="${info_order.getStatus()}"></p>
 
-      <div class="header_user_lc">
-
-        <div class="header_user_lc_logo">
-          <a class="logo_ss" href="/product">
-            <img class="logo_new" th:src="@{/images/orig.jpg}">
-          </a>
-        </div>
-
-        <h2>Информация о заказе</h2>
-
-        <div class="header_user_lc_block">
-          <div class="header_user_lc_exit">
-            <form method="post" th:action="@{/logout}">
-              <button class="header_user_lc_ex_bt" >
-                <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="adminButtons">
-        <form th:action="@{/admin/orders}">
-          <button>К списку заказов</button><br>
-        </form>
-      </div>
-      <hr>
-
-      <div class="admin_order_info">
-        <form th:method="POST" th:action="@{/admin/orders/{id}(id=${info_order.getId()})}" th:object="${info_order}">
-
-          <div th:each="order:${info_order}">
-            <p th:text="${info_order.getNumber()}"></p>
-            <p th:text="${info_order.getStatus()}"></p>
-
-            <label for="status" >Выберите статус: </label>
-            <select id="status" name="status">
-              <option th:each="state : ${T(ru.gb.eshop.gb_eshop.enums.Status).values()}"
-                      th:value="${state}" th:text="${state}"></option>
-            </select>
-            <button class="admin_order_info_btn" type="submit">Редактировать</button>
-            <p th:text="${info_order.getProduct().getTitle()}"></p>
-          </div>
-          <br>
-          <br>
-          <a class="cartA" th:href="@{/admin/orders/delete/{id}(id=${info_order.getId()})}">Удалить заказ</a>
-          <br>
-          <br>
-        </form>
-      </div>
+      <label for="status" >Выберите статус: </label>
+      <select id="status" name="status">
+        <option th:each="state : ${T(ru.gb.eshop.gb_eshop.enums.Status).values()}"
+                th:value="${state}" th:text="${state}"></option>
+      </select>
+      <button type="submit">Редактировать</button>
+      <p th:text="${info_order.getProduct().getTitle()}"></p>
+    </div>
+    <br>
+    <br>
+    <a class="cartA" th:href="@{/admin/orders/delete/{id}(id=${info_order.getId()})}">Удалить заказ</a>
+    <br>
+    <br>
+  </form>
+  <div class="watch_product">
+    <a class="link" style="text-decoration: none;" href="/admin/orders">Назад к списку заказов</a>
+  </div>
+</div>
 </body>
 </html>

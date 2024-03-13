@@ -57,7 +57,7 @@ public class MainController {
     private final String VALUE_SEARCH = "value_search";
     private final String PRISE_OT = "value_price_ot";
     private final String PRISE_DO = "value_price_do";
-    private final String PRODUCTS = "products";
+    private final String PRODUCTS="products";
 
     @Autowired
     public MainController(ProductRepository productRepository, PersonValidator personValidator, PersonService personService,
@@ -114,7 +114,7 @@ public class MainController {
             return "registration";
         }
         personService.register(person);
-        return "redirect:/userPage";
+        return "redirect:/personalAccount";
     }
 
     /**
@@ -124,7 +124,7 @@ public class MainController {
      * @param model модель
      * @return представление страницы товара
      */
-    @GetMapping("/userPage/product/info/{id}")
+    @GetMapping("/personalAccount/product/info/{id}")
     public String infoProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.getProductId(id));
         return "/user/infoProduct";
@@ -229,20 +229,4 @@ public class MainController {
         model.addAttribute("orders", orderList);
         return "/user/orders";
     }
-
-    @GetMapping("/contacts")
-    public String contactMarket() {
-        return "contacts";
-    }
-
-    @GetMapping("/company")
-    public String aboutCompanyMarket() {
-        return "aboutCompany";
-    }
-
-    @GetMapping("/wholesalers")
-    public String wholesalersMarket() {
-        return "wholesalers";
-    }
-
 }

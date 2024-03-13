@@ -25,8 +25,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers("/registration", "/error", "/resources/**", "/static/**", "/css/**", "/js/**",
-                        "/pics/**", "/images/**", "/product", "/product/info/{id}", "/product/search",
-                        "/product/searchHeader", "/logout","/contacts","/company","/wholesalers").permitAll()
+                        "/pics/**", "/images/**", "/product", "/product/info/{id}", "/product/search", "/product/searchHeader", "/logout").permitAll()
                 .anyRequest()
                 .authenticated()
         );
@@ -39,7 +38,7 @@ public class SecurityConfig {
                 .permitAll());
         http.logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/product")
+                .logoutSuccessUrl("/login")
                 .permitAll());
         return http.build();
     }

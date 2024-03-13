@@ -6,96 +6,41 @@
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
     <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
 </head>
-
-<body class="body_user_lc">
-
-        <div class="header_product_header">
-
-            <div class="header_location">
-                <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
-                <a class="header_location_logo_link" href="#"> Москва</a>
-            </div>
-
-            <div class="header_info" >
-                <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
-                <a class="header_location_logo_link" href="/company"> О компании</a>
-                <a class="header_location_logo_link" href="/contacts"> Контакты</a>
-            </div>
-
-
-        </div>
-
-        <div class="header_user_lc">
-
-            <div class="header_user_lc_logo">
-                <a class="logo_ss" href="/product">
-                    <img class="logo_new" th:src="@{/images/orig.jpg}">
-                </a>
-            </div>
-
-            <div>
-                <h3>Информация о товаре</h3>
-            </div>
-
-            <div class="header_user_lc_block">
-
-                <div class="header_user_lc_orders">
-                    <a class="orders_ss" href="/orders">
-                        <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
-                    </a>
-                </div>
-
-                <div class="header_user_lc_basket">
-                    <a class="basket_ss" href="/cart">
-                        <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
-                    </a>
-                </div>
-
-                <div class="header_user_lc_exit">
-                    <form method="post" th:action="@{/logout}">
-                        <button class="header_user_lc_ex_bt" >
-                            <img class="basket_logo_btn" th:src="@{/images/exit-svgrepo-com.svg}">
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="adminButtons">
-            <form th:action="@{/userPage}">
-                <button type="submit">Назад к личному кабинету</button><br>
-            </form>
-        </div>
-        <hr>
-
-
-
-
-        <div class="productInfo">
-            <div class="productImg" th:each="img : ${product.getImageList()}">
-                <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
-                <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
-            </div>
-            <div class="productText">
-                <p style="font-weight: bold" th:text="${product.getTitle()}"></p>
-                <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-                <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
-                <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
-                <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
-
-            </div>
-        </div>
-
-        <p style="font-weight: bold">Описание</p>
-        <p th:text="${product.getDescription()}"></p>
-
+<body>
+<div class="header">
+    <div>
+        <a th:href="@{/product}">
+            <img class="logo" th:src="@{/images/logo.png}">
+        </a>
+    </div>
+</div>
+<h3>Информация о товаре</h3>
+<div class="productInfo">
+    <div class="productImg" th:each="img : ${product.getImageList()}">
+        <img th:if="${product.imageList[0].getFileName().contains('demo')}" th:src="'/images/' + ${product.imageList[0].getFileName()}" />
+        <img th:unless="${product.imageList[0].getFileName().contains('demo')}" th:src="'/pics/' + ${product.imageList[0].getFileName()}"/>
+    </div>
+    <div class="productText">
+        <p style="font-weight: bold" th:text="${product.getTitle()}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <p th:text="'Cклад: ' + ${product.getWarehouse()}"></p>
+        <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+        <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
         <div class="buyButton">
             <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
                 <button type="submit">Купить</button>
                 <br>
             </form>
         </div>
-
-
+    </div>
+</div>
+<p style="font-weight: bold">Описание</p>
+<p th:text="${product.getDescription()}"></p>
+<div>
+    <form th:action="@{/product}">
+        <button type="submit">На главную страницу</button>
+        <br>
+    </form>
+</div>
 </body>
 </html>

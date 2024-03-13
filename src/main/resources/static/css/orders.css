@@ -1,14 +1,17 @@
 .ordersInfo{
     Display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 20px;
     padding: 20px;
+
     gap:20px;
 }
 
 .orderInfo{
     width: 100%;
     font-size: 15px;
+
+
 }
 
 .orderImg{
@@ -33,11 +36,10 @@
 
 .orders_h3{
     padding-top: 30px;
+
     padding-left: 30px;
 }
 
-@media(max-width:1000px){
-    .ordersInfo {
-        grid-template-columns: 1fr 1fr;
-    }
+.orderInfo_img{
+
 }
