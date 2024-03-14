@@ -67,7 +67,6 @@
               <td th:text="${order.getProduct().getTitle()}"></td>
               <td th:text="${order.getStatus()}"></td>
               <td th:text="${order.getPrice()}"></td>
-
               <td><a class="adminSearch_orders_table_link" th:href="@{/admin/orders/{id}(id=${order.getId()})}" >Click</a></td>
             </tr>
           </tbody>
