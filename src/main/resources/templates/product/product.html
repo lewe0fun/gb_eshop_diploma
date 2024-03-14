@@ -33,7 +33,7 @@
         <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo">
       </a>
     </div>
-    <h2 th:if="${person!=null}" th:text="'Активный пользователь: '+${person.getLogin()}">Личка</h2>
+<!--    <h2 th:if="${person!=null}" th:text="'Активный пользователь: '+${person.getLogin()}">Личка</h2>-->
     <div class="header_search">
       <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
         <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
@@ -43,11 +43,11 @@
 
     <div class="header_user_lc_block">
 
-      <div class="header_user_lc_orders">
-        <a class="orders_ss" href="/orders">
-          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">
-        </a>
-      </div>
+<!--      <div class="header_user_lc_orders">-->
+<!--        <a class="orders_ss" href="/orders">-->
+<!--          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">-->
+<!--        </a>-->
+<!--      </div>-->
 
       <div class="header_user_lc_basket">
         <a class="basket_ss" href="/cart">
@@ -64,9 +64,9 @@
     </div>
   </div>
 
-<!--  <a th:href="@{/product}">
+  <a th:href="@{/product}">
     <img class="banner" th:src="@{/images/santehnika_reklama.jpg}" alt="banner">
-  </a>-->
+  </a>
 
   <div class="product_list">
 
@@ -74,12 +74,12 @@
       <form th:method="POST" th:action="@{/product/search}">
         <fieldset class="searchSort_block">
           <legend>Выберите параметры :</legend>
-          <br>
-          <label for="ot">Цена от:</label>
-          <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
-          <label for="do">Цена до:</label>
-          <input type="text" name="do" id="do" th:value="*{value_price_do}">
-          <br>
+<!--          <br>-->
+<!--          <label for="ot">Цена от:</label>-->
+<!--          <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">-->
+<!--          <label for="do">Цена до:</label>-->
+<!--          <input type="text" name="do" id="do" th:value="*{value_price_do}">-->
+<!--          <br>-->
 
           <div>
             <p>Сортировка</p>
@@ -179,9 +179,9 @@
     <div>
       Интернет-магазин Сан ТеХ Проф<br>
       Дипломная работа студентов: <br>
-      Ооооо О.О, Строев Д.В, Оооооо О.О
+      Пакулин Ю.А., Строев Д.В., Оооооо О.О
       <br>
-      Группа:---------
+      Группа:4811
       <br>
       ©2024
     </div>

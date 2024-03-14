@@ -260,6 +260,8 @@ input{
 
 .banner{
     margin-bottom: 30px;
+    width: 100%;
+    height: 400px;
 }
 
 /*.demoBaner{*/
@@ -293,7 +295,7 @@ fieldset legend{
 
 .productListDiv{
     Display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: 20px;
 }
 

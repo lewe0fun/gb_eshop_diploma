@@ -86,6 +86,7 @@ public class MainController {
             return "redirect:/admin";
         }
         model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("orders",orderService.getAllOrders());
         return "/user/userPage";
     }
 
