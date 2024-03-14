@@ -40,7 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param Do    цена до
      * @return список товаров
      */
-    @Query(value = "select * from product where (lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3) order by price", nativeQuery = true)
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3) order by price", nativeQuery = true)
     List<Product> findByTitleOrderByPriceAsc(String title, float ot, float Do);
 
     /**
@@ -52,7 +52,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @return список товаров
      */
 
-    @Query(value = "select * from product where (lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3) order by price desc", nativeQuery = true)
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3) order by price desc", nativeQuery = true)
     List<Product> findByTitleOrderByPriceDesc(String title, float ot, float Do);
 
     /**
@@ -64,7 +64,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param category категория
      * @return список товаров
      */
-    @Query(value = "select * from product where category_id = ?4 and(lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3) order by price", nativeQuery = true)
+    @Query(value = "select * from product where category_id = ?4 and((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3) order by price", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceAsc(String title, float ot, float Do, int category);
 
     /**
@@ -76,7 +76,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param category категория
      * @return список товаров
      */
-    @Query(value = "select * from product where category_id = ?4 and(lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3) order by price desc", nativeQuery = true)
+    @Query(value = "select * from product where category_id = ?4 and((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3) order by price desc", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceDesc(String title, float ot, float Do, int category);
 
     /**
@@ -94,7 +94,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param id    id категории
      * @return список товаров
      */
-    @Query(value = "select * from product where category_id = ?2 and(lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')", nativeQuery = true)
+    @Query(value = "select * from product where category_id = ?2 and ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1'))", nativeQuery = true)
     List<Product> findByTitleAndCategory(String title, int id);
 
     /**
@@ -103,7 +103,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param title ключевое слово
      * @return список товаров
      */
-    @Query(value = "select * from product where (lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') order by price", nativeQuery = true)
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price", nativeQuery = true)
     List<Product> findByTitleOrderByPriceAsc(String title);
 
     /**
@@ -112,12 +112,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param title ключевое слово
      * @return список товаров
      */
-    @Query(value = "select * from product where (lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') order by price desc", nativeQuery = true)
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price desc", nativeQuery = true)
     List<Product> findByTitleOrderByPriceDesc(String title);
-    @Query(value = "select * from product where category_id = ?2 and(lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') order by price", nativeQuery = true)
+    @Query(value = "select * from product where category_id = ?2 and ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceAsc(String title, int id_category);
-    @Query(value = "select * from product where category_id = ?2 and(lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') order by price desc", nativeQuery = true)
+    @Query(value = "select * from product where category_id = ?2 and ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price desc", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceDesc(String title, int id_category);
-    @Query(value = "select * from product where (lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3)", nativeQuery = true)
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3)", nativeQuery = true)
     List<Product> findByTitleAndCategoryAndPrice(String title, float ot, float Do);
 }

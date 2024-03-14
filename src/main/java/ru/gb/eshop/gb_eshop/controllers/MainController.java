@@ -204,11 +204,6 @@ public class MainController {
             productList.add(productService.getProductId(cart.getProductId()));
         }
 
-/*        float price = 0;
-        for (Product product : productList) {
-            price += product.getPrice();
-        }*/
-
         String uuid = UUID.randomUUID().toString();
         for (Product product : productList) {
             Order newOrder = new Order(uuid, product, person, 1, product.getPrice(), Status.ОЖИДАНИЕ);
