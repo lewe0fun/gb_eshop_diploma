@@ -86,6 +86,11 @@ public class MainController {
             return "redirect:/admin";
         }
         model.addAttribute("products", productService.getAllProduct());
+
+        List<Order> orderList = orderService.findByPerson(person);
+        model.addAttribute("person",person);
+        model.addAttribute("orders", orderList);
+
         return "/user/userPage";
     }
 

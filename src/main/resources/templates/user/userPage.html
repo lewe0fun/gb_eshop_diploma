@@ -36,12 +36,6 @@
 
     <div class="header_user_lc_block">
 
-<!--        <div class="header_user_lc_orders">-->
-<!--            <a class="orders_ss" href="/orders">-->
-<!--                <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">-->
-<!--            </a>-->
-<!--        </div>-->
-
         <div class="header_user_lc_basket">
             <a class="basket_ss" href="/cart">
                 <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
@@ -77,17 +71,19 @@
             <div class="lichnDan_header">
                 <img class="lichnDan_header_logo" src="/images/profile.svg" alt="logo">
                 <h3>Личные данные</h3>
-                <button class="lichnDan_header_btn">Изменить</button>
+                <form  method="GET" th:action="@{/admin/personUser/edit/{id}(id=${person.getId()})}" >
+                    <button class="lichnDan_header_btn" >Подробнее</button>
+                </form>
 
             </div>
             <div class="lichnDan_body">
                 <hr>
                 <h3 th:text="${person.getLogin()} ">Личка</h3>
-                <h3>Фамилия:</h3>
-                <h3>Имя:</h3>
-                <h3>Телефон:</h3>
-                <h3>Email: </h3>
-                <h3>Адрес доставки:</h3>
+                <h3 th:text=" 'Имя: '+ ${person.getFirstName()} ">Имя:</h3>
+                <h3 th:text=" 'Фамилия: '+ ${person.getLastName()} ">Фамилия:</h3>
+                <h3 th:text=" 'Телефон: '+ ${person.getTelephone()} ">Телефон:</h3>
+                <h3 th:text=" 'Email: '+ ${person.getEmail()} ">Email:</h3>
+                <h3 th:text=" 'Адрес доставки: '+ ${person.getAddress()} ">Адрес доставки:</h3>
             </div>
         </div>
         <div class="skidki">
@@ -114,7 +110,6 @@
         </div>
         <div class="zakaz_body">
             <hr>
-<!--            <h3>Заказы таблица</h3>-->
             <div class="adminSearch_orders_table">
                 <table style="margin: auto; border-spacing: 50px 10px">
                     <thead>
@@ -123,7 +118,6 @@
                         <th>Товар в заказе</th>
                         <th>Статус заказа</th>
                         <th>Итого, руб.</th>
-<!--                        <th>Изменить</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -132,7 +126,6 @@
                         <td th:text="${order.getProduct().getTitle()}"></td>
                         <td th:text="${order.getStatus()}"></td>
                         <td th:text="${order.getPrice()}"></td>
-<!--                        <td><a class="adminSearch_orders_table_link" th:href="@{/admin/orders/{id}(id=${order.getId()})}" >Click</a></td>-->
                     </tr>
                     </tbody>
                 </table>
@@ -158,8 +151,6 @@
         </div>
     </div>
 
-
-
 </div>
 
 
@@ -182,9 +173,9 @@
     <div>
         Интернет-магазин Сан ТеХ Проф<br>
         Дипломная работа студентов: <br>
-        Ооооо О.О, Строев Д.В, Оооооо О.О
+        Пакулин Ю.А., Строев Д.В., Оооооо О.О
         <br>
-        Группа:---------
+        Группа:4811
         <br>
         ©2024
     </div>

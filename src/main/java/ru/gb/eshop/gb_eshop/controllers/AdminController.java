@@ -213,7 +213,8 @@ public class AdminController {
     }
 
     /**
-     * Метод возвращает страницу с формой редактирования пользователя и помещает в модель объект редактируемого пользователя по id
+     * Метод возвращает страницу с формой редактирования пользователя и помещает
+     * в модель объект редактируемого пользователя по id
      *
      * @param id    id пользователя
      * @param model модель
@@ -243,6 +244,42 @@ public class AdminController {
         personService.updatePerson(id, person);
         return "redirect:/admin/person";
     }
+
+    /////////
+    /**
+     * Метод возвращает страницу с формой редактирования профиля пользователя самим пользователем
+     * и помещает в модель объект редактируемого пользователя по id
+     *
+     * @param id    id пользователя
+     * @param model модель
+     * @return
+     */
+
+    @GetMapping("/personUser/edit/{id}")
+    public String editPersonUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("editPerson", personService.getPersonById(id));
+        return "person/editPersonUser";
+    }
+
+    /**
+     * Метод принимает объект с формы и обновляет пользователя
+     *
+     * @param person        пользователь
+     * @param bindingResult ошибки валидации
+     * @param id            id пользователя
+     * @return представление Список пользователей или Редактирование при ошибке
+     */
+
+    @PostMapping("/personUser/edit/{id}")
+    public String editPersonUser(@ModelAttribute("editPerson") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "person/editPersonUser";
+        }
+        personService.updatePerson(id, person);
+        return "redirect:/userPage";
+
+    }
+    ///////
 
     /**
      * Метод удаления пользователя по id

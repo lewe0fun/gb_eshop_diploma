@@ -42,6 +42,7 @@
         <form th:method="POST" th:action="@{/admin/orders/{id}(id=${info_order.getId()})}" th:object="${info_order}">
 
           <div th:each="order:${info_order}">
+            <p th:text="${info_order.getPerson().getLogin()}"></p>
             <p th:text="${info_order.getNumber()}"></p>
             <p th:text="${info_order.getStatus()}"></p>
 

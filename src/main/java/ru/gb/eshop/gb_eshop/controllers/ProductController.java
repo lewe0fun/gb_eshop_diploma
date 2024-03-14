@@ -86,8 +86,8 @@ public class ProductController {
      * Метод поиска товаров по параметрам
      *
      * @param search   ключевое слово для поиска
-     * @param ot       нижний передел цены
-     * @param Do       верхний предел цены
+//     * @param ot       нижний передел цены
+//     * @param Do       верхний предел цены
      * @param price    цена
      * @param category категория товара
      * @param model    модель

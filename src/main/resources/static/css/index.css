@@ -10,6 +10,10 @@ body{
     background-color:honeydew;
 }
 
+.userrole{
+    opacity: 0;
+}
+
 img{
     width: 100%;
     border-radius: 20px;
@@ -38,8 +42,33 @@ input{
     font-family: Arial;
 }
 
-.lab_usname{
+.lab_auth_usname{
     padding-right: 10px;
+}
+
+.lab_usname{
+    padding-right: 30px;
+}
+
+.lab_password{
+    padding-right: 20px;
+}
+
+.lab_firstName{
+    padding-right: 45px;
+}
+
+
+.lab_telephone{
+    padding-right: 7px;
+}
+
+.lab_email{
+    padding-right: 31px;
+}
+
+.lab_address{
+    padding-right: 27px;
 }
 
 .logo{
@@ -260,6 +289,8 @@ input{
 
 .banner{
     margin-bottom: 30px;
+    width: 100%;
+    height: 400px;
 }
 
 /*.demoBaner{*/
@@ -293,7 +324,7 @@ fieldset legend{
 
 .productListDiv{
     Display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: 20px;
 }
 
@@ -406,7 +437,6 @@ button:hover{
 }
 
 .logo_ss{
-    width: 100px;
      border: none;
      background: none
 }
@@ -425,10 +455,17 @@ button:hover{
     padding-top: 200px;
 }
 
+.auth_big_block_white{
+    background-color: aliceblue;
+    width: 470px;
+    height: 500px;
+    border-radius: 30px;
+}
+
 .registr_big_block_white{
     background-color: aliceblue;
     width: 470px;
-    height: 600px;
+    height: 670px;
     border-radius: 30px;
 }
 
@@ -439,17 +476,22 @@ button:hover{
     padding-top: 40px;
 }
 
+.auth_big_block_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
 .registr_block{
     display: flex;
     justify-content: center;
-    padding-bottom: 20px;
-    padding-top: 50px;
 }
 
 .registr_big_block_h5{
     display: flex;
     justify-content: center;
-    padding-top:30px;
+    padding-top: 18px;
 }
 
 .registr_big_block_reg{
@@ -472,6 +514,14 @@ button:hover{
 .registr_big_block_but:hover{
     background: darkorange;
     transition: 0.5s;
+}
+
+.registr_big_block_btn{
+    width: 150px;
+}
+
+.auth_big_block_btn{
+    width: 240px;
 }
 
 .nameMag{
@@ -573,7 +623,7 @@ button:hover{
 }
 
 .lichnDan_header_btn{
-    width: 145px;
+    width: 150px;
 }
 
 .skidki{
