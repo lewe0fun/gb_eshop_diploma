@@ -37,6 +37,20 @@ public class Person implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "telephone")
+    private String telephone;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "address")
+    private String address;
 
 
     @Column(name = "role")

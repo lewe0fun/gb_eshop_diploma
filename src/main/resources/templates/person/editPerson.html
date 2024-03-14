@@ -57,14 +57,27 @@
             <input type="text" class="form-control" th:field="*{login}" id="login">
             <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
             <br>
-
             <label for="password" class="form-label">Введите пароль: </label>
             <input type="text" class="form-control" th:field="*{password}" id="password">
             <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             <br>
 
+            <label for="firstName" class="form-label">Введите имя: </label>
+            <input type="text" class="form-control" th:field="*{firstName}" id="firstName">
+            <br>
+            <label class="lab_lastName" for="lastName">Введите фамилию: </label>
+            <input type="text" class="form-control" id="lastName"  th:field="*{lastName}">
+            <br>
+            <label class="lab_telephone" for="telephone">Введите телефон: </label>
+            <input type="text" class="form-control" id="telephone"  th:field="*{telephone}">
+            <br>
+            <label class="lab_email" for="email">Введите Email: </label>
+            <input type="text" class="form-control" id="email"  th:field="*{email}">
+            <br>
+            <label class="lab_address" for="address">Введите адрес: </label>
+            <input type="text" class="form-control" id="address"  th:field="*{address}">
+            <br>
             <label for="role" class="form-label">Введите роль: </label>
-
             <input type="text" class="form-control" th:field="*{role}" id="role">
             <div style="color: red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
             <br>

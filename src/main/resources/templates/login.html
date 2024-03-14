@@ -8,8 +8,8 @@
 <body>
   
   <div class="registr_big_block">
-    <div class="registr_big_block_white">
-      <div class="registr_big_block_logo">
+    <div class="auth_big_block_white">
+      <div class="auth_big_block_logo">
         <a class="logo_ss" href="/product">
           <img class="logo_new" th:src="@{/images/orig.jpg}">
         </a>
@@ -23,7 +23,7 @@
       <div class="registr_input">
         <form method="post" action="/loginProcess">
           <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-          <label class="lab_usname" for="username">Введите логин: </label>
+          <label class="lab_auth_usname" for="username">Введите логин: </label>
           <input type="text" placeholder="Введите логин" name="username" id="username">
           <br>
           <label for="password">Введите пароль: </label>
@@ -43,8 +43,8 @@
       </div>
 
       <div class="registr_big_block_reg">
-        <form method="GET" th:actioin="@{/registration}">
-          <a class="registr_big_block_but" href="/registration">Регистрация</a>
+        <form th:action="@{/registration}">
+          <button class="auth_big_block_btn" type="submit">Регистрация</button><br>
         </form>
 
       </div>

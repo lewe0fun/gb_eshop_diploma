@@ -27,11 +27,27 @@
          <input type="text" th:field="*{login}" id="login">
          <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
          <br>
-         <label for="password">Введите пароль: </label>
+         <label class="lab_password" for="password">Введите пароль: </label>
          <input type="password" th:field="*{password}" id="password">
          <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
          <br>
+         <label class="lab_firstName" for="firstName">Введите имя: </label>
+         <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
          <br>
+         <label class="lab_lastName" for="lastName">Введите фамилию: </label>
+         <input type="text" class="form-control" id="lastName"  th:field="*{lastName}">
+         <br>
+         <label class="lab_telephone" for="telephone">Введите телефон: </label>
+         <input type="text" class="form-control" id="telephone"  th:field="*{telephone}">
+         <br>
+         <label class="lab_email" for="email">Введите Email: </label>
+         <input type="text" class="form-control" id="email"  th:field="*{email}">
+         <br>
+         <label class="lab_address" for="address">Введите адрес: </label>
+         <input type="text" class="form-control" id="address"  th:field="*{address}">
+         <br>
+         <br>
+
          <button type="submit">Зарегистрироваться</button>
        </form>
      </div>
@@ -41,8 +57,8 @@
      </div>
 
      <div class="registr_big_block_reg">
-       <form method="GET" th:actioin="@{/login}">
-         <a class="registr_big_block_but" href="/login">Вход</a>
+       <form th:action="@{/login}">
+         <button class="registr_big_block_btn" type="submit">Вход</button><br>
        </form>
 
      </div>

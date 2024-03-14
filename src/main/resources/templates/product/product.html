@@ -74,12 +74,12 @@
       <form th:method="POST" th:action="@{/product/search}">
         <fieldset class="searchSort_block">
           <legend>Выберите параметры :</legend>
-<!--          <br>-->
-<!--          <label for="ot">Цена от:</label>-->
-<!--          <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">-->
-<!--          <label for="do">Цена до:</label>-->
-<!--          <input type="text" name="do" id="do" th:value="*{value_price_do}">-->
-<!--          <br>-->
+          <br>
+          <label for="ot">Цена от:</label>
+          <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
+          <label for="do">Цена до:</label>
+          <input type="text" name="do" id="do" th:value="*{value_price_do}">
+          <br>
 
           <div>
             <p>Сортировка</p>
@@ -114,7 +114,7 @@
 
 
     <div >
-      <h3>Результаты поиска</h3>
+<!--      <h3>Результаты поиска</h3>-->
       <div class="productListDiv">
         <div class="productDiv" th:each="product : ${search_product_header}">
           <a th:href="@{/product/info/{id}(id=${product.getId()})}">

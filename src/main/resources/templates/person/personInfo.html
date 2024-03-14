@@ -59,6 +59,11 @@
         <div class="adminUserProfile">
             <p th:text="'Логин: ' + ${person.getLogin()}"/>
             <p th:text="'Роль: ' + ${person.getRole()}"/>
+            <p th:text=" 'Имя: '+ ${person.getFirstName()} ">Имя:</p>
+            <p th:text=" 'Фамилия: '+ ${person.getLastName()} ">Фамилия:</p>
+            <p th:text=" 'Телефон: '+ ${person.getTelephone()} ">Телефон:</p>
+            <p th:text=" 'Email: '+ ${person.getEmail()} ">Email:</p>
+            <p th:text=" 'Адрес доставки: '+ ${person.getAddress()} ">Адрес доставки:</p>
             <br>
             <a th:href="@{/admin/person/edit/{id}(id=${person.getId()})}">Редактировать пользователя</a>
             <br>
