@@ -100,7 +100,7 @@ public class ProductController {
     public String productSearch(@RequestParam(value = "search", required = false, defaultValue = "") String search,
                                 @RequestParam("min") String min,
                                 @RequestParam("max") String max,
-                                @RequestParam(value = "sort", required = false, defaultValue = "") String sort,
+                                @RequestParam(value = "sort", required = false, defaultValue = SEARCH_ASC) String sort,
                                 @RequestParam(value = "category", required = false, defaultValue = "") String category,
                                 Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -120,7 +120,7 @@ public class ProductController {
             if (!sort.isEmpty()) {//есть сортировка
                 if (sort.equals(SEARCH_ASC)) {//сортировка++
 
-                    if (!category.isEmpty()) {
+                    if (!category.isEmpty()) {//категория
 
 
                         if (category.equals(CATEGORY1)) {
