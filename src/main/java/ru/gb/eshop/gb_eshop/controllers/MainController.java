@@ -88,7 +88,7 @@ public class MainController {
         model.addAttribute("products", productService.getAllProduct());
 
         List<Order> orderList = orderService.findByPerson(person);
-        model.addAttribute("person",person);
+        model.addAttribute("person", person);
         model.addAttribute("orders", orderList);
 
         return "/user/userPage";
@@ -225,9 +225,24 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person person = (Person) authentication.getPrincipal();
         List<Order> orderList = orderService.findByPerson(person);
-        model.addAttribute("person",person);
+        model.addAttribute("person", person);
         model.addAttribute("orders", orderList);
         return "/user/orders";
+    }
+
+
+    @GetMapping("/person/updatePassword")
+    public String passForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person person = (Person) authentication.getPrincipal();
+        model.addAttribute("person", person);
+        return "/person/updatePassword";
+    }
+
+    @PostMapping("/person/updatePassword/{id}")
+    public String passUp(@PathVariable("id") int id, @RequestParam("password") String password) {
+        personService.changePassword(id, password);
+        return "redirect:/login";
     }
 
     @GetMapping("/contacts")
