@@ -28,7 +28,7 @@
 
     <div class="header_user_lc_logo">
         <a class="logo_ss" href="/product">
-            <img class="logo_new" th:src="@{/images/orig.jpg}">
+            <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
         </a>
     </div>
 
@@ -51,16 +51,13 @@
         <div class="mb-3" style="width:500px">
 
             <tr>
-                <label for="login" class="form-label" >Введите логин: </label>
+                <label for="login" class="form-label_user_login" >Введите логин: </label>
                 <input type="text" class="form-control" th:field="*{login}" id="login">
                 <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
                 <br>
-                <label for="password" class="form-label">Введите пароль: </label>
-                <input type="text" class="form-control" th:field="*{password}" id="password">
+                <input type="hidden" class="form-control" th:field="*{password}" id="password">
                 <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                <br>
-
-                <label for="firstName" class="form-label">Введите имя: </label>
+                <label for="firstName" class="form-label_user_name">Введите имя: </label>
                 <input type="text" class="form-control" th:field="*{firstName}" id="firstName">
                 <br>
                 <label class="lab_lastName" for="lastName">Введите фамилию: </label>

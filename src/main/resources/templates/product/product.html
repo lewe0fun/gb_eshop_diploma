@@ -30,10 +30,10 @@
 
     <div class="header_user_lc_logo">
       <a class="logo_ss" href="/product">
-        <img class="logo_new" th:src="@{/images/orig.jpg}" alt="logo">
+      <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
       </a>
     </div>
-<!--    <h2 th:if="${person!=null}" th:text="'Активный пользователь: '+${person.getLogin()}">Личка</h2>-->
+
     <div class="header_search">
       <form class="header_search_form" th:method="POST" th:action="@{/product/searchHeader}">
         <input class="header_input_search" type="text" id="searchHeader" name="search" th:value="*{value_search}">
@@ -42,12 +42,6 @@
     </div>
 
     <div class="header_user_lc_block">
-
-<!--      <div class="header_user_lc_orders">-->
-<!--        <a class="orders_ss" href="/orders">-->
-<!--          <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}" alt="orders_logo">-->
-<!--        </a>-->
-<!--      </div>-->
 
       <div class="header_user_lc_basket">
         <a class="basket_ss" href="/cart">
@@ -65,7 +59,7 @@
   </div>
 
   <a th:href="@{/product}">
-    <img class="banner" th:src="@{/images/santehnika_reklama.jpg}" alt="banner">
+    <img class="banner" th:src="@{/images/banner3.jpg}" alt="banner">
   </a>
 
   <div class="product_list">
@@ -114,7 +108,6 @@
 
 
     <div >
-<!--      <h3>Результаты поиска</h3>-->
       <div class="productListDiv">
         <div class="productDiv" th:each="product : ${search_product_header}">
           <a th:href="@{/product/info/{id}(id=${product.getId()})}">
@@ -164,7 +157,7 @@
 
     <div class="header_user_lc_logo">
       <a class="logo_ss" href="/product">
-        <img class="logo_new" th:src="@{/images/orig.jpg}">
+        <img class="logo_new_footer" th:src="@{/images/footer-logo.png}">
       </a>
     </div>
 
@@ -177,7 +170,7 @@
 
 
     <div>
-      Интернет-магазин Сан ТеХ Проф<br>
+      Интернет-магазин Посейдон<br>
       Дипломная работа студентов: <br>
       Пакулин Ю.А., Строев Д.В., Брылин М.В.
       <br>
