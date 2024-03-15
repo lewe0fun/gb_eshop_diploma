@@ -77,6 +77,11 @@ input{
     border-radius: 0;
 }
 
+.header_logo_name{
+    width: 330px;
+    height: 40px;
+}
+
 .header_product_header{
     height: 20px;
     background-color: darkorange;
@@ -151,7 +156,10 @@ input{
 }
 
 .header_user_lc_logo{
-    padding-left: 50px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header_user_lc_block{
@@ -186,7 +194,7 @@ input{
 }
 
 .header_input_search{
-    width: 320px;
+    width: 300px;
 }
 
 .header_search_form{
@@ -282,9 +290,10 @@ input{
 }
 
 .findButton:hover{
-    opacity: 0.6;
+    /*opacity: 0.6;*/
     transition: 0.5s;
     cursor: pointer;
+    background-color: darkorange;
 }
 
 .banner{
@@ -394,11 +403,17 @@ button:hover{
     grid-template-columns: 1fr 4fr 2fr;
     padding: 20px;
     gap: 10px;
+    background-color: #69bff8;
 }
 
 .footer p{
     display: flex;
     align-items: flex-end;
+}
+
+.logo_new_footer{
+    height: 40px;
+    width: 200px;
 }
 
 .logoFooter{
@@ -458,14 +473,24 @@ button:hover{
 .auth_big_block_white{
     background-color: aliceblue;
     width: 470px;
-    height: 500px;
+    height: 510px;
     border-radius: 30px;
+}
+
+.reg_header_user_lc_logo{
+    padding-top: 40px;
+    padding-left: 75px;
+}
+
+.auth_header_user_lc_logo{
+    padding-left: 70px;
+    padding-top: 45px;
 }
 
 .registr_big_block_white{
     background-color: aliceblue;
     width: 470px;
-    height: 670px;
+    height: 690px;
     border-radius: 30px;
 }
 
@@ -486,6 +511,7 @@ button:hover{
 .registr_block{
     display: flex;
     justify-content: center;
+    padding-top: 12px;
 }
 
 .registr_big_block_h5{
@@ -589,6 +615,28 @@ button:hover{
     padding-top: 30px;
 }
 
+/*editPerson*/
+.form-label{
+    padding-right: 80px;
+}
+
+.form-label_login{
+    padding-right: 30px;
+}
+
+.form-label_name{
+    padding-right: 43px;
+}
+
+.form-label_user_login{
+    padding-right: 31px;
+}
+
+.form-label_user_name{
+    padding-right: 43px;
+}
+
+
 /*userPage*/
 .userPage_h1{
     padding-top: 50px;
@@ -679,6 +727,7 @@ button:hover{
     grid-template-columns: 1fr 4fr 3fr;
     padding: 20px;
     gap: 15px;
+    background-color: #69bff8;
 }
 
 /*contacts*/
@@ -688,6 +737,7 @@ button:hover{
     display: flex;
     justify-content: center;
     align-items: baseline;
+    padding-bottom: 123px;
 }
 
 .contacts_callCenter{
