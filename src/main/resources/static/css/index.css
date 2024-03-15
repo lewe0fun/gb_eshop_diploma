@@ -730,6 +730,12 @@ button:hover{
     background-color: #69bff8;
 }
 
+/*updatePassword*/
+.smenaPass_block{
+    padding-top: 30px;
+    padding-left: 50px;
+}
+
 /*contacts*/
 .contacts_block{
     padding-top: 150px;

@@ -5,11 +5,11 @@
     <title>Редактирование профиля</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
     <link th:href="@{/css/product.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
 </head>
 <body class="body_user_lc">
 
 <div class="header_product_header">
-
     <div class="header_location">
         <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
         <a class="header_location_logo_link" href="#"> Москва</a>
@@ -20,8 +20,6 @@
         <a class="header_location_logo_link" href="/company"> О компании</a>
         <a class="header_location_logo_link" href="/contacts"> Контакты</a>
     </div>
-
-
 </div>
 
 <div class="header_user_lc">
@@ -45,11 +43,17 @@
     </div>
 </div>
 
+<div class="orders_user_lc">
+    <form th:action="@{/userPage}">
+        <button type="submit">Назад к личному кабинету</button><br>
+    </form>
+</div>
+<hr>
+
 <div class="admin_editProduct_form">
     <form method="POST" th:action="@{/admin/personUser/edit/{id}(id=${editPerson.getId()})}" th:object="${editPerson}">
 
         <div class="mb-3" style="width:500px">
-
             <tr>
                 <label for="login" class="form-label_user_login" >Введите логин: </label>
                 <input type="text" class="form-control" th:field="*{login}" id="login">
@@ -73,13 +77,16 @@
                 <input type="text" class="form-control" id="address"  th:field="*{address}">
                 <br>
                 <input type="hidden" value="ROLE_USER" class="field left" th:field="*{role}" readonly>
-
         </div>
         <br>
         <br>
-        <button type="submit">Сохранить</button><br>
-
+        <button type="submit">Сохранить</button>
+        <br>
+        <br>
     </form>
+            <form  method="GET" th:action="@{/person/updatePassword}" >
+                <button type="submit" >Изменить пароль</button>
+            </form>
 
 </div>
 
