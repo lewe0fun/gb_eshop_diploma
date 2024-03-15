@@ -69,17 +69,17 @@
         <fieldset class="searchSort_block">
           <legend>Выберите параметры :</legend>
           <br>
-          <label for="ot">Цена от:</label>
-          <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
-          <label for="do">Цена до:</label>
-          <input type="text" name="do" id="do" th:value="*{value_price_do}">
+          <label for="min">Цена от:</label>
+          <input type="text" name="min" id="min" th:value="*{min_price}">
+          <label for="max">Цена до:</label>
+          <input type="text" name="max" id="max" th:value="*{max_price}">
           <br>
 
           <div>
             <p>Сортировка</p>
-            <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+            <input type="radio" id="ascending_price" name="sort" value="sorted_by_ascending_price">
             <label for="ascending_price">По возрастанию цены</label>
-            <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+            <input type="radio" id="descending_price" name="sort" value="sorted_by_descending_price">
             <label for="descending_price">По убыванию цены</label>
             <p>Категория товаров:</p>
             <input type="radio" id="Ванны" name="category" value="Ванны">

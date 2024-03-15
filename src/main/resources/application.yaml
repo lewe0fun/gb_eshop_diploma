@@ -17,7 +17,11 @@ spring:
 
   #Путь загрузки картинок
 upload:
+
   path: ..\src\main\resources\static\images
+
+
+
 
   # Категории товаров:
 category:
