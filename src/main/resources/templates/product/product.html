@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Каталог товаров</title>
   <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/cart.css}" type="text/css" rel="stylesheet">
 </head>
 
 
@@ -11,7 +12,6 @@
 
 
   <div class="header_product_header">
-
     <div class="header_location">
       <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
       <a class="header_location_logo_link" href="#"> Москва</a>
@@ -22,12 +22,9 @@
       <a class="header_location_logo_link" href="/company"> О компании</a>
       <a class="header_location_logo_link" href="/contacts"> Контакты</a>
     </div>
-
-
   </div>
 
   <div class="header_user_lc">
-
     <div class="header_user_lc_logo">
       <a class="logo_ss" href="/product">
       <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
@@ -58,9 +55,61 @@
     </div>
   </div>
 
-  <a th:href="@{/product}">
-    <img class="banner" th:src="@{/images/banner3.jpg}" alt="banner">
-  </a>
+  <div class="container">
+    <div class="slider_wrapper">
+      <div class="sliders">
+        <img src="/images/banner3.jpg" id="slide-1">
+        <img src="/images/p18073_Lx79qg.jpg" id="slide-2">
+        <img src="/images/banerDemo7.png" id="slide-3">
+        <img src="/images/banerDemo4.jpg" id="slide-4">
+        <img src="/images/banerDemo8.jpg" id="slide-5">
+      </div>
+      <div class="controls">
+        <a href="#slide-1"></a>
+        <a href="#slide-2"></a>
+        <a href="#slide-3"></a>
+        <a href="#slide-4"></a>
+        <a href="#slide-5"></a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="product_block">
+    <div class="card1">
+      <div class="card_header toggleHide">
+        <div class="top">
+          <p>Стильные модели</p>
+          <p>Душевые кабины</p>
+        </div>
+      </div>
+      <div class="card_footer toggleHide">
+        <p>Всегда в наличии!</p>
+      </div>
+    </div>
+    <div class="card2">
+      <div class="card_header toggleHide">
+        <div class="top">
+          <p>Инсталяции для подвесных унитазов</p>
+          <p></p>
+        </div>
+      </div>
+      <div class="card_footer toggleHide">
+        <p>Новинка!</p>
+      </div>
+    </div>
+    <div class="card3">
+      <div class="card_header toggleHide">
+        <div class="top">
+          <p></p>
+          <p>Раковины накладные</p>
+        </div>
+      </div>
+      <div class="card_footer toggleHide">
+        <p>Стильно!</p>
+      </div>
+    </div>
+  </div>
 
   <div class="product_list">
 
@@ -142,7 +191,7 @@
           <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
           <p th:text="'Цена: ' + ${product.getPrice()}"></p>
           <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
-            <button type="submit">Купить</button>
+            <button class="productListDiv_btn" type="submit">Купить</button>
             <br>
           </form>
         </div>

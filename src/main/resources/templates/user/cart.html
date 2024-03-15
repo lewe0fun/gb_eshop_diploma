@@ -62,7 +62,7 @@
   <hr>
 
   <div class="cart_h3">
-    <h3>Корзина товаров</h3>
+    <h2>Корзина товаров</h2>
   </div>
 
 <div th:each="product : ${cart_product}">
@@ -75,10 +75,16 @@
   <br>
   <br>
 </div>
-<h3 th:text="'Итоговая цена: ' + ${price}"></h3>
+  <div class="cart_h3">
+    <h3 th:text="'Итоговая цена: ' + ${price}"></h3>
+  </div>
+
 <br>
-<form th:action="@{/order/create}">
-  <button type="submit">Оформить заказ</button><br>
-</form>
+  <div class="cart_btn">
+    <form th:action="@{/order/create}">
+      <button type="submit">Оформить заказ</button><br>
+    </form>
+  </div>
+
 </body>
 </html>

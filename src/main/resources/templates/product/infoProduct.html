@@ -39,12 +39,6 @@
 
             <div class="header_user_lc_block">
 
-                <div class="header_user_lc_orders">
-                    <a class="orders_ss" href="/orders">
-                        <img class="orders_logo" th:src="@{/images/delivery-svgrepo-com.svg}">
-                    </a>
-                </div>
-
                 <div class="header_user_lc_basket">
                     <a class="basket_ss" href="/cart">
                         <img class="basket_logo" th:src="@{/images/cart-shopping-svgrepo-com.svg}">
@@ -67,9 +61,7 @@
             </form>
         </div>
         <hr>
-
-
-
+        <br>
 
         <div class="productInfo">
             <div class="productImg" th:each="img : ${product.getImageList()}">
@@ -88,6 +80,8 @@
 
         <p style="font-weight: bold">Описание</p>
         <p th:text="${product.getDescription()}"></p>
+
+        <br>
 
         <div class="buyButton">
             <form th:action="@{/cart/add/{id}(id=${product.getId()})}">
