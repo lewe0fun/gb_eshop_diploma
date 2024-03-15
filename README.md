@@ -1,2 +1,10 @@
-login: admin  
-password: admin
+### Чтобы запустить проект локально
+
+1. Запустить PostgreSQL сервер.
+
+2. Создать базу данных с именем 'eshop'
+3. Запустить GbEshopApplication
+
+5. Пройти по адресу ```http://localhost:8080/```
+
+6. Данные администратора: логин: admin, пароль: admin
