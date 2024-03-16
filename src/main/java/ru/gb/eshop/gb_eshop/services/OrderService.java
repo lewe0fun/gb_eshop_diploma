@@ -24,6 +24,12 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    /**
+     *
+     * @param id
+     * @param order
+     * @return
+     */
     @Transactional
     public Order getAllOrders(int id, Order order) {
         order.setId(id);

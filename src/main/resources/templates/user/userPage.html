@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Главная страница</title>
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/orders.css}" type="text/css" rel="stylesheet">
 </head>
 
 
@@ -51,6 +52,12 @@
         </div>
     </div>
 
+</div>
+
+<div class="orders_user_lc">
+    <form th:action="@{/product}">
+        <button type="submit">На главную</button><br>
+    </form>
 </div>
 
 <div class="userPage_h1">
