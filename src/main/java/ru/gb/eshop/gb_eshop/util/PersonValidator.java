@@ -28,14 +28,10 @@ public class PersonValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
         if (personService.findByLogin(person) != null) {
-            errors.rejectValue("login", "", "Логин занят");
+            errors.rejectValue("login", "", "Логин занят!!!");
         }
-    }
-
-    public void findUser(Object target, Errors errors) {
-        Person person = (Person) target;
-        if (personService.findByLogin(person) == null) {
-            errors.rejectValue("login", "", "Пользователь c таким логином не найден");
+        if(((Person) target).getPassword().isEmpty()){
+            errors.rejectValue("password", "", "Пароль не может быть пустым!!!");
         }
     }
 }

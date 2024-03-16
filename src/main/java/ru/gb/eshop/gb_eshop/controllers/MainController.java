@@ -9,7 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.gb.eshop.gb_eshop.enums.Role;
 import ru.gb.eshop.gb_eshop.enums.Status;
 import ru.gb.eshop.gb_eshop.models.Cart;
@@ -230,31 +233,57 @@ public class MainController {
         return "/user/orders";
     }
 
-
+    /**
+     * Метод обновления пароля (получаем форму для заполнения)
+     * @param model модель
+     * @return форма заполнения нового пароля
+     */
     @GetMapping("/person/updatePassword")
     public String passForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
-        model.addAttribute("person", person);
+        model.addAttribute("person", authentication.getPrincipal());
         return "/person/updatePassword";
     }
 
+    /**
+     * Метод обновления пароля (заполняем форму для заполнения)
+     * @param id id пользователя
+     * @param person модель пользователя
+     * @param bindingResult ошибки
+     * @return либо страница логина, либо форма заполнения пароля
+     */
     @PostMapping("/person/updatePassword/{id}")
-    public String passUp(@PathVariable("id") int id, @RequestParam("password") String password) {
-        personService.changePassword(id, password);
+    public String passUp(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/person/updatePassword";
+        }
+        personService.changePassword(id, person.getPassword());
         return "redirect:/login";
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/contacts")
     public String contactMarket() {
         return "contacts";
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/company")
     public String aboutCompanyMarket() {
         return "aboutCompany";
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/wholesalers")
     public String wholesalersMarket() {
         return "wholesalers";
