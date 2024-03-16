@@ -10,9 +10,13 @@ import java.util.Optional;
 
 /**
  * Репозиторий продуктов
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
     /**
      * Поиск всех продуктов по части наименования продукта в не зависимости от регистра
      *
@@ -51,7 +55,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @param Do    цена до
      * @return список товаров
      */
-
     @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3) order by price desc", nativeQuery = true)
     List<Product> findByTitleOrderByPriceDesc(String title, float ot, float Do);
 
@@ -114,10 +117,35 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      */
     @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price desc", nativeQuery = true)
     List<Product> findByTitleOrderByPriceDesc(String title);
+
+    /**
+     * Поиск товаров по названию и категории по возрастанию
+     *
+     * @param title ключевое слово
+     * @param id_category категории
+     * @return список товаров
+     */
     @Query(value = "select * from product where category_id = ?2 and ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceAsc(String title, int id_category);
+
+    /**
+     * Поиск товаров по названию и категории по убыванию
+     *
+     * @param title ключевое слово
+     * @param id_category категории
+     * @return список товаров
+     */
     @Query(value = "select * from product where category_id = ?2 and ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) order by price desc", nativeQuery = true)
     List<Product> findByTitleAndCategoryOrderByPriceDesc(String title, int id_category);
+
+    /**
+     * Поиск товаров по названию и по цене от и до
+     *
+     * @param title ключевое слово
+     * @param ot цена от
+     * @param Do цена до
+     * @return список товаров
+     */
     @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3)", nativeQuery = true)
     List<Product> findByTitleAndCategoryAndPrice(String title, float ot, float Do);
 }

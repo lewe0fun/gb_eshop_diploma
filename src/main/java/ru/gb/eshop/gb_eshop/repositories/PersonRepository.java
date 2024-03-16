@@ -7,11 +7,16 @@ import org.springframework.stereotype.Repository;
 import ru.gb.eshop.gb_eshop.models.Person;
 
 import java.util.Optional;
+
 /**
  * Репозиторий пользователей
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
+
     /**
      * Метод поиска пользователя по логину
      * @param login логин

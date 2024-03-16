@@ -12,10 +12,14 @@ import java.util.List;
 
 /**
  * Репозиторий корзин
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Transactional
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
+
     /**
      * Метод поиска корзин пользователя по id пользователя
      *

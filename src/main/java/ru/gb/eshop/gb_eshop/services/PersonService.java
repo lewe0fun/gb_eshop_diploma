@@ -14,11 +14,22 @@ import java.util.Optional;
 
 /**
  * Сервис пользователей
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Service
 @Transactional(readOnly = true)
 public class PersonService {
+
+    /**
+     * Поле personRepository
+     */
     private final PersonRepository personRepository;
+
+    /**
+     * Поле passwordEncoder
+     */
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -29,6 +40,8 @@ public class PersonService {
 
     /**
      * Метод проверяет занят ли логин
+     *
+     * @param person пользователь
      */
     public Person findByLogin(Person person) {
         Optional<Person> person_db = personRepository.findByLogin(person.getLogin());

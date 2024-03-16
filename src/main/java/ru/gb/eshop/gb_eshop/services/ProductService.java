@@ -11,10 +11,17 @@ import java.util.Optional;
 
 /**
  * Сервис товаров
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Service
 @Transactional(readOnly = true)
 public class ProductService {
+
+    /**
+     * Поле productRepository
+     */
     private final ProductRepository productRepository;
 
     @Autowired

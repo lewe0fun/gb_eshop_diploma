@@ -10,10 +10,17 @@ import java.util.List;
 
 /**
  * Сервис корзин
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Service
 @Transactional(readOnly = true)
 public class CartService {
+
+    /**
+     * Поле cartRepository
+     */
     private final CartRepository cartRepository;
 
     @Autowired
