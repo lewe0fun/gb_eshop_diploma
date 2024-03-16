@@ -8,11 +8,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Основной класс конфигурации
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
-
 @Configuration
 @ComponentScan("ru.gb.eshop.gb_eshop.util")
 public class MainConfig implements WebMvcConfigurer {
+
     /**
      * Путь загрузки изображений
      */

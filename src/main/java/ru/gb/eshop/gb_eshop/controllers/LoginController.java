@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Контроллер аутентификации
+ *
+ *  @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ *  @version 1.0
  */
-
 @Controller
 public class LoginController {
 

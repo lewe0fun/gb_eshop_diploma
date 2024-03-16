@@ -32,34 +32,112 @@ import java.util.UUID;
 
 /**
  * Главный контроллер
+ *
+ *  @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ *  @version 1.0
  */
 @Controller
 public class MainController {
 
+    /**
+     * Поле productRepository
+     */
     private final ProductRepository productRepository;
+
+    /**
+     * Поле personValidator
+     */
     private final PersonValidator personValidator;
+
+    /**
+     * Поле personService
+     */
     private final PersonService personService;
+
+    /**
+     * Поле productService
+     */
     private final ProductService productService;
+
+    /**
+     * Поле cartService
+     */
     private final CartService cartService;
+
+    /**
+     * Поле orderService
+     */
     private final OrderService orderService;
+
+    /**
+     * Поле CATEGORY1
+     */
     @Value("${category.1}")
     private String CATEGORY1;
+
+    /**
+     * Поле CATEGORY2
+     */
     @Value("${category.2}")
     private String CATEGORY2;
+
+    /**
+     * Поле CATEGORY3
+     */
     @Value("${category.3}")
     private String CATEGORY3;
+
+    /**
+     * Поле CATEGORY4
+     */
     @Value("${category.4}")
     private String CATEGORY4;
+
+    /**
+     * Поле CATEGORY5
+     */
     @Value("${category.5}")
     private String CATEGORY5;
+
+    /**
+     * Поле CATEGORY6
+     */
     @Value("${category.6}")
     private String CATEGORY6;
+
+    /**
+     * Поле SEARCH_PRODUCT
+     */
     private final String SEARCH_PRODUCT = "search_product";
+
+    /**
+     * Поле SEARCH_ASC
+     */
     private final String SEARCH_ASC = "sorted_by_ascending_price";
+
+    /**
+     * Поле SEARCH_DES
+     */
     private final String SEARCH_DES = "sorted_by_descending_price";
+
+    /**
+     * Поле VALUE_SEARCH
+     */
     private final String VALUE_SEARCH = "value_search";
+
+    /**
+     * Поле PRISE_OT
+     */
     private final String PRISE_OT = "value_price_ot";
+
+    /**
+     * Поле PRISE_DO
+     */
     private final String PRISE_DO = "value_price_do";
+
+    /**
+     * Поле PRODUCTS
+     */
     private final String PRODUCTS = "products";
 
     @Autowired
@@ -222,7 +300,6 @@ public class MainController {
      * @param model модель
      * @return представление заказов
      */
-
     @GetMapping("/orders")
     public String orderUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -263,8 +340,8 @@ public class MainController {
     }
 
     /**
-     *
-     * @return
+     * Метод перехода на страницу контакты
+     * @return страницу contacts.html
      */
     @GetMapping("/contacts")
     public String contactMarket() {
@@ -272,8 +349,8 @@ public class MainController {
     }
 
     /**
-     *
-     * @return
+     * Метод перехода на страницу о компании
+     * @return страницу aboutCompany.html
      */
     @GetMapping("/company")
     public String aboutCompanyMarket() {
@@ -281,8 +358,8 @@ public class MainController {
     }
 
     /**
-     *
-     * @return
+     * Метод перехода на страницу оптовикам
+     * @return страницу wholesalers.html
      */
     @GetMapping("/wholesalers")
     public String wholesalersMarket() {

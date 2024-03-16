@@ -30,19 +30,47 @@ import java.util.UUID;
 
 /**
  * Контроллер администратора
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Controller
 @RequestMapping("/admin")
-
 public class AdminController {
 
+    /**
+     * Поле productValidator
+     */
     private final ProductValidator productValidator;
+
+    /**
+     * Поле productService
+     */
     private final ProductService productService;
+
+    /**
+     * Поле personService
+     */
     private final PersonService personService;
+
+    /**
+     * Поле orderService
+     */
     private final OrderService orderService;
+
+    /**
+     * Поле categoryRepository
+     */
     private final CategoryRepository categoryRepository;
+
+    /**
+     * Поле orderRepository
+     */
     private final OrderRepository orderRepository;
 
+    /**
+     * Поле uploadPath
+     */
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -59,7 +87,9 @@ public class AdminController {
     }
 
     /**
-     * Страницы админа
+     * Метод перехода на страницу админа
+     *
+     * @return страницу admin.html
      */
     @GetMapping()
     public String admin(Model model) {
@@ -76,7 +106,9 @@ public class AdminController {
     }
 
     /**
-     * Получение модели добавления товара
+     * Метод получения модели добавления товара
+     *
+     * @return страницу addProduct.html
      */
     @GetMapping("/product/add")
     public String addProduct(Model model) {
@@ -96,9 +128,9 @@ public class AdminController {
      * @param image4        файл картинки товара
      * @param image5        файл картинки товара
      * @param model         модель
-     * @throws IOException
+     * @throws IOException если возникнут ошибки
+     * @return страницу admin.html
      */
-
     @PostMapping("/product/add")
     public String addProduct(@ModelAttribute("product") @Valid Product product,
                              BindingResult bindingResult,
@@ -122,6 +154,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    /**
+     * Добавление картинки товару
+     *
+     * @param file         картинка
+     * @param product      товар
+     * @throws IOException если возникнут ошибки
+     */
     public void setImageToProduct(MultipartFile file, Product product) throws IOException {
         if (!file.isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -142,7 +181,6 @@ public class AdminController {
      * @param id id товара
      * @return редирект на ендпоинт админа
      */
-
     @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id) {
         if(orderRepository.findByProduct_id(id)!=null){
@@ -220,7 +258,6 @@ public class AdminController {
      * @param model модель
      * @return
      */
-
     @GetMapping("/person/edit/{id}")
     public String editPerson(@PathVariable("id") int id, Model model) {
         model.addAttribute("editPerson", personService.getPersonById(id));
@@ -235,7 +272,6 @@ public class AdminController {
      * @param id            id пользователя
      * @return представление Список пользователей или Редактирование при ошибке
      */
-
     @PostMapping("/person/edit/{id}")
     public String editPerson(@ModelAttribute("editPerson") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
@@ -245,16 +281,14 @@ public class AdminController {
         return "redirect:/admin/person";
     }
 
-    /////////
     /**
      * Метод возвращает страницу с формой редактирования профиля пользователя самим пользователем
      * и помещает в модель объект редактируемого пользователя по id
      *
      * @param id    id пользователя
      * @param model модель
-     * @return
+     * @return страницу editPersonUser.html
      */
-
     @GetMapping("/personUser/edit/{id}")
     public String editPersonUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("editPerson", personService.getPersonById(id));
@@ -269,7 +303,6 @@ public class AdminController {
      * @param id            id пользователя
      * @return представление Список пользователей или Редактирование при ошибке
      */
-
     @PostMapping("/personUser/edit/{id}")
     public String editPersonUser(@ModelAttribute("editPerson") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
@@ -279,7 +312,6 @@ public class AdminController {
         return "redirect:/userPage";
 
     }
-    ///////
 
     /**
      * Метод удаления пользователя по id
@@ -299,7 +331,6 @@ public class AdminController {
      * @param model модель
      * @return представление Заказы
      */
-
     @GetMapping("/orders")
     public String order(Model model) {
         ;
@@ -314,7 +345,6 @@ public class AdminController {
      * @param model модель
      * @return представление информации о заказе
      */
-
     @GetMapping("/orders/{id}")
     public String editOrder(@PathVariable("id") int id, Model model) {
         model.addAttribute("info_order", orderService.getOrderById(id));
@@ -328,7 +358,6 @@ public class AdminController {
      * @param status статус заказа
      * @return перенаправление на заказ
      */
-
     @PostMapping("/orders/{id}")
     public String changeStatus(@PathVariable("id") int id, @RequestParam("status") Status status) {
         Order order_status = orderService.getOrderById(id);

@@ -7,11 +7,16 @@ import ru.gb.eshop.gb_eshop.models.Order;
 import ru.gb.eshop.gb_eshop.models.Person;
 
 import java.util.List;
+
 /**
  * Репозиторий заказов
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+
     /**
      * Получение списка заказов по конкретному пользователю
      * @param person пользователь
@@ -26,5 +31,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
      */
     List<Order> findByNumberEndingWith(String endingWith);
 
+    /**
+     * Получение заказа по продукту
+     * @param product_id id продукта
+     * @return заказ
+     */
     Order findByProduct_id(int product_id);
 }

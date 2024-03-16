@@ -15,11 +15,17 @@ import ru.gb.eshop.gb_eshop.services.PersonDetailsService;
 
 /**
  * Класс конфигурации безопасности
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Бин filterChain
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
@@ -44,16 +50,25 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Бин getPasswordEncode
+     */
     @Bean
     public PasswordEncoder getPasswordEncode() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Бин personDetailsService
+     */
     @Bean
     public PersonDetailsService personDetailsService() {
         return new PersonDetailsService();
     }
 
+    /**
+     * Бин authenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

@@ -17,31 +17,98 @@ import java.util.List;
 
 /**
  * Контроллер продуктов
+ *
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+
+    /**
+     * Поле productService
+     */
     private final ProductService productService;
+
+    /**
+     * Поле productRepository
+     */
     private final ProductRepository productRepository;
+
+    /**
+     * Поле CATEGORY1
+     */
     @Value("${category.1}")
     private String CATEGORY1;
+
+    /**
+     * Поле CATEGORY2
+     */
     @Value("${category.2}")
     private String CATEGORY2;
+
+    /**
+     * Поле CATEGORY3
+     */
     @Value("${category.3}")
     private String CATEGORY3;
+
+    /**
+     * Поле CATEGORY4
+     */
     @Value("${category.4}")
     private String CATEGORY4;
+
+    /**
+     * Поле CATEGORY5
+     */
     @Value("${category.5}")
     private String CATEGORY5;
+
+    /**
+     * Поле CATEGORY6
+     */
     @Value("${category.6}")
     private String CATEGORY6;
+
+    /**
+     * Поле SEARCH_PRODUCT
+     */
     private final String SEARCH_PRODUCT = "search_product";
+
+    /**
+     * Поле SEARCH_ASC
+     */
     private final String SEARCH_ASC = "sorted_by_ascending_price";
+
+    /**
+     * Поле SEARCH_DES
+     */
     private final String SEARCH_DES = "sorted_by_descending_price";
+
+    /**
+     * Поле VALUE_SEARCH
+     */
     private final String VALUE_SEARCH = "value_search";
+
+    /**
+     * Поле PRISE_OT
+     */
     private final String PRISE_OT = "min_price";
+
+    /**
+     * Поле PRISE_DO
+     */
     private final String PRISE_DO = "max_price";
+
+    /**
+     * Поле PRODUCTS
+     */
     private final String PRODUCTS = "products";
+
+    /**
+     * Поле PRODUCT
+     */
     private final String PRODUCT = "product";
 
     public ProductController(ProductService productService, ProductRepository productRepository) {
