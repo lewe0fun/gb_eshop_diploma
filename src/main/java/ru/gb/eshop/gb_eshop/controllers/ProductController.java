@@ -98,8 +98,8 @@ public class ProductController {
      */
     @PostMapping("/search")
     public String productSearch(@RequestParam(value = "search", required = false, defaultValue = "") String search,
-                                @RequestParam("min") String min,
-                                @RequestParam("max") String max,
+                                @RequestParam(value = "min", defaultValue = "1") String min,
+                                @RequestParam(value = "max", defaultValue ="100000000") String max,
                                 @RequestParam(value = "sort", required = false, defaultValue = SEARCH_ASC) String sort,
                                 @RequestParam(value = "category", required = false, defaultValue = "") String category,
                                 Model model) {

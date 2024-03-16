@@ -4,7 +4,7 @@ VALUES ('admin', '$2a$10$IShKtJaTQ0mqx.YzDqIv6eWVOBgZ3Gspc7/tEcjl7PZd8aKNJ4V8C',
 
 --Категории товаров
 INSERT INTO category("name")
-VALUES ('Ванны'),('Санфаянс'),('Смесители'),('Душевые кабинки'),('Кухонные раковины'),('Арматура');
+VALUES ('Ванны'),('Санфаянс'),('Смесители'),('Душевые кабины'),('Кухонные раковины'),('Арматура');
 
 --Демо товары
 INSERT INTO product(date_time,description,price,seller,title,warehouse,category_id)
