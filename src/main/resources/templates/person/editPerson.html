@@ -51,36 +51,33 @@
     <form method="POST" th:action="@{/admin/person/edit/{id}(id=${editPerson.getId()})}" th:object="${editPerson}">
 
         <div class="mb-3" style="width:500px">
-
             <tr>
-                <label for="login" class="form-label_login">Введите логин: </label>
+                <label for="login" class="form-label_user_login" >Введите логин: </label>
                 <input type="text" class="form-control" th:field="*{login}" id="login">
                 <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
                 <br>
-                <label for="firstName" class="form-label_name">Введите пароль: </label>
-                <input type="hiden" class="form-control" th:field="*{password}" id="password">
+                <input type="hidden" class="form-control" th:field="*{password}" id="password">
                 <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                <label for="firstName" class="form-label_name">Введите имя: </label>
+                <label for="firstName" class="form-label_user_name">Введите имя: </label>
                 <input type="text" class="form-control" th:field="*{firstName}" id="firstName">
+                <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                 <br>
                 <label class="lab_lastName" for="lastName">Введите фамилию: </label>
-                <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+                <input type="text" class="form-control" id="lastName"  th:field="*{lastName}">
+                <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                 <br>
                 <label class="lab_telephone" for="telephone">Введите телефон: </label>
-                <input type="text" class="form-control" id="telephone" th:field="*{telephone}">
+                <input type="text" class="form-control" id="telephone"  th:field="*{telephone}">
+                <div style="color: red" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></div>
                 <br>
                 <label class="lab_email" for="email">Введите Email: </label>
-                <input type="text" class="form-control" id="email" th:field="*{email}">
+                <input type="text" class="form-control" id="email"  th:field="*{email}">
+                <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 <br>
                 <label class="lab_address" for="address">Введите адрес: </label>
-                <input type="text" class="form-control" id="address" th:field="*{address}">
+                <input type="text" class="form-control" id="address"  th:field="*{address}">
                 <br>
-                <label for="role" class="form-label">Введите роль: </label>
-                <select name="role" id="role">
-                    <option th:each="role : ${T(ru.gb.eshop.gb_eshop.enums.Role).values()}"
-                            th:value="${role}" th:text="${role}"></option>
-                </select>
-
+                <input type="hidden" value="ROLE_USER" class="field left" th:field="*{role}" readonly>
         </div>
         <br>
         <br>

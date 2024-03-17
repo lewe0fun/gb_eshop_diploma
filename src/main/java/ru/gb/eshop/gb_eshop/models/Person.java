@@ -2,8 +2,7 @@ package ru.gb.eshop.gb_eshop.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,15 +39,15 @@ public class Person implements UserDetails {
     /**
      * Поле login
      */
-    @NotEmpty(message = "Логин не может быть пустым")
-    @Size(min = 5, max = 100, message = "Логин должен быть от 5 до 100 символов")
+    @NotEmpty(message = "Логин не должен быть пустым!")
+    @Size(min = 3, max = 100, message = "Логин должен быть от 5 до 100 символов")
     @Column(name = "login")
     private String login;
 
     /**
      * Поле password
      */
-    @NotEmpty(message = "Пароль не может быть пустым")
+    @NotEmpty(message = "Пароль не должен быть пустым!")
     @Column(name = "password")
     private String password;
 
@@ -56,23 +55,27 @@ public class Person implements UserDetails {
      * Поле firstName
      */
     @Column(name = "first_name")
+    @Pattern(regexp = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$", message = "Имя должно быть от 1 до 23 символов,\nс заглавной буквы,\nна одном языке")
     private String firstName;
 
     /**
      * Поле lastName
      */
     @Column(name = "last_name")
+    @Pattern(regexp = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$", message = "Фамилия должна быть от 1 до 23 символов,\nс заглавной буквы,\nна одном языке")
     private String lastName;
 
     /**
      * Поле telephone
      */
     @Column(name = "telephone")
+    @Pattern(regexp="(^$|[0-9]{10})",message = "Неправильный телефон!\nТелефонный номер состоит из 10 цифр.")
     private String telephone;
 
     /**
      * Поле email
      */
+    @Email(message = "Неправильный email!")
     @Column(name = "email")
     private String email;
 

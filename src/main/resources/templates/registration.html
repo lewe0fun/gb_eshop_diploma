@@ -33,15 +33,19 @@
          <br>
          <label class="lab_firstName" for="firstName">Введите имя: </label>
          <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+         <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
          <br>
          <label class="lab_lastName" for="lastName">Введите фамилию: </label>
          <input type="text" class="form-control" id="lastName"  th:field="*{lastName}">
+         <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
          <br>
          <label class="lab_telephone" for="telephone">Введите телефон: </label>
          <input type="text" class="form-control" id="telephone"  th:field="*{telephone}">
+         <div style="color: red" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></div>
          <br>
          <label class="lab_email" for="email">Введите Email: </label>
          <input type="text" class="form-control" id="email"  th:field="*{email}">
+         <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
          <br>
          <label class="lab_address" for="address">Введите адрес: </label>
          <input type="text" class="form-control" id="address"  th:field="*{address}">
