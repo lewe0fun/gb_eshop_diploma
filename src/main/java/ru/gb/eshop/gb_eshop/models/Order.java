@@ -63,7 +63,6 @@ public class Order {
     /**
      * Поле status
      */
-    //@Enumerated(EnumType.STRING)
     private Status status;
 
     /**

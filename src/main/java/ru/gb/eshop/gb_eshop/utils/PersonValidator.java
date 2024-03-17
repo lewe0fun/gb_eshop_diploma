@@ -1,4 +1,4 @@
-package ru.gb.eshop.gb_eshop.util;
+package ru.gb.eshop.gb_eshop.utils;
 
 
 import org.springframework.stereotype.Component;

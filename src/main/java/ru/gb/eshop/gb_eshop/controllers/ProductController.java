@@ -9,11 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.eshop.gb_eshop.models.Person;
-import ru.gb.eshop.gb_eshop.models.Product;
 import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
 import ru.gb.eshop.gb_eshop.services.ProductService;
-
-import java.util.List;
 
 /**
  * Контроллер продуктов
@@ -92,14 +89,14 @@ public class ProductController {
     private final String VALUE_SEARCH = "value_search";
 
     /**
-     * Поле PRISE_OT
+     * Поле MAX_PRICE
      */
-    private final String PRISE_OT = "min_price";
+    private final String MAX_PRICE = "min_price";
 
     /**
-     * Поле PRISE_DO
+     * Поле MIN_PRICE
      */
-    private final String PRISE_DO = "max_price";
+    private final String MIN_PRICE = "max_price";
 
     /**
      * Поле PRODUCTS
@@ -124,19 +121,22 @@ public class ProductController {
      */
     @GetMapping("")
     public String getAllProduct(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null) {
-            Person person = (Person) auth.getPrincipal();
-            Person guest = new Person();
-            guest.setLogin("гость");
-            if (person != null) {
-                model.addAttribute("person", person);
-            } else {
-                model.addAttribute("person", guest);
-            }
-        }
+        addNameAttribute(model);
         model.addAttribute(PRODUCTS, productService.getAllProduct());
         return "/product/product";
+    }
+
+    /**
+     * Метод добавляет в модель имя автоизированного поьзователя
+     *
+     * @param model модель
+     */
+    private void addNameAttribute (Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null)
+            model.addAttribute("name", ((Person) auth.getPrincipal()).getLogin());
+        else
+            model.addAttribute("name", "покупатель");
     }
 
     /**
@@ -156,39 +156,28 @@ public class ProductController {
      * Метод поиска товаров по параметрам
      *
      * @param search   ключевое слово для поиска
-//     * @param ot       нижний передел цены
-//     * @param Do       верхний предел цены
-     * @param sort    цена
+     * @param min      нижний передел цены
+     * @param max      верхний предел цены
+     * @param sort     цена
      * @param category категория товара
      * @param model    модель
      * @return представление страницы с найденными товарами
      */
     @PostMapping("/search")
     public String productSearch(@RequestParam(value = "search", required = false, defaultValue = "") String search,
-                                @RequestParam("min") String min,
-                                @RequestParam("max") String max,
+                                @RequestParam(value = "min") String min,
+                                @RequestParam(value = "max") String max,
                                 @RequestParam(value = "sort", required = false, defaultValue = SEARCH_ASC) String sort,
                                 @RequestParam(value = "category", required = false, defaultValue = "") String category,
                                 Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null) {
-            Person person = (Person) auth.getPrincipal();
-            Person guest = new Person();
-            guest.setLogin("гость");
-            if (person != null) {
-                model.addAttribute("person", person);
-            } else {
-                model.addAttribute("person", guest);
-            }
-        }
 
         if (!min.isEmpty() & !max.isEmpty()) {//есть цены
 
-            if (!sort.isEmpty()) {//есть сортировка
-                if (sort.equals(SEARCH_ASC)) {//сортировка++
+            if (!sort.isEmpty()) {//есть цены -> есть сортировка
 
-                    if (!category.isEmpty()) {//категория
+                if (sort.equals(SEARCH_ASC)) {//есть цены -> есть сортировка -> возрастание
 
+                    if (!category.isEmpty()) {//есть цены -> есть сортировка -> возрастание-> категории
 
                         if (category.equals(CATEGORY1)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository
@@ -210,16 +199,15 @@ public class ProductController {
                                     .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max), 6));
                         }
 
-
-                    } else {
-                        model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max)));
+                    } else {//есть цены -> есть сортировка -> возрастание ->без категории
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max)));
                     }
 
+                } else if (sort.equals(SEARCH_DES)) {//есть цены -> есть сортировка -> убывание
 
-                } else if (sort.equals(SEARCH_DES)) {//сортировка --
+                    if (!category.isEmpty()) {//есть цены -> есть сортировка -> убывание -> категории
 
-
-                    if (!category.isEmpty()) {
                         if (category.equals(CATEGORY1)) {
                             model.addAttribute(SEARCH_PRODUCT, productRepository
                                     .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max), 1));
@@ -240,22 +228,156 @@ public class ProductController {
                                     .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max), 6));
                         }
 
-
-                    } else {//если нет категории, но с сортировкой и от и до цен
+                    } else {//есть цены -> есть сортировка -> убывание ->без категории
                         model.addAttribute(SEARCH_PRODUCT, productRepository
                                 .findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max)));
                     }
 
+                }
+            } else {//есть цены -> нет сортировки-> категории нет
+                model.addAttribute(SEARCH_PRODUCT, productRepository
+                        .findByTitleAndPriceGreaterThanEqual(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max)));
+            }
+        } else if (!min.isEmpty() & max.isEmpty()) {//есть мин цена
+
+            if (!sort.isEmpty()) {//есть мин цена -> есть сортировка
+
+                if (sort.equals(SEARCH_ASC)) {//есть мин цена -> есть сортировка -> возрастание
+
+                    if (!category.isEmpty()) {//есть мин цена  -> есть сортировка -> возрастание-> категории
+
+                        if (category.equals(CATEGORY1)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), 1));
+                        } else if (category.equals(CATEGORY2)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), 2));
+                        } else if (category.equals(CATEGORY3)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), 3));
+                        } else if (category.equals(CATEGORY4)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), 4));
+                        } else if (category.equals(CATEGORY5)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), 5));
+                        } else if (category.equals(CATEGORY6)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min), 6));
+                        }
+
+                    } else {//есть мин цена -> есть сортировка -> возрастание ->без категории
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(min)));
+                    }
+
+                } else if (sort.equals(SEARCH_DES)) {//есть мин цена -> есть сортировка -> убывание
+
+                    if (!category.isEmpty()) {//есть мин цена -> есть сортировка -> убывание -> категории
+
+                        if (category.equals(CATEGORY1)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), 1));
+                        } else if (category.equals(CATEGORY2)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), 2));
+                        } else if (category.equals(CATEGORY3)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), 3));
+                        } else if (category.equals(CATEGORY4)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), 4));
+                        } else if (category.equals(CATEGORY5)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), 5));
+                        } else if (category.equals(CATEGORY6)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min), 6));
+                        }
+
+                    } else {//есть мин цена  -> есть сортировка -> убывание ->без категории
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(min)));
+                    }
 
                 }
-            } else {//если от и до есть, но нет сортировки, категории нет
+            } else {//есть мин цена -> нет сортировки-> категории нет
                 model.addAttribute(SEARCH_PRODUCT, productRepository
-                        .findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(search.toLowerCase(), Float.parseFloat(min), Float.parseFloat(max)));
+                        .findByTitleAndPriceGreaterThanEqual(search.toLowerCase(), Float.parseFloat(min)));
             }
-        }
-        else if (!sort.isEmpty()) {
-            if (sort.equals(SEARCH_ASC)) {
-                if (!category.isEmpty()) {
+        } else if (!max.isEmpty()) {//есть мах цена
+
+            if (!sort.isEmpty()) {//есть мах цена -> есть сортировка
+
+                if (sort.equals(SEARCH_ASC)) {//есть мах цена -> есть сортировка -> возрастание
+
+                    if (!category.isEmpty()) {//есть мах цена -> есть сортировка -> возрастание-> категории
+
+                        if (category.equals(CATEGORY1)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max), 1));
+                        } else if (category.equals(CATEGORY2)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max), 2));
+                        } else if (category.equals(CATEGORY3)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max), 3));
+                        } else if (category.equals(CATEGORY4)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max), 4));
+                        } else if (category.equals(CATEGORY5)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max), 5));
+                        } else if (category.equals(CATEGORY6)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max), 6));
+                        }
+
+                    } else {//есть мах цена -> есть сортировка -> возрастание ->без категории
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndMaxPriceOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(max)));
+                    }
+
+                } else if (sort.equals(SEARCH_DES)) {//есть мах цена -> есть сортировка -> убывание
+
+                    if (!category.isEmpty()) {//есть мах цена -> есть сортировка -> убывание -> категории
+
+                        if (category.equals(CATEGORY1)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max), 1));
+                        } else if (category.equals(CATEGORY2)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max), 2));
+                        } else if (category.equals(CATEGORY3)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max), 3));
+                        } else if (category.equals(CATEGORY4)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max), 4));
+                        } else if (category.equals(CATEGORY5)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max), 5));
+                        } else if (category.equals(CATEGORY6)) {
+                            model.addAttribute(SEARCH_PRODUCT, productRepository
+                                    .findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max), 6));
+                        }
+
+                    } else {//есть мах цена -> есть сортировка -> убывание ->без категории
+                        model.addAttribute(SEARCH_PRODUCT, productRepository
+                                .findByTitleAndMaxPriceOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(max)));
+                    }
+
+                }
+            } else {//есть мах цена -> нет сортировки-> категории нет
+                model.addAttribute(SEARCH_PRODUCT, productRepository
+                        .findByTitleAndPriceLesserThanEqual(search.toLowerCase(), Float.parseFloat(max)));
+            }
+        } else if (!sort.isEmpty()) {//нет цен -> есть сортировка
+
+            if (sort.equals(SEARCH_ASC)) {//нет цен -> есть сортировка -> возрастание
+
+                if (!category.isEmpty()) {//нет цен -> есть сортировка -> возрастание -> категории
+
                     if (category.equals(CATEGORY1)) {
                         model.addAttribute(SEARCH_PRODUCT, productRepository
                                 .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 1));
@@ -275,11 +397,15 @@ public class ProductController {
                         model.addAttribute(SEARCH_PRODUCT, productRepository
                                 .findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), 6));
                     }
-                } else {
+
+                } else {//нет цен -> есть сортировка -> возрастание ->без категории
                     model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleOrderByPriceAsc(search.toLowerCase()));
                 }
-            } else if (sort.equals(SEARCH_DES)) {
-                if (!category.isEmpty()) {
+
+            } else if (sort.equals(SEARCH_DES)) {//нет цен -> есть сортировка -> убывание
+
+                if (!category.isEmpty()) {//есть цены -> есть сортировка -> убывание -> категории
+
                     if (category.equals(CATEGORY1)) {
                         model.addAttribute(SEARCH_PRODUCT, productRepository
                                 .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 1));
@@ -299,11 +425,13 @@ public class ProductController {
                         model.addAttribute(SEARCH_PRODUCT, productRepository
                                 .findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), 6));
                     }
-                } else {
+
+                } else {//нет цен -> есть сортировка -> убывание ->без категории
                     model.addAttribute(SEARCH_PRODUCT, productRepository
                             .findByTitleOrderByPriceDesc(search.toLowerCase()));
                 }
             }
+
         } else if (!category.isEmpty()) {//только категории
             if (category.equals(CATEGORY1)) {
                 model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 1));
@@ -318,14 +446,15 @@ public class ProductController {
             } else if (category.equals(CATEGORY6)) {
                 model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleAndCategory(search.toLowerCase(), 6));
             }
-        }
-        else {// всв товары
+
+        } else {// все товары
             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search.toLowerCase()));
         }
 
+        addNameAttribute(model);
         model.addAttribute(VALUE_SEARCH, search);
-        model.addAttribute(PRISE_OT, min);
-        model.addAttribute(PRISE_DO, max);
+        model.addAttribute(MAX_PRICE, min);
+        model.addAttribute(MIN_PRICE, max);
         model.addAttribute(SEARCH_ASC, sort);
         model.addAttribute(SEARCH_DES, sort);
         model.addAttribute(CATEGORY1, category);
@@ -345,6 +474,7 @@ public class ProductController {
      */
     @PostMapping("/searchHeader")
     public String productSearchHeader(@RequestParam("search") String search, Model model) {
+        addNameAttribute(model);
         model.addAttribute("search_product_header", productRepository.findByTitleContainingIgnoreCase(search));
         model.addAttribute("value_search", search);
         model.addAttribute(PRODUCTS, productService.getAllProduct());

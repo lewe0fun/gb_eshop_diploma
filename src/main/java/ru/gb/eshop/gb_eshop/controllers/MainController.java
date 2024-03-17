@@ -3,8 +3,6 @@ package ru.gb.eshop.gb_eshop.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +17,11 @@ import ru.gb.eshop.gb_eshop.models.Cart;
 import ru.gb.eshop.gb_eshop.models.Order;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.models.Product;
-import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
 import ru.gb.eshop.gb_eshop.services.CartService;
 import ru.gb.eshop.gb_eshop.services.OrderService;
 import ru.gb.eshop.gb_eshop.services.PersonService;
 import ru.gb.eshop.gb_eshop.services.ProductService;
-import ru.gb.eshop.gb_eshop.util.PersonValidator;
+import ru.gb.eshop.gb_eshop.utils.PersonValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +30,11 @@ import java.util.UUID;
 /**
  * Главный контроллер
  *
- *  @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
- *  @version 1.0
+ * @author Пакулин Ю.А., Строев Д.В., Брылин М.В.
+ * @version 1.0
  */
 @Controller
 public class MainController {
-
-    /**
-     * Поле productRepository
-     */
-    private final ProductRepository productRepository;
 
     /**
      * Поле personValidator
@@ -69,81 +61,9 @@ public class MainController {
      */
     private final OrderService orderService;
 
-    /**
-     * Поле CATEGORY1
-     */
-    @Value("${category.1}")
-    private String CATEGORY1;
-
-    /**
-     * Поле CATEGORY2
-     */
-    @Value("${category.2}")
-    private String CATEGORY2;
-
-    /**
-     * Поле CATEGORY3
-     */
-    @Value("${category.3}")
-    private String CATEGORY3;
-
-    /**
-     * Поле CATEGORY4
-     */
-    @Value("${category.4}")
-    private String CATEGORY4;
-
-    /**
-     * Поле CATEGORY5
-     */
-    @Value("${category.5}")
-    private String CATEGORY5;
-
-    /**
-     * Поле CATEGORY6
-     */
-    @Value("${category.6}")
-    private String CATEGORY6;
-
-    /**
-     * Поле SEARCH_PRODUCT
-     */
-    private final String SEARCH_PRODUCT = "search_product";
-
-    /**
-     * Поле SEARCH_ASC
-     */
-    private final String SEARCH_ASC = "sorted_by_ascending_price";
-
-    /**
-     * Поле SEARCH_DES
-     */
-    private final String SEARCH_DES = "sorted_by_descending_price";
-
-    /**
-     * Поле VALUE_SEARCH
-     */
-    private final String VALUE_SEARCH = "value_search";
-
-    /**
-     * Поле PRISE_OT
-     */
-    private final String PRISE_OT = "value_price_ot";
-
-    /**
-     * Поле PRISE_DO
-     */
-    private final String PRISE_DO = "value_price_do";
-
-    /**
-     * Поле PRODUCTS
-     */
-    private final String PRODUCTS = "products";
-
     @Autowired
-    public MainController(ProductRepository productRepository, PersonValidator personValidator, PersonService personService,
-                          ProductService productService, CartService cartService, OrderService orderService) {
-        this.productRepository = productRepository;
+    public MainController(PersonValidator personValidator, PersonService personService, ProductService productService,
+                          CartService cartService, OrderService orderService) {
         this.personValidator = personValidator;
         this.personService = personService;
         this.productService = productService;
@@ -159,19 +79,15 @@ public class MainController {
      */
     @GetMapping("/userPage")
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
-        model.addAttribute("person", person);
+        Person person = getAuthPerson();
         Role role = person.getRole();
         if (role == Role.ROLE_ADMIN) {
             return "redirect:/admin";
         }
-        model.addAttribute("products", productService.getAllProduct());
-
-        List<Order> orderList = orderService.findByPerson(person);
         model.addAttribute("person", person);
-        model.addAttribute("orders", orderList);
-
+        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("name", person.getLogin());
+        model.addAttribute("orders", orderService.findByPerson(person));
         return "/user/userPage";
     }
 
@@ -225,8 +141,7 @@ public class MainController {
     @GetMapping("/cart/add/{id}")
     public String addProductInCart(@PathVariable("id") int id) {
         Product product = productService.getProductId(id);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
+        Person person = getAuthPerson();
         cartService.save(new Cart(person.getId(), product.getId()));
         return "redirect:/cart";
     }
@@ -239,10 +154,8 @@ public class MainController {
      */
     @GetMapping("/cart")
     public String cart(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
-        int id_person = person.getId();
-        List<Cart> cartList = cartService.findByPersonId(id_person);
+        Person person = getAuthPerson();
+        List<Cart> cartList = cartService.findByPersonId(person.getId());
         List<Product> productList = new ArrayList<>();
         for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
@@ -275,10 +188,8 @@ public class MainController {
      */
     @GetMapping("/order/create")
     public String order() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
-        int id_person = person.getId();
-        List<Cart> cartList = cartService.findByPersonId(id_person);
+        Person person = getAuthPerson();
+        List<Cart> cartList = cartService.findByPersonId(person.getId());
         List<Product> productList = new ArrayList<>();
 
         for (Cart cart : cartList) {
@@ -302,8 +213,7 @@ public class MainController {
      */
     @GetMapping("/orders")
     public String orderUser(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
+        Person person = getAuthPerson();
         List<Order> orderList = orderService.findByPerson(person);
         model.addAttribute("person", person);
         model.addAttribute("orders", orderList);
@@ -312,26 +222,35 @@ public class MainController {
 
     /**
      * Метод обновления пароля (получаем форму для заполнения)
+     *
      * @param model модель
      * @return форма заполнения нового пароля
      */
     @GetMapping("/person/updatePassword")
     public String passForm(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("person", authentication.getPrincipal());
+        model.addAttribute("person", getAuthPerson());
         return "/person/updatePassword";
     }
 
     /**
+     * Метод возвращает аунтифицированного пользователя
+     *
+     * @return аунтифицированный пользователь
+     */
+    private Person getAuthPerson() {
+        return (Person) SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    /**
      * Метод обновления пароля (заполняем форму для заполнения)
-     * @param id id пользователя
-     * @param person модель пользователя
+     *
+     * @param id            id пользователя
+     * @param person        модель пользователя
      * @param bindingResult ошибки
      * @return либо страница логина, либо форма заполнения пароля
      */
     @PostMapping("/person/updatePassword/{id}")
     public String passUp(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/person/updatePassword";
         }
@@ -341,6 +260,7 @@ public class MainController {
 
     /**
      * Метод перехода на страницу контакты
+     *
      * @return страницу contacts.html
      */
     @GetMapping("/contacts")
@@ -350,6 +270,7 @@ public class MainController {
 
     /**
      * Метод перехода на страницу о компании
+     *
      * @return страницу aboutCompany.html
      */
     @GetMapping("/company")
@@ -359,6 +280,7 @@ public class MainController {
 
     /**
      * Метод перехода на страницу оптовикам
+     *
      * @return страницу wholesalers.html
      */
     @GetMapping("/wholesalers")

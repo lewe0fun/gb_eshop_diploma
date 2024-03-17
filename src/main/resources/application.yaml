@@ -10,12 +10,12 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-  generate-ddl: true
+    generate-ddl: true
   flyway:
     baselineOnMigrate: true
     baseline-version: 0
 
-  #Путь загрузки картинок
+  #Путь загрузки картинок для добавляемых товаров
 upload:
   path: /home/iopa/uploads
   #path: E:\uploads

@@ -3,7 +3,6 @@ package ru.gb.eshop.gb_eshop.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.gb.eshop.gb_eshop.enums.Role;
 import ru.gb.eshop.gb_eshop.enums.Status;
-import ru.gb.eshop.gb_eshop.models.Image;
 import ru.gb.eshop.gb_eshop.models.Order;
 import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.models.Product;
@@ -22,11 +20,13 @@ import ru.gb.eshop.gb_eshop.repositories.OrderRepository;
 import ru.gb.eshop.gb_eshop.services.OrderService;
 import ru.gb.eshop.gb_eshop.services.PersonService;
 import ru.gb.eshop.gb_eshop.services.ProductService;
-import ru.gb.eshop.gb_eshop.util.ProductValidator;
+import ru.gb.eshop.gb_eshop.utils.ImageUploader;
+import ru.gb.eshop.gb_eshop.utils.ProductValidator;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Контроллер администратора
@@ -67,23 +67,21 @@ public class AdminController {
      * Поле orderRepository
      */
     private final OrderRepository orderRepository;
-
     /**
-     * Поле uploadPath
+     * Поле imageUploader
      */
-    @Value("${upload.path}")
-    private String uploadPath;
+    private  final ImageUploader imageUploader;
 
     @Autowired
-    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService,
-                           OrderService orderService, CategoryRepository categoryRepository, OrderRepository orderRepository) {
+    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, OrderService orderService,
+                           CategoryRepository categoryRepository, OrderRepository orderRepository, ImageUploader imageUploader) {
         this.productValidator = productValidator;
         this.productService = productService;
         this.personService = personService;
         this.orderService = orderService;
         this.categoryRepository = categoryRepository;
         this.orderRepository = orderRepository;
-
+        this.imageUploader = imageUploader;
     }
 
     /**
@@ -145,34 +143,11 @@ public class AdminController {
             model.addAttribute("category", categoryRepository.findAll());
             return "/product/addProduct";
         }
-        setImageToProduct(image1, product);
-        setImageToProduct(image2, product);
-        setImageToProduct(image3, product);
-        setImageToProduct(image4, product);
-        setImageToProduct(image5, product);
+        List<MultipartFile> images = new ArrayList<>(Arrays.asList(image1,image2,image3,image4,image5));
+        for (MultipartFile image: images)
+            imageUploader.setImage(image,product);
         productService.saveProduct(product);
         return "redirect:/admin";
-    }
-
-    /**
-     * Добавление картинки товару
-     *
-     * @param file         картинка
-     * @param product      товар
-     * @throws IOException если возникнут ошибки
-     */
-    public void setImageToProduct(MultipartFile file, Product product) throws IOException {
-        if (!file.isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists())
-                uploadDir.mkdir();
-            String fileName = UUID.randomUUID() + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + fileName));
-            Image image = new Image();
-            image.setProduct(product);
-            image.setFileName(fileName);
-            product.addImageProduct(image);
-        }
     }
 
     /**
@@ -360,9 +335,9 @@ public class AdminController {
      */
     @PostMapping("/orders/{id}")
     public String changeStatus(@PathVariable("id") int id, @RequestParam("status") Status status) {
-        Order order_status = orderService.getOrderById(id);
-        order_status.setStatus(status);
-        orderService.updateOrderStatus(order_status);
+        Order order = orderService.getOrderById(id);
+        order.setStatus(status);
+        orderService.updateOrderStatus(order);
         return "redirect:/admin/orders/{id}";
     }
 
