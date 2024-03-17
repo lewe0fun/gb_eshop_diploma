@@ -1,11 +1,10 @@
-package ru.gb.eshop.gb_eshop.util;
+package ru.gb.eshop.gb_eshop.utils;
 
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import ru.gb.eshop.gb_eshop.models.Product;
-import ru.gb.eshop.gb_eshop.services.PersonService;
 import ru.gb.eshop.gb_eshop.services.ProductService;
 
 /**

@@ -33,7 +33,7 @@
             <img class="header_logo_name" th:src="@{/images/logo-3-3.png}" alt="logo">
         </a>
     </div>
-    <h2 th:text="'Активный пользователь: '+${person.getLogin()}">Личка</h2>
+    <h2 th:text="'Активный пользователь: '+${name}">Личка</h2>
 
     <div class="header_user_lc_block">
 
@@ -66,7 +66,7 @@
 
 
 <div class="userPage_h2">
-    <h2 th:text="'Здравствуйте  '+${person.getLogin()} +', добро пожаловать в личный кабинет! '">Личка</h2>
+    <h2 th:text="'Здравствуйте  '+${name} +', добро пожаловать в личный кабинет! '">Личка</h2>
 </div>
 
 <br>
@@ -101,7 +101,7 @@
             </div>
             <div class="skidki_body">
                 <hr>
-                <h3 th:text="${person.getLogin()} + ' - у Вас пока нет скидок' ">Скидки</h3>
+                <h3 th:text="${name} + ' - у Вас пока нет скидок' ">Скидки</h3>
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@
             </div>
             <div class="moiObrash_body">
                 <hr>
-                <h3 th:text="${person.getLogin()} + ' - у Вас пока нет обращений' ">Обращения</h3>
+                <h3 th:text="${name} + ' - у Вас пока нет обращений' ">Обращения</h3>
             </div>
         </div>
         <div>

@@ -55,14 +55,14 @@ public class Person implements UserDetails {
      * Поле firstName
      */
     @Column(name = "first_name")
-    @Pattern(regexp = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$", message = "Имя должно быть от 1 до 23 символов,\nс заглавной буквы,\nна одном языке")
+    @Pattern(regexp = "^$|^([А-Я][а-яё]{0,23}|[A-Z][a-z]{0,23})$", message = "Имя должно быть 1-23 символов,\nс заглавной буквы,\nна одном языке")
     private String firstName;
 
     /**
      * Поле lastName
      */
     @Column(name = "last_name")
-    @Pattern(regexp = "^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$", message = "Фамилия должна быть от 1 до 23 символов,\nс заглавной буквы,\nна одном языке")
+    @Pattern(regexp = "^$|^([А-Я][а-яё]{0,23}|[A-Z][a-z]{0,23})$", message = "Фамилия должна быть 1-23 символов,\nс заглавной буквы,\nна одном языке")
     private String lastName;
 
     /**

@@ -16,7 +16,7 @@
       <img class="header_location_logo" th:src="@{/images/locationLogo.svg}" alt="logo">
       <a class="header_location_logo_link" href="#"> Москва</a>
     </div>
-
+    <h5 th:text="'Привет '+${name}"></h5>
     <div class="header_info" >
       <a class="header_location_logo_link" href="/wholesalers"> Оптовикам</a>
       <a class="header_location_logo_link" href="/company"> О компании</a>
@@ -37,7 +37,9 @@
         <button class="header_search_btn" type="submit"> <img class="logo_search" th:src="@{/images/search-svgrepo-com.svg}" alt="logo_search"></button>
       </form>
     </div>
-
+<!--
+    <h2 th:text="'Привет '+${name}"></h2>
+-->
     <div class="header_user_lc_block">
 
       <div class="header_user_lc_basket">
@@ -119,9 +121,9 @@
           <legend>Выберите параметры :</legend>
           <br>
           <label for="min">Цена от:</label>
-          <input type="text" name="min" id="min" th:value="*{min_price}">
+          <input type="text"  name="min" id="min" th:value="*{min_price}">
           <label for="max">Цена до:</label>
-          <input type="text" name="max" id="max" th:value="*{max_price}">
+          <input type="text"  name="max" id="max" th:value="*{max_price}">
           <br>
 
           <div>

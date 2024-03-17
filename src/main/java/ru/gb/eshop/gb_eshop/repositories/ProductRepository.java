@@ -34,7 +34,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      * @return список товаров
      */
     @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3)", nativeQuery = true)
-    List<Product> findByTitleAndPriceGreaterThanEqualAndPriceLessThanEqual(String title, float ot, float Do);
+    List<Product> findByTitleAndPriceGreaterThanEqual(String title, float ot, float Do);
 
     /**
      * Поиск по наименованию и фильтрация по диапазону цены, а также сортировка по возрастанию цены
@@ -148,4 +148,102 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
      */
     @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and (price >= ?2 and price <= ?3)", nativeQuery = true)
     List<Product> findByTitleAndCategoryAndPrice(String title, float ot, float Do);
+
+    /**
+     * Поиск товаров по названию, мин цене и категории и сортировкой по возрастанию
+     * @param title ключевое слово
+     * @param min_price мин цена
+     * @param id_category id категории
+     * @return список товаров
+     */
+    @Query(value = "select * from product where category_id = ?3 and((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price >= ?2 order by price", nativeQuery = true)
+    List<Product> findByTitleAndCategoryOrderByPriceAsc(String title, float min_price, int id_category);
+
+    /**
+     * Поиск товара по названию и мин цене и сортировкой по возрастанию
+     * @param title
+     * @param min_price
+     * @return
+     */
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price >= ?2 order by price", nativeQuery = true)
+    List<Product> findByTitleOrderByPriceAsc(String title, float min_price);
+
+    /**
+     * Поиск товаров по названию, мин цене и категории и сортировкой по убыванию
+     * @param title ключевое слово
+     * @param min_price мин цена
+     * @param id_category id категории
+     * @return список товаров
+     */
+    @Query(value = "select * from product where category_id = ?3 and((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price >= ?2 order by price desc", nativeQuery = true)
+    List<Product> findByTitleAndCategoryOrderByPriceDesc(String title, float  min_price, int id_category);
+
+    /**
+     * Поиск по наименованию от цены, а также сортировка по убыванию цены
+     *
+     * @param title ключевое слово
+     * @param min_price    цена от
+     * @return список товаров
+     */
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price >= ?2 order by price desc", nativeQuery = true)
+    List<Product> findByTitleOrderByPriceDesc(String title, float min_price);
+
+    /**
+     * Поиск по наименованию от мин цены
+     *
+     * @param title ключевое слово
+     * @param min_price    цена от
+     * @return список товаров
+     */
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price >= ?2", nativeQuery = true)
+    List<Product> findByTitleAndPriceGreaterThanEqual(String title, float min_price);
+
+    /**
+     * Поиск по ключевому слову, категории, мах цене, упорядоченное по возрастанию
+     * @param title ключевое слово
+     * @param max_price мах цена
+     * @param id_category id категории
+     * @return список товаров
+     */
+    @Query(value = "select * from product where category_id = ?3 and((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price <= ?2 order by price", nativeQuery = true)
+    List<Product> findByTitleAndCategoryAndMaxPriceOrderByPriceAsc(String title, float max_price, int id_category);
+
+    /**
+     * Поиск товара по названию и мах цене и сортировкой по возрастанию
+     * @param title ключевое слово
+     * @param max_price мах цена
+     * @return список товаров
+     */
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price <= ?2 order by price", nativeQuery = true)
+    List<Product> findByTitleAndMaxPriceOrderByPriceAsc(String title, float max_price);
+
+    /**
+     * Поиск товаров по названию, мах цене и категории и сортировкой по убыванию
+     * @param title ключевое слово
+     * @param max_price мин цена
+     * @param id_category id категории
+     * @return список товаров
+     */
+    @Query(value = "select * from product where category_id = ?3 and((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price <= ?2 order by price desc", nativeQuery = true)
+    List<Product> findByTitleAndCategoryAndMaxPriceOrderByPriceDesc(String title, float  max_price, int id_category);
+
+    /**
+     * Поиск по наименованию до мах цены, а также сортировка по убыванию цены
+     *
+     * @param title ключевое слово
+     * @param max_price    цена от
+     * @return список товаров
+     */
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price <= ?2 order by price desc", nativeQuery = true)
+    List<Product> findByTitleAndMaxPriceOrderByPriceDesc(String title, float max_price);
+
+    /**
+     * Поиск по наименованию до мах цены
+     *
+     * @param title ключевое слово
+     * @param max_price    цена от
+     * @return список товаров
+     */
+    @Query(value = "select * from product where ((lower(title) LIKE %?1%) OR (lower(title) LIKE '?1%') OR (lower(title) LIKE '%?1')) and price <= ?2", nativeQuery = true)
+    List<Product> findByTitleAndPriceLesserThanEqual(String title, float max_price);
 }
