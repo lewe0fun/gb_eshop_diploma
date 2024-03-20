@@ -80,8 +80,7 @@ public class MainController {
      */
     @GetMapping("/userPage")
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
+        Person person = getAuthPerson();
         Role role = person.getRole();
         if (role == Role.ROLE_ADMIN) {
             return "redirect:/admin";
@@ -143,8 +142,7 @@ public class MainController {
     @GetMapping("/cart/add/{id}")
     public String addProductInCart(@PathVariable("id") int id) {
         Product product = productService.getProductId(id);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
+        Person person = getAuthPerson();
         cartService.save(new Cart(person.getId(), product.getId()));
         return "redirect:/cart";
     }
@@ -157,10 +155,8 @@ public class MainController {
      */
     @GetMapping("/cart")
     public String cart(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
-        int id_person = person.getId();
-        List<Cart> cartList = cartService.findByPersonId(id_person);
+        Person person = getAuthPerson();
+        List<Cart> cartList = cartService.findByPersonId(person.getId());
         List<Product> productList = new ArrayList<>();
         for (Cart cart : cartList)
             productList.add(productService.getProductId(cart.getProductId()));
@@ -193,10 +189,8 @@ public class MainController {
      */
     @GetMapping("/order/create")
     public String order() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
-        int id_person = person.getId();
-        List<Cart> cartList = cartService.findByPersonId(id_person);
+        Person person = getAuthPerson();
+        List<Cart> cartList = cartService.findByPersonId(person.getId());
         List<Product> productList = new ArrayList<>();
 
         for (Cart cart : cartList) {
@@ -220,8 +214,7 @@ public class MainController {
      */
     @GetMapping("/orders")
     public String orderUser(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person person = (Person) authentication.getPrincipal();
+        Person person = getAuthPerson();
         List<Order> orderList = orderService.findByPerson(person);
         model.addAttribute("person", person);
         model.addAttribute("orders", orderList);
@@ -236,9 +229,17 @@ public class MainController {
      */
     @GetMapping("/person/updatePassword")
     public String passForm(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("person", authentication.getPrincipal());
+        model.addAttribute("person", getAuthPerson());
         return "/person/updatePassword";
+    }
+
+    /**
+     * Метод возвращает аунтифицированного пользователя
+     *
+     * @return аунтифицированный пользователь
+     */
+    private Person getAuthPerson() {
+        return (Person) SecurityContextHolder.getContext().getAuthentication();
     }
 
     /**
@@ -251,7 +252,6 @@ public class MainController {
      */
     @PostMapping("/person/updatePassword/{id}")
     public String passUp(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/person/updatePassword";
         }

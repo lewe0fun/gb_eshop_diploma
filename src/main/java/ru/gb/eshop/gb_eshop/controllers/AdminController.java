@@ -67,22 +67,21 @@ public class AdminController {
      * Поле orderRepository
      */
     private final OrderRepository orderRepository;
-    private  final ImageUploader imageUploader;
 
     /**
-     * Поле uploadPath
+     * Поле imageUploader
      */
+    private  final ImageUploader imageUploader;
 
     @Autowired
-    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService,
-                           OrderService orderService, CategoryRepository categoryRepository, OrderRepository orderRepository, ImageUploader imageUploader) {
+    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, OrderService orderService,
+                           CategoryRepository categoryRepository, OrderRepository orderRepository, ImageUploader imageUploader) {
         this.productValidator = productValidator;
         this.productService = productService;
         this.personService = personService;
         this.orderService = orderService;
         this.categoryRepository = categoryRepository;
         this.orderRepository = orderRepository;
-
         this.imageUploader = imageUploader;
     }
 

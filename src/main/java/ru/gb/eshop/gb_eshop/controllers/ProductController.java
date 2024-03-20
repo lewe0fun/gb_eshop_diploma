@@ -89,14 +89,14 @@ public class ProductController {
     private final String VALUE_SEARCH = "value_search";
 
     /**
-     * Поле PRISE_OT
+     * Поле MAX_PRICE
      */
-    private final String PRISE_OT = "min_price";
+    private final String MAX_PRICE = "min_price";
 
     /**
-     * Поле PRISE_DO
+     * Поле MIN_PRICE
      */
-    private final String PRISE_DO = "max_price";
+    private final String MIN_PRICE = "max_price";
 
     /**
      * Поле PRODUCTS
@@ -121,13 +121,22 @@ public class ProductController {
      */
     @GetMapping("")
     public String getAllProduct(Model model) {
+        addNameAttribute(model);
+        model.addAttribute(PRODUCTS, productService.getAllProduct());
+        return "/product/product";
+    }
+
+    /**
+     * Метод добавляет в модель имя автоизированного поьзователя
+     *
+     * @param model модель
+     */
+    private void addNameAttribute (Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null)
             model.addAttribute("name", ((Person) auth.getPrincipal()).getLogin());
         else
             model.addAttribute("name", "покупатель");
-        model.addAttribute(PRODUCTS, productService.getAllProduct());
-        return "/product/product";
     }
 
     /**
@@ -161,12 +170,6 @@ public class ProductController {
                                 @RequestParam(value = "sort", required = false, defaultValue = SEARCH_ASC) String sort,
                                 @RequestParam(value = "category", required = false, defaultValue = "") String category,
                                 Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null)
-            model.addAttribute("name", ((Person) auth.getPrincipal()).getLogin());
-        else
-            model.addAttribute("name", "покупатель");
-
 
         if (!min.isEmpty() & !max.isEmpty()) {//есть цены
 
@@ -449,9 +452,10 @@ public class ProductController {
         }
 
 
+        addNameAttribute(model);
         model.addAttribute(VALUE_SEARCH, search);
-        model.addAttribute(PRISE_OT, min);
-        model.addAttribute(PRISE_DO, max);
+        model.addAttribute(MAX_PRICE, min);
+        model.addAttribute(MIN_PRICE, max);
         model.addAttribute(SEARCH_ASC, sort);
         model.addAttribute(SEARCH_DES, sort);
         model.addAttribute(CATEGORY1, category);
@@ -471,6 +475,7 @@ public class ProductController {
      */
     @PostMapping("/searchHeader")
     public String productSearchHeader(@RequestParam("search") String search, Model model) {
+        addNameAttribute(model);
         model.addAttribute("search_product_header", productRepository.findByTitleContainingIgnoreCase(search));
         model.addAttribute("value_search", search);
         model.addAttribute(PRODUCTS, productService.getAllProduct());
