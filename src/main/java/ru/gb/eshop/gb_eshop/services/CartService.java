@@ -54,7 +54,7 @@ public class CartService {
      * @param cart корзина
      */
     @Transactional
-    public void save(Cart cart) {
-        cartRepository.save(cart);
+    public Cart save(Cart cart) {
+        return cartRepository.save(cart);
     }
 }

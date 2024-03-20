@@ -34,25 +34,11 @@ public class OrderService {
     /**
      * Метод сохранения заказа
      *
-     * @param newOrder заказ
-     */
-    @Transactional
-    public void save(Order newOrder) {
-        orderRepository.save(newOrder);
-    }
-
-    /**
-     * Метод возвращает заказ по id
-     *
-     * @param id id товара
      * @param order заказ
-     * @return заказ
      */
     @Transactional
-    public Order getAllOrders(int id, Order order) {
-        order.setId(id);
-        orderRepository.save(order);
-        return order;
+    public Order save(Order order) {
+       return orderRepository.save(order);
     }
 
     /**
@@ -62,28 +48,6 @@ public class OrderService {
      */
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
-    }
-
-    /**
-     * Метод обновления заказа
-     *
-     * @param id id товара
-     * @param order заказ
-     */
-    @Transactional
-    public void updateOrder(int id, Order order) {
-        order.setId(id);
-        orderRepository.save(order);
-    }
-
-    /**
-     * Метод обновления статуса заказа
-     *
-     * @param order заказ
-     */
-    @Transactional
-    public void updateOrderStatus(Order order) {
-        orderRepository.save(order);
     }
 
     /**

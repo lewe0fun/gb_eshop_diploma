@@ -239,7 +239,8 @@ public class MainController {
      * @return аунтифицированный пользователь
      */
     private Person getAuthPerson() {
-        return (Person) SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (Person) authentication.getPrincipal();
     }
 
     /**

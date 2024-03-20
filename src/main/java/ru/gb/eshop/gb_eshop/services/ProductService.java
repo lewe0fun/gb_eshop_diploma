@@ -55,8 +55,8 @@ public class ProductService {
      * @param product товар
      */
     @Transactional
-    public void saveProduct(Product product) {
-        productRepository.save(product);
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
     }
 
     /**
@@ -66,9 +66,9 @@ public class ProductService {
      * @param product товар с обновленными данными
      */
     @Transactional
-    public void updateProduct(int id, Product product) {
+    public Product updateProduct(int id, Product product) {
         product.setId(id);
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
     /**
