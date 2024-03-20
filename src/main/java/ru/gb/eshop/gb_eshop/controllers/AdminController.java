@@ -67,6 +67,7 @@ public class AdminController {
      * Поле orderRepository
      */
     private final OrderRepository orderRepository;
+
     /**
      * Поле imageUploader
      */

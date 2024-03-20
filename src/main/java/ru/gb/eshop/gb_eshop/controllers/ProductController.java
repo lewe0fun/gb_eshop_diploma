@@ -451,6 +451,7 @@ public class ProductController {
             model.addAttribute(SEARCH_PRODUCT, productRepository.findByTitleContainingIgnoreCase(search.toLowerCase()));
         }
 
+
         addNameAttribute(model);
         model.addAttribute(VALUE_SEARCH, search);
         model.addAttribute(MAX_PRICE, min);
