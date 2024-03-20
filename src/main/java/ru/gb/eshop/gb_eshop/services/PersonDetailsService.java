@@ -24,11 +24,13 @@ public class PersonDetailsService implements UserDetailsService {
     @Autowired
     private PersonRepository personRepository;
 
+
     /**
      * Метод loadUserByUsername
+     *
      * @param username логин пользователя
      * @return объект UserDetail, который также является интерфейсом и содержит
-     *         некоторые методы для описания информации о пользователе
+     * некоторые методы для описания информации о пользователе
      * @throws UsernameNotFoundException исключение если пользователь отсутствует
      */
     @Override

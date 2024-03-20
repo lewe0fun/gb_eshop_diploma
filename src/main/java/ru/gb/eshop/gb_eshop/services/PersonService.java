@@ -54,10 +54,10 @@ public class PersonService {
      * @param person новый пользователь
      */
     @Transactional
-    public void register(Person person) {
+    public Person register(Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole(Role.ROLE_USER);
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     /**
@@ -65,7 +65,7 @@ public class PersonService {
      *
      * @return список всех пользователей
      */
-    public List<Person> getAllPerson() {
+    public List<Person> getAllPersons() {
         return personRepository.findAll();
     }
 
@@ -87,9 +87,9 @@ public class PersonService {
      * @param person пользователь с обновленными данными
      */
     @Transactional
-    public void updatePerson(int id, Person person) {
+    public Person updatePersons(int id, Person person) {
         person.setId(id);
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     /**
@@ -113,12 +113,4 @@ public class PersonService {
         personRepository.changePasswordPersonById(id, passwordEncoder.encode(password));
     }
 
-    /**
-     * Метод возвращает всех пользователей
-     *
-     * @return список пользователей
-     */
-    public List<Person> getAllPersons() {
-        return personRepository.findAll();
-    }
 }

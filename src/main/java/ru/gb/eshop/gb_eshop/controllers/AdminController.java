@@ -209,7 +209,7 @@ public class AdminController {
      */
     @GetMapping("/person")
     public String person(Model model) {
-        model.addAttribute("person", personService.getAllPerson());
+        model.addAttribute("person", personService.getAllPersons());
         return "person/person";
     }
 
@@ -253,7 +253,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "person/editPerson";
         }
-        personService.updatePerson(id, person);
+        personService.updatePersons(id, person);
         return "redirect:/admin/person";
     }
 
@@ -284,7 +284,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "person/editPersonUser";
         }
-        personService.updatePerson(id, person);
+        personService.updatePersons(id, person);
         return "redirect:/userPage";
 
     }
@@ -338,7 +338,7 @@ public class AdminController {
     public String changeStatus(@PathVariable("id") int id, @RequestParam("status") Status status) {
         Order order = orderService.getOrderById(id);
         order.setStatus(status);
-        orderService.updateOrderStatus(order);
+        orderService.save(order);
         return "redirect:/admin/orders/{id}";
     }
 

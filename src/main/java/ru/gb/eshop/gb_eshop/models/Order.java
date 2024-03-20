@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import ru.gb.eshop.gb_eshop.enums.Status;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Класс сущности заказ со свойствами id, number, product, person,
