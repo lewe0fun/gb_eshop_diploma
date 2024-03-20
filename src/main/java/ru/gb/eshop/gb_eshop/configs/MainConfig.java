@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @version 1.0
  */
 @Configuration
-@ComponentScan("ru.gb.eshop.gb_eshop.util")
+@ComponentScan("ru.gb.eshop.gb_eshop.utils")
 public class MainConfig implements WebMvcConfigurer {
 
     /**

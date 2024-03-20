@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import ru.gb.eshop.gb_eshop.models.Order;
-import ru.gb.eshop.gb_eshop.models.Person;
 import ru.gb.eshop.gb_eshop.models.Product;
 import ru.gb.eshop.gb_eshop.repositories.ProductRepository;
 
