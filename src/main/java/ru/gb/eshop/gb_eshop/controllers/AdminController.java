@@ -232,7 +232,7 @@ public class AdminController {
      *
      * @param id    id пользователя
      * @param model модель
-     * @return
+     * @return страница редактирования пользователя
      */
     @GetMapping("/person/edit/{id}")
     public String editPerson(@PathVariable("id") int id, Model model) {
