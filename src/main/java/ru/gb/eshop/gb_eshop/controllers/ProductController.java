@@ -472,6 +472,8 @@ public class ProductController {
      * Поиск в хедере
      *
      * @param search ключевое слово
+     *
+     * @return представление страницы с найденными товарами
      */
     @PostMapping("/searchHeader")
     public String productSearchHeader(@RequestParam("search") String search, Model model) {
