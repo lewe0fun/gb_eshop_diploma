@@ -42,6 +42,7 @@ public class PersonService {
      * Метод проверяет занят ли логин
      *
      * @param person пользователь
+     * @return пользователь
      */
     public Person findByLogin(Person person) {
         Optional<Person> person_db = personRepository.findByLogin(person.getLogin());
@@ -52,6 +53,7 @@ public class PersonService {
      * Метод регистрации пользователя
      *
      * @param person новый пользователь
+     * @return пользователь
      */
     @Transactional
     public Person register(Person person) {
@@ -85,6 +87,7 @@ public class PersonService {
      *
      * @param id     id пользователя, которого нужно обновить
      * @param person пользователь с обновленными данными
+     * @return пользователь
      */
     @Transactional
     public Person updatePersons(int id, Person person) {

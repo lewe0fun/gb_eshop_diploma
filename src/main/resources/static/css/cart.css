@@ -34,7 +34,6 @@
 
 .sliders{
     width: 1200px;
-    /*height: 500px;*/
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;

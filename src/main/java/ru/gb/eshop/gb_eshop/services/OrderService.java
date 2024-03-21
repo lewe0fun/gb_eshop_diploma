@@ -35,10 +35,11 @@ public class OrderService {
      * Метод сохранения заказа
      *
      * @param order заказ
+     * @return заказ
      */
     @Transactional
     public Order save(Order order) {
-       return orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     /**
@@ -67,7 +68,7 @@ public class OrderService {
      * @param id id товара
      */
     @Transactional
-    public void deleteOrder(int id){
+    public void deleteOrder(int id) {
         orderRepository.deleteById(id);
     }
 

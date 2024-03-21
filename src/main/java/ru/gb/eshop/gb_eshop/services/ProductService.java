@@ -53,6 +53,7 @@ public class ProductService {
      * Метод сохранения товара
      *
      * @param product товар
+     * @return сохраненный товар
      */
     @Transactional
     public Product saveProduct(Product product) {
@@ -64,6 +65,7 @@ public class ProductService {
      *
      * @param id      id товара, который будет изменен
      * @param product товар с обновленными данными
+     * @return обновленный товар
      */
     @Transactional
     public Product updateProduct(int id, Product product) {
@@ -83,6 +85,9 @@ public class ProductService {
 
     /**
      * Метод для валидации товара
+     *
+     * @param product продукт
+     * @return продукт
      */
     public Product getProductFindByTitle(Product product) {
         Optional<Product> product_db = productRepository.findByTitle(product.getTitle());

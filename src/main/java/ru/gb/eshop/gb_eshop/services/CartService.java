@@ -52,6 +52,7 @@ public class CartService {
      * Создание корзины
      *
      * @param cart корзина
+     * @return корзина
      */
     @Transactional
     public Cart save(Cart cart) {
